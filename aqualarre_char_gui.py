@@ -25,7 +25,10 @@ frame_map = {
         'self_config' : {'height' : 200, 'width' : 200, 'padding' : "12 12 12 12" },
         'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'},
         'content_config' : {
-            'kingdom_label'           : {'grid_config' : {'row' : 0, 'column' : 0}},
+            'kingdom_label'           : {
+                'grid_config' : {'row' : 0, 'column' : 0},
+                'self_config' : {'width : 15'}
+            },
             'kingdom_options'         : {'grid_config' : {'row' : 0, 'column' : 1}},
             'people_label'            : {'grid_config' : {'row' : 0, 'column' : 2}},
             'people_options'          : {'grid_config' : {'row' : 0, 'column' : 3}},
