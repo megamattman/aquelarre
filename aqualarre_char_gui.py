@@ -24,52 +24,64 @@ kingdom_options    = sorted([kingdom for kingdom in kingdoms.keys()])
 people_options     = sorted([option for option in people.keys()])
 profession_options = sorted([option for option in professions.keys()])
 
+frame_order = ['vitals', 'characteristics', 'skills']
+
 #Layout map
 frame_map = {
     'vitals'          : {
-        'self_config' : {'padding' : "12 12 12 12" },
-        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'},
+        'self_config' : {'padding' : "8 8 8 8" },
+        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W' },#'columnspan' : 2},
         'content_config' : {
+            'character_name' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 0, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 15, 'text' : 'Character name'}
+                },
+                'entry' : {
+                    'grid_config' : {'row' : 0, 'column' : 1, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 15}
+                    }
+            },
             'kingdom' :{
                 'label' : {
-                    'grid_config' : {'row' : 0, 'column' : 0},
-                    'self_config' : {'width' : 15, 'text' : 'kingdom'}
+                    'grid_config' : {'row' : 0, 'column' : 2, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 15, 'text' : 'Kingdom'}
                 },
                 'options' : {
-                    'grid_config' : {'row' : 0, 'column' : 1},
+                    'grid_config' : {'row' : 0, 'column' : 3, 'sticky' : 'N, W'},
                     'self_config' : {'width' : 15}
                     }
             },
             'people' : {
                 'label' : {
-                    'grid_config' : {'row' : 0, 'column' : 2},
-                    'self_config' : {'width' : 15. , 'text' : 'people'}
+                    'grid_config' : {'row' : 1, 'column' : 0, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 15. , 'text' : 'People'}
                 },
                 'options' : {
-                    'grid_config' : {'row' : 0, 'column' : 3},
+                    'grid_config' : {'row' : 1, 'column' : 1, 'sticky' : 'N, W'},
                     'self_config' : {'width' : 15}
                     }
             },
             'profession' : {
                 'label' : {
-                    'grid_config' : {'row' : 0, 'column' : 4},
-                    'self_config' : {'width' : 15, 'text' : 'profession'}
+                    'grid_config' : {'row' : 1, 'column' : 2, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 15, 'text' : 'Profession'}
                 },
                 'options' : {
-                    'grid_config' : {'row' : 0, 'column' : 5},
+                    'grid_config' : {'row' : 1, 'column' : 3, 'sticky' : 'N, W'},
                     'self_config' : {'width' : 25}
                 }
             }
         }
     },
-    #'skills'          : {
-    #    'self_config' : {
-    #        'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'
-    #    }
-    #},
+    'skills'          : {
+        'grid_config' : {
+            'row' : 1, 'column': 1, 'sticky' : 'E'
+        }
+    },
     'characteristics' : {
         'grid_config' : {
-            'row' : 1, 'column': 0, 'sticky' : 'N, W, E, S'
+            'row' : 1, 'column': 0, 'sticky' : 'W'
         }
     }
     #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
@@ -78,6 +90,7 @@ frame_map = {
 
 #Allow accessing the elements of the form through a single map
 characteristic_map = {
+    'character_name': {'frame': 'vitals'},
     'kingdom'       : {'frame': 'vitals', 'options': kingdom_options},
     'people'        : {'frame': 'vitals', 'options': people_options},
     'profession'    : {'frame': 'vitals', 'options': profession_options},
@@ -88,8 +101,9 @@ characteristic_map = {
     'Perception'    : {'frame': 'characteristics', 'Name' : 'Perception',    'value' :  5},
     'Communication' : {'frame': 'characteristics', 'Name' : 'Communication', 'value' :  5},
     'Culture'       : {'frame': 'characteristics', 'Name' : 'Culture',       'value' :  5},
-
 }
+characteristic_map.update(skills)
+
 #ordered list used for displaying
 characteristic_label_strings = [
     'Strength',
@@ -130,11 +144,11 @@ def create_frame_content(frame_name, name_list):
         new_content = {
             name :{
                 'label' : {
-                    'grid_config' : {'row' :  0 + (idx % 10), 'column' : 0 + ((idx / 10)*2)},
+                    'grid_config' : {'row' :  0 + (idx % 10), 'column' : 0 + ((idx / 10)*2), 'sticky' : "W"},
                     'self_config' : {'width' : 15, 'text' : name}
                     },
                  'entry' : {
-                     'grid_config' : {'row' :  0 + ((idx % 10)), 'column' :  1 + ((idx / 10)*2)},
+                     'grid_config' : {'row' :  0 + ((idx % 10)), 'column' :  1 + ((idx / 10)*2), 'sticky' : "W"},
                      'self_config' : {'width' : 3}
                     }
                 }
@@ -189,13 +203,15 @@ if __name__ == "__main__":
         create_frames(root, name, configs)
 
     create_frame_content('characteristics', characteristic_label_strings)
+    create_frame_content('skills', skills)
 
     #pprint (frame_map)
     #exit()
 
-    for frame_name, configs in frame_map.items():
+    #for frame_name, configs in frame_map.items():
+    for frame_name in frame_order:
         print "populate"
-        populate_frame(frame_name, configs.get('content_config', {}))
+        populate_frame(frame_name, frame_map.get(frame_name).get('content_config', {}))
 
         #if 'characteristics' in frame_name:
         #    draw_characteristics(frame, name , configs)
@@ -246,10 +262,10 @@ if __name__ == "__main__":
     #OptionMenu(mainframe, variable,  options[0], *options)
 
 
-#    for key, val in frame_map.items():
-#        for child in val['frame'].winfo_children():
-#            child.grid_configure(padx=1, pady=1)
-#
+    for key, val in frame_map.items():
+        for child in val['frame'].winfo_children():
+            child.grid_configure(padx=1, pady=1)
+
     #root.bind('<Return>', calculate)
 
 

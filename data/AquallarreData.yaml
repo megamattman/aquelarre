@@ -283,117 +283,117 @@ people:
             - castilian : CULx4
 
 skills:
-    - Alchemy:
+    Alchemy:
         characteristic: CUL
-    - Animal_knowledge:
+    Animal_knowledge:
         characteristic: CUL
-    - Area_Knowledge:
+    Area_Knowledge:
         characteristic: CUL
-    - Artisanry :
+    Artisanry :
         characteristic: STA
-    - Astrology :
+    Astrology :
         characteristic: CUL
-    - Climbing :
+    Climbing :
         characteristic: AGI
-    - Commanding :
+    Commanding :
         characteristic: COM
-    - Commerce :
+    Commerce :
         characteristic: COM
-    - Court :
+    Court :
         characteristic: COM
-    - Discovering :
+    Discovering :
         characteristic: PER
-    - Dodging :
+    Dodging :
         characteristic: AGI
-    - Dressing_Up :
+    Dressing_Up :
         characteristic: COM
-    - Driving :
+    Driving :
         characteristic: STA
-    - Eloquence :
+    Eloquence :
         characteristic: COM
-    - Empathy :
+    Empathy :
         characteristic: PER
-    - Forcing_Mechanisms :
+    Forcing_Mechanisms :
         characteristic: STA
-    - Gaming :
+    Gaming :
         characteristic: STA
-    - Healing :
+    Healing :
         characteristic: STA
-    - Hiding :
+    Hiding :
         characteristic: STA
-    - Jumping :
+    Jumping :
         characteristic: AGI
-    - Language :
+    Language :
         characteristic: CUL
-    - Legends :
+    Legends :
         characteristic: CUL
-    - Listening :
+    Listening :
         characteristic: PER
-    - Magical_Knowledge :
+    Magical_Knowledge :
         characteristic: CUL
-    - Medicine :
+    Medicine :
         characteristic: CUL
-    - Memory :
+    Memory :
         characteristic: PER
-    - Mineral_Knowledge :
+    Mineral_Knowledge :
         characteristic: CUL
-    - Music :
+    Music :
         characteristic: CUL
-    - Navigation :
+    Navigation :
         characteristic: STA
-    - Plant_Knowledge :
+    Plant_Knowledge :
         characteristic: CUL
-    - Reading_Writing :
+    Reading_Writing :
         characteristic: CUL
-    - Riding :
+    Riding :
         characteristic: AGI
-    - Running :
+    Running :
         characteristic: AGI
-    - Seduction :
+    Seduction :
         characteristic: APP
-    - Singing :
+    Singing :
         characteristic: COM
-    - Sleight_of_Hand :
+    Sleight_of_Hand :
         characteristic: STA
-    - Stealth :
+    Stealth :
         characteristic: AGI
-    - Swimming :
+    Swimming :
         characteristic: AGI
-    - Tasting :
+    Tasting :
         characteristic: PER
-    - Teaching :
+    Teaching :
         characteristic: COM
-    - Theology :
+    Theology :
         characteristic: CUL
-    - Throwing :
+    Throwing :
         characteristic: AGI
-    - Torture :
+    Torture :
         characteristic: STA
-    - Tracking :
+    Tracking :
         characteristic: PER
-    - Axes :
+    Axes :
         characteristic: STR
-    - Bows :
+    Bows :
         characteristic: PER
-    - Broadswords :
+    Broadswords :
         characteristic: STR
-    - Clubs :
+    Clubs :
         characteristic: AGI
-    - Crossbows :
+    Crossbows :
         characteristic: PER
-    - Fists :
+    Fists :
         characteristic: AGI
-    - Knives :
+    Knives :
         characteristic: STA
-    - Maces :
+    Maces :
         characteristic: STR
-    - Shields :
+    Shields :
         characteristic: STA
-    - Slings :
+    Slings :
         characteristic: PER
-    - Spears :
+    Spears :
         characteristic: AGI
-    - Swords :
+    Swords :
         characteristic: STA
 
 professions:
