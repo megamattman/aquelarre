@@ -21,12 +21,12 @@ profession_options = sorted([option for option in professions.keys()])
 
 #Layout map
 layout_map = {
-    'kingdom_label'           : {'row' : 1 , 'col' : 0},
-    'kingdom_options'         : {'row' : 1 , 'col' : 1},
-    'people_label'            : {'row' : 1 , 'col' : 2},
-    'people_options'          : {'row' : 1 , 'col' : 3},
-    'profession_label'        : {'row' : 2, 'col' : 3},
-    'profession_options'      : {'row' : 2 , 'col' : 3},
+    'kingdom_label'           : {'row' : 1, 'col' : 0},
+    'kingdom_options'         : {'row' : 1, 'col' : 1},
+    'people_label'            : {'row' : 1, 'col' : 2},
+    'people_options'          : {'row' : 1, 'col' : 3},
+    'profession_label'        : {'row' : 1, 'col' : 4},
+    'profession_options'      : {'row' : 1, 'col' : 5},
     'characteristics_labels'  : {'row' : 2, 'col' : 0},
     'characteristics_entries' : {'row' : 2, 'col' : 1},
     'skills_labels'           : {'row' : 2, 'col' : 4},
@@ -100,7 +100,7 @@ for vitals_label in vitals_label_strings:
     vitals = characteristic_map[vitals_label]
     characteristic_map[vitals_label]['var'] = StringVar()
     print vitals_label
-    Label(mainframe, text=vitals_label).grid(column=layout_map[vitals_label+'_label']['col'],row=layout_map[vitals_label+'_label']['row'],sticky=(W))
+    Label(mainframe, text=vitals_label.title()).grid(column=layout_map[vitals_label+'_label']['col'],row=layout_map[vitals_label+'_label']['row'],sticky=(W))
     OptionMenu(mainframe, characteristic_map[vitals_label]['var'],  vitals['options'][0], *vitals['options']).grid(column=layout_map[vitals_label+'_options']['col'], row=layout_map[vitals_label+'_options']['row'],sticky=W)
 
 #Place characteristic labels and entries
