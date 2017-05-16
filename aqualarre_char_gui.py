@@ -27,7 +27,7 @@ profession_options = sorted([option for option in professions.keys()])
 #Layout map
 frame_map = {
     'vitals'          : {
-        'self_config' : {'height' : 200, 'width' : 200, 'padding' : "12 12 12 12" },
+        'self_config' : {'padding' : "12 12 12 12" },
         'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'},
         'content_config' : {
             'kingdom' :{
@@ -68,8 +68,8 @@ frame_map = {
     #    }
     #},
     'characteristics' : {
-        'self_config' : {
-            'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'
+        'grid_config' : {
+            'row' : 1, 'column': 0, 'sticky' : 'N, W, E, S'
         }
     }
     #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
@@ -124,33 +124,38 @@ def pop (event):
     print ("aaaaf")
     print ("pressed", repr(event.char))
 
-def add_layout_pattern_layout(frame_name, name_list, rows, cols):
+def create_frame_content(frame_name, name_list):
     frame_description = frame_map.get(frame_name)
     for idx, name in enumerate(name_list):
         new_content = {
             name :{
                 'label' : {
-                    'grid_config' : {'row' :  0 + (idx % 10), 'column' : 0 + ((idx / 10)*2),
-                    'self_config' : {'width' : 15, 'text' : 'kingdom'}
+                    'grid_config' : {'row' :  0 + (idx % 10), 'column' : 0 + ((idx / 10)*2)},
+                    'self_config' : {'width' : 15, 'text' : name}
                     },
                  'entry' : {
                      'grid_config' : {'row' :  0 + ((idx % 10)), 'column' :  1 + ((idx / 10)*2)},
-                     'self_config' : {'width' : 15}
+                     'self_config' : {'width' : 3}
                     }
                 }
             }
+        if 'content_config' not in frame_description.keys():
+            frame_description['content_config'] = {}
+        frame_description['content_config'].update(new_content)
 
 
 
 def populate_frame(frame_name, configs):
+    print frame_name
     frame = frame_map.get(frame_name).get('frame')
     pprint (configs.keys())
     for content_name , content_config in configs.items():
         print "content name:{}".format(content_name)
         content_data = characteristic_map.get(content_name)
         content_data['var'] = StringVar()
+        #pprint(content_config)
         for content_type, content_configs in content_config.items():
-            print "content_type {}".format(name)
+            print "content_type {}".format(content_type)
             if 'options' in content_type:
                 content_options = content_data.get('options', {})
                 options_menu = OptionMenu(frame, content_data['var'],  content_options[0], *content_options)
@@ -162,7 +167,9 @@ def populate_frame(frame_name, configs):
                 label.grid(**content_configs.get('grid_config', {}))
                 content_data['label'] = label
             if 'entry' in content_type:
-                entry = Entry (frame, textvariable=content_data['var']), **content_configs.get('self_config', {}))
+                entry = Entry (frame, textvariable=content_data['var'], **content_configs.get('self_config', {}))
+                entry.grid(**content_configs.get('grid_config', {}))
+                content_data['entry'] = entry
 
 def create_frames (master, name, configs):
     new_frame = Frame(master, **configs.get('self_config', {}))
@@ -181,9 +188,14 @@ if __name__ == "__main__":
     for name, configs in frame_map.items():
         create_frames(root, name, configs)
 
+    create_frame_content('characteristics', characteristic_label_strings)
+
+    #pprint (frame_map)
+    #exit()
+
     for frame_name, configs in frame_map.items():
         print "populate"
-        populate_frame(frame_name, configs.get('content_config'))
+        populate_frame(frame_name, configs.get('content_config', {}))
 
         #if 'characteristics' in frame_name:
         #    draw_characteristics(frame, name , configs)
