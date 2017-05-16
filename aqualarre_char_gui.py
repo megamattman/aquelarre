@@ -8,7 +8,7 @@ people_options = []
 #import aquallarre data
 
 imported_data = {}
-with open("AquallarreData.yaml", 'r') as stream:
+with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
 
 
@@ -87,6 +87,10 @@ def total_characteristics():
             print "NO"
     return total
 
+def pop (event):
+    print "aaaaf"
+    print "pressed", repr(event.char)
+
 #Place vitals
 for vitals_label in vitals_label_strings:
     vitals = characteristic_map[vitals_label]
@@ -119,11 +123,11 @@ for idx, skill in enumerate(skills):
     Entry(mainframe, width=3, textvariable=skill['var']).grid(column=entry_col, row=entry_row,sticky=(E))
 
 total_points=StringVar()
-total_points.set( "".format(total_characteristics()))
+total_points.set( "{}".format(total_characteristics()))
 
 Label(mainframe, textvariable=total_points).grid(column=4,row=1,sticky=(E))
 
-Button(mainframe, text="print_characteristics", command=print_characteristics).grid(column=0,row=0, sticky=(N, E))
+Button(mainframe, text="Update", command=print_characteristics).grid(column=0,row=0, sticky=(N, E))
 #feet = StringVar()
 #meters = StringVar()
 #
@@ -142,8 +146,13 @@ Button(mainframe, text="print_characteristics", command=print_characteristics).g
 #
 #OptionMenu(mainframe, variable,  options[0], *options)
 
-for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+mainframe.bind("<Key>", pop)
+
+for child in mainframe.winfo_children():
+    child.grid_configure(padx=1, pady=1)
 
 #root.bind('<Return>', calculate)
+
+
 
 root.mainloop()

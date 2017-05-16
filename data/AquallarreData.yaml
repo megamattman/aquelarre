@@ -2,13 +2,33 @@
 kingdoms:
     Crown of Aragon:
         name : 'Crown of Aragon'
+        description : >
+            Created in 1150 by the union of the kingdom of Aragon and the county of Barcelona, the Crown of
+            Aragon in the 14th and 15th centuries had expanded to include Valencia, Mallorca, Sicily, Corsica,
+            Sardinia, Naples, and (for a brief period of time) Athens and Neopatras in Greece. Much more
+            focused on mastering the sea than its great antagonist, Castile—with whom it had frequent
+            disputes until the establishment of the Aragonese throne of Castilian King Ferdinand of Antequera
+            in 1412—the Crown of Aragon centered its politics around maritime commerce and the expansion
+            of rule throughout the Mediterranean. With the marriage of the Catholic Monarchs in 1469, Castile
+            and Aragon are finally joined—though until the rule of Carlos I, their union would not be
+            effectively complete.
         people :
             - Aragonese
             - Catalonian
             - Mudejar
             - Jew
+
     Crown of Castile:
         name : Crown of Castile
+        description : >
+            During the 14th and 15th centuries, Castile is the kingdom of greatest extent on the Iberian
+            Peninsula, and it has a major political and cultural influence. Within its borders are included many
+            previously-independent kingdoms, such as León, Galicia, Toledo, and Murcia; now all linked to
+            the Castilian Crown, which during the 13th century expanded its territory throughout the valley of
+            Guadalquivir. During this period, Castile maintained mostly good relations with its neighbors
+            Portugal and Navarre, but not with Aragon—with which it had many clashes until signing the
+            Compromise of Caspe in 1412, when it instituted the Castilian Trastámara dynasty in Aragon—nor
+            with Granada which, despite being a Castilian vassal, ends up being conquered by her in 1492.
         people:
             - Castilian
             - Galician
@@ -17,25 +37,250 @@ kingdoms:
             - Mudejar
             - Jew
 
-people:
-    Aragonese:
-        society : Christian
-        restrictions:
-            no:
-                - slave
-        languages :
-            Aragonese : 100%
-            Castilian : CUL*4%
+    Kingdom of Granada:
+        name: Kingdom of Granada
+        description: >
+            Ibn Al-Ahmar founded the Nasrid Kingdom of Granada in 1238, heir of the great emirates and
+            Caliphates of Al-Andalus (often referred to as Muslim Spain, or Islamic Iberia), which survived as
+            the last Islamic bastion on the Iberian Peninsula until its dissolution in 1492. During this time, and
+            despite the frequent dynastic struggles that shook it, the kingdom maintained itself thanks to the
+            many tributes it paid to the Castilian kings and the pacts it signed with the Benimerines of Magreb.
+            In spite of this, the Kingdom of Granada suffers a continual erosion of territory until the Catholic
+            Monarchs, after a campaign of ten years, finally expel the Nasrids from the peninsula.
+            Granadan society under the Nasrids is divided into three great populations:
+        people:
+            - Arabs
+            - Jews
+            - Mozarabs
+    Kingdom of Navarre :
+        name: Kingdom of Navarre
+        description: >
+            After several centuries of territorial partitioning with the neighboring crowns, the Kingdom of
+            Navarre is the smallest of all the peninsular kingdoms in the Late Middle Ages. Although it is
+            governed by dynasties of French origin during this time period, it maintains good relations with the
+            Crowns of Castile and Aragon, each concerned that this kingdom not become part of the enemy
+            crown. In the middle of the 15th century a bloody civil war between the factions of the
+            Beamonteses (supported by the Castilians) and the Agramonteses (who received aid from the
+            Aragonians) shakes the entire kingdom, a conflict that ends at the beginning of the 16th century
+            with the conquest of the ancient kingdom of Navarre by Aragon.
+            The population of Navarre is divided among three large groups:
+        people:
+            - Navarrese
+            - Basques
+            - Jews
+    Kingdom of Portugal:
+        name : Kingdom of Portugal
+        description: >
+            The old county of Portugal belonged to the Kingdom of León, and became the Kingdom of
+            Portugal in 1139, under the auspices of the house of Burgundy. It begins the 14th century as a
+            Castilian ally.
+            During the two next centuries, the two main tasks confronting Portugal are to strengthen its
+            territory, and to reinforce the power of the crown in the face of the nobles. The Castilian
+            occupation of 1371 end the dynastic pretensions of Fernando I of Portugal for the Castilian crown.
+            The invasion brings about the ascendance of the Avis dynasty to the Portuguese throne, an alliance
+            with England, and victory over Castile; which allows Portugal to strengthen her power in the
+            peninsula even more, and initiates a period of expansion overseas which will carry her first to
+            Africa and, in the 16th century, to America and Asia.
+            Within the Portuguese territory the following peoples dwell together:
+        people:
+            - Portuguese
+            - Jews
+            - Mudejars
 
+people:
+    Arab:
+        description: >
+            For convenience, we use the word “Arab” for the Muslim inhabitants of the Kingdom of Granada,
+            though the population is composed mainly of Nasrids—that is, Andalusian Arab descendants of
+            old al-Andalus—together with Berbers from Magreb, Turkish Ghulams, and Africans from the
+            kingdoms of Ghana, Mali, and Songhay, in addition to true Arabs from the Arabian peninsula.
+            Which group, exactly, a character springs from is immaterial to these rules, so the player is free to
+            choose one ethnicity or another.
+        Society: Islamic
+        Restrictions: None
+        Languages:
+            - Andalusian : 100
+            - Arabic : CULx4
+            - Castilian : CULx4
+
+    Aragonese:
+        description: >
+            These are the Christian inhabitants of the old kingdom of Aragon, now integrated into the Crown of
+            Aragon, descended from the Pyrenees towns that repopulated the land reclaimed from the
+            Muslims during the first part of the Reconquest. They have their own language, Aragonese,
+            descended from Latin, which is slowly being lost after the ascension of a Castilian dynasty to the
+            Aragonese throne in 1412.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slaves
+        Languages:
+            - aragonese : 100
+            - castilian : CULx4
+    Asturleonese:
+        description: >
+            These are inhabitants of the territories belonging to the old kingdom of León, including Asturias
+            and part of the Cantabrian zone. The Asturleonese descended in the main from old Visigoth
+            families and don’t differ much from the Castilian people, except in their use of their own Romance
+            language, Asturleonese.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slaves
+        Languages:
+            - asturleonese : 100
+            - castilian : CULx4
     Basque:
-        society : Christian
-        restrictions:
-            only:
-                - townsfolk
-                - peasant
-        languages :
-            Euskar : 100%
-            Castilian : CUL*4%
+        description: >
+            The inhabitants of the rural regions in the north of the Crown of Castile—the lordship of
+            Guipúzcoa and the kingdom of Navarre—are famous for their ferocity and valor in combat.
+            Besides an exclusive language, Euskara, the Basques possess a culture of their own, based on old
+            pre-Roman myths and nearly forgotten pagan rites, a culture the Church aims at converting to
+            Christian symbols and ceremonies.
+        Society: Christian
+        Restrictions:
+            only :
+                class :
+                    - peasant
+                    - townsfolk
+        Languages:
+            - euskara : 100
+            - castilian : CULx4
+    Castilian:
+        description: >
+            These are the Christian inhabitants of the Kingdom of Castile, who occupy the entire territory of
+            the Mesa, the Valley of Guadalquivir, and the old kingdom of Murcia. Thanks to the continuing
+            repopulation policy of the Castilian kings, this is the most populous people of the Iberian
+            Peninsula, and they have been imposing Castilian as the common language in all the peninsular
+            kingdoms in the later Middle Ages.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slaves
+        Languages:
+            -castilian : 100%
+
+    Catalonian:
+        description: >
+            These are the Christian inhabitants of the Principality of Catalonia, the Kingdom of Valencia, and
+            the Kingdom of Mallorca, integrated now in the Crown of Aragon. They share a Romance language
+            in common—Catalan—although they use different dialects in Valencia and in Mallorca—
+            Valenciano and Balear respectively.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slave
+        Languages:
+            - catalan : 100
+            - castilian : CULx4
+    Galician:
+        description: >
+            These are the inhabitants of the old kingdom of Galicia, currently part of the Crown of Castile,
+            descended from Celtic tribes that inhabited the ruined forts still found in their territory, They have
+            their own language descended from Latin.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slave
+        Languages:
+            - galician : 100
+            - castilian : CULx4
+
+    Jew:
+        description: >
+            The Jewish people—or Sephardim, if we want to be more precise—can be found extensively
+            through all of the Iberian Peninsula and Jewish ghettos—calls, as they are termed in the Crown of
+            Aragon—in most of the cities of the five kingdoms. Within them, the Jews attend their synagogues
+            and continue practicing their rites and customs, but the protection granted to them during previous
+            centuries is progressively dwindling during the 14th and 15th centuries, with slaughter and forced
+            conversion occurring within their ghettos, and ending with their expulsion from the kingdoms of
+            Castile and Aragon in 1492.
+        Society: Jewish
+        Restrictions: None
+        Languages:
+            - ladino : 100%
+            - hebrew : CULx2
+            - castilian : CULx4
+
+    Mozarab:
+        description: >
+            The Christians who live in the Nasrid kingdom of Granada are called Mozarabs—from the Arabic
+            mustarab, which means “Arabized”—where, in exchange for paying various taxes and accepting a
+            lower social class, they are permitted to maintain their customs and rites by the Sultan, but with
+            severe limitations. They use their own language, Mozarab, constructed of different Romance
+            dialects and, unlike other Christian tongues, written not with Latin characters but Arabic ones.
+        Society: Islamic
+        Restrictions:
+                class:
+                    - Nobility
+                profession:
+                    - Soldier
+                    - Dervish
+                    - Ghazi are forbidden.
+        Languages:
+            - mozarab : 100%
+            - andalusian : CULx4
+            - arabic : CULx2
+            - castilian : CULx4
+
+    Mudejar:
+        description: >
+            The Muslims who live in Christian kingdoms during the Middle Ages are called Mudejars—from
+            the Arabic mudaggan, meaning “domesticated,” which illustrates the esteem they hold among the
+            inhabitants of the Nasrid kingdom. Mudejar communities exist in the Crown of Castile (settled in
+            the valleys of Guadiana and Guadalquivir), in Aragon (especially within the Kingdom of Valencia),
+            and in the Kingdom of Portugal (where they are numerous in the southern zone of the kingdom of
+            Algarve). They live in specific neighborhoods called aljamas or morerías within the cities, where
+            they have liberty to continue practicing their religion, their language, and their customs—at least
+            until the intransigence and fanaticism of the 14th and 15th centuries begin to forbid them; by the
+            end of the 15th century they are required to be baptized, after which they began to be known as
+            “Morisco”, meaning “Moorish.”
+        Society: Christian
+        Restrictions:
+            no:
+                class:
+                    - Nobility
+                profession:
+                    - Soldier
+                    - Alguacil
+                    - Cleric
+                    - Monk
+                    - Priest
+                    - Goliardo
+        Languages:
+            - andalusian : 100
+            - castilian : CULx4
+            - aragonese : CULx4 if from the Crown of Aragon
+            - galician  : CULx4 if born in Portugal
+
+    Navarrese:
+        description: >
+            These are the Christian inhabitants of the kingdom of Navarre, especially those who live in the
+            cities and in the southern regions of the kingdom (the north and the coast are populated by
+            Basques). The Navarrese are largely descended from Aragonese and Castilians, with whom they
+            share a language and a good part of their history.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slave
+        Languages:
+            - castilian : 100
+            - aragonese : CULx4)%.
+
+    Portuguese:
+        description: >
+            We use this term for the Christian inhabitants of the kingdom of Portugal, descended from the
+            Gallic and Leonese peoples that repopulated these areas of Al-Andalus that had been conquered
+            by the Muslims. They share their language with the Galicians: Galician or Galicoportuguese.
+            Although a different dialect is used in Portugal, we have decided to unify them in the same
+            language skill.
+        Society: Christian
+        Restrictions:
+            no :
+                class : slave
+        Languages:
+            - galician : 100
+            - castilian : CULx4
 
 skills:
     - Alchemy:
