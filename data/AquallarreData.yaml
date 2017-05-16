@@ -234,7 +234,7 @@ people:
             they have liberty to continue practicing their religion, their language, and their customs—at least
             until the intransigence and fanaticism of the 14th and 15th centuries begin to forbid them; by the
             end of the 15th century they are required to be baptized, after which they began to be known as
-            “Morisco”, meaning “Moorish.”
+            "Morisco", meaning "Moorish."
         Society: Christian
         Restrictions:
             no:
@@ -1090,29 +1090,29 @@ professions:
             there are many nuns associated with a convent of an order (in this case the two Primary Arms Skills
             should be changed to Heal and Empathy).
             the following are the most important military orders of the Iberian Peninsula:
-            • Order of Calatrava: Created in 1158 in Calatrava under the Cistercian rule, it
+            Order of Calatrava: Created in 1158 in Calatrava under the Cistercian rule, it
             frequently intervened in battles and politics during the following centuries.
             Their symbol is a Greek cross of red with lily flowers at the tips, and their habit
             is white. Only characters from Castile and the Castilian people can belong to it.
-            • Order of Alcántara: Founded in 1176 under the auspices of the Calatravan
+            Order of Alcántara: Founded in 1176 under the auspices of the Calatravan
             order, it quickly became independent and acquired large territories in
             Extremadura and Andalusia. Their symbols is a green cross of the same style as
             Calatrava, and their habit is also white. Only characters of Castile and the
             Castilian people can belong to it.
-            • Order of Santiago: Created in 1170 under the Augustinian rule, it permits its members to
+            Order of Santiago: Created in 1170 under the Augustinian rule, it permits its members to
             marry. This order is deeply involved in Castilian politics during the 14th and 15th
             centuries. Their habit is also white, but they carry a red Cross of Santiago. Characters of
             the kingdoms of Castile, Aragon, or Navarre can belong to this order, whatever their
             people of origin.
-            • Order of Aviz: Founded in 1147 after the conquest of Lisbon, this order vowed from
+            Order of Aviz: Founded in 1147 after the conquest of Lisbon, this order vowed from
             the beginning to fight perpetually against the Muslim enemies. Its symbol is a fleur de
             lis cross of green, similar to that of Alcántara, as gratitude for the support that order has
             always shown to Avis. Characters of the kingdom of Portugal can belong to this order.
-            • Order of Montesa: Jaime II of Aragon created the military order of Montesa in
+            Order of Montesa: Jaime II of Aragon created the military order of Montesa in
             1317 with assets seized from the Templars. Their device is a simple red Greek
             cross, and their habit is white. Characters who come from the Crown of Aragon
             can belong to this order.
-            • Order of Christ: In 1319, King Dionis of Portugal assigned assets taken from the
+            Order of Christ: In 1319, King Dionis of Portugal assigned assets taken from the
             Templars to this new order, considered from the beginning to continue the work
             the Templars did in Portugal in their fight against the Muslims. Their device is a
             red and white cross. Characters of the kingdom of Portugal can belong to this
@@ -1345,37 +1345,37 @@ professions:
             build monasteries and abbeys that, with the passage of time, develop into great centers of
             knowledge and of culture, thanks to their copyists and libraries. Inside a monastery, a strict
             hierarchy of ranks and classes is maintained:
-            • Abbot: The leader of a monastery, responsible for the administration of the same and the
+            Abbot: The leader of a monastery, responsible for the administration of the same and the
             lands surrounding it, similar to the way feudal lords perform. Equivalent to a Count.
-            • Prior: Helper to the abbot of a great monastery or leader of a priory (a small monastery
+            Prior: Helper to the abbot of a great monastery or leader of a priory (a small monastery
             which may or may not be subject to an abbey). Equivalent to a Lord.
-            • Brothers: Under this term fall all of those monks who hold a specific function within a
+            Brothers: Under this term fall all of those monks who hold a specific function within a
             monastery, whether that be as a dean (in charge of economic affairs), cloistered brother (in
             charge of discipline and fulfilment of rules among the monks), or as the cellarer (butler and
             steward, in charge of buying and selling products necessary for the maintenance of the
             monastery). Equivalent to Burgher.
-            • Monk: Each of the members of a monastery. Equivalent to Townsfolk.
-            • Novice: A votary who has taken the habit of an order, but who has not yet achieved the
+            Monk: Each of the members of a monastery. Equivalent to Townsfolk.
+            Novice: A votary who has taken the habit of an order, but who has not yet achieved the
             status of monk. A novice must wait from one to four years, depending on the order, before
             becoming a monk. Equivalent to Peasant.
             The most important medieval religious orders in the Iberian Peninsula are:
-            • Augustines: Monks specializing in teaching, they commonly wear a dark habit.
-            • Benedictines: Wear black habits, from which they are called “black monks.”
-            • Carthusians: Monks with a white habit who withdraw completely from the world and live
+            Augustines: Monks specializing in teaching, they commonly wear a dark habit.
+            Benedictines: Wear black habits, from which they are called “black monks.”
+            Carthusians: Monks with a white habit who withdraw completely from the world and live
             as hermits within their own monastery. They rarely leave it or communicate with the
             outside, for which reason this is not an order much recommended for player characters.
-            • Cistercians: A offshoot of the Benedictines, but wear a white habit, for which they are
+            Cistercians: A offshoot of the Benedictines, but wear a white habit, for which they are
             called “white monks.”
-            • Dominicans: Followers of the Rule of St. Dominic, who wear a white habit and black cap.
+            Dominicans: Followers of the Rule of St. Dominic, who wear a white habit and black cap.
             The Domini canis—“dogs of the Lord”—sprang up to defend the Church from every type of
             heresy that might try to undermine its foundations. Because of this, the Dominicans are an
             integral part of the Inquisition from its inception.
-            • Franciscans: Wearing a brown habit, the Franciscans are a mendicant order that follows the
+            Franciscans: Wearing a brown habit, the Franciscans are a mendicant order that follows the
             postulates of Saint Francis of Asisi. They are called friars (brothers), and during the entire
             14th century had various disputes with the ecclesiastical hierarchy for their strict
             observance of the vow of poverty, which they followed to the extent that they begged from
             town to town and city to city.
-            • Mercedarians: Dedicated to the rescue of prisoners from infidel lands, the Mercedarians,
+            Mercedarians: Dedicated to the rescue of prisoners from infidel lands, the Mercedarians,
             who dress in a white habit, sometimes even exchange their own lives for those of captives.
             The monk profession permits use of rituals of faith.
         minimum_characteristics:
@@ -1495,9 +1495,9 @@ professions:
             lowest social classes, from which they often come. The priest or presbítero has been ordained by a
             bishop and officiates at mass, administers the sacraments, and forgives the sins of those who
             confess to him. We find different ranks within the priesthood:
-            • Parish Priest: The priest in charge of a parish church. Equivalent to Burgher.
-            • Vicar: Assistant to a parish priest in directing a parish church. Equivalent to Townsfolk.
-            • Chaplain: A priest who has in his charge a group of faithful not organized as a church or
+            Parish Priest: The priest in charge of a parish church. Equivalent to Burgher.
+            Vicar: Assistant to a parish priest in directing a parish church. Equivalent to Townsfolk.
+            Chaplain: A priest who has in his charge a group of faithful not organized as a church or
             parish, but instead within a hospital, prison, army, or private chapel of some noble.
             Equivalent to Peasant.
             The priestly profession permits use of rituals of faith.

@@ -1,7 +1,12 @@
 # #!/usr/bin/python
 import yaml
-from Tkinter import *
-from ttk import *
+try:
+	from Tkinter import *
+	from ttk import *
+except:
+	from tkinter import *
+	#from ttk import *
+
 from pprint import pprint
 
 #import aquallarre data
@@ -25,15 +30,36 @@ frame_map = {
         'self_config' : {'height' : 200, 'width' : 200, 'padding' : "12 12 12 12" },
         'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'},
         'content_config' : {
-            'kingdom_label'           : {
-                'grid_config' : {'row' : 0, 'column' : 0},
-                'self_config' : {'width : 15'}
+            'kingdom' :{
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 0},
+                    'self_config' : {'width' : 15, 'text' : 'kingdom'}
+                },
+                'options' : {
+                    'grid_config' : {'row' : 0, 'column' : 1},
+                    'self_config' : {'width' : 15}
+                    }
             },
-            'kingdom_options'         : {'grid_config' : {'row' : 0, 'column' : 1}},
-            'people_label'            : {'grid_config' : {'row' : 0, 'column' : 2}},
-            'people_options'          : {'grid_config' : {'row' : 0, 'column' : 3}},
-            'profession_label'        : {'grid_config' : {'row' : 0, 'column' : 4}},
-            'profession_options'      : {'grid_config' : {'row' : 0, 'column' : 5}},
+            'people' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 2},
+                    'self_config' : {'width' : 15. , 'text' : 'people'}
+                },
+                'options' : {
+                    'grid_config' : {'row' : 0, 'column' : 3},
+                    'self_config' : {'width' : 15}
+                    }
+            },
+            'profession' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 4},
+                    'self_config' : {'width' : 15, 'text' : 'profession'}
+                },
+                'options' : {
+                    'grid_config' : {'row' : 0, 'column' : 5},
+                    'self_config' : {'width' : 25}
+                }
+            }
         }
     },
     #'skills'          : {
@@ -41,11 +67,11 @@ frame_map = {
     #        'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'
     #    }
     #},
-    #'characteristics' : {
-    #    'self_config' : {
-    #        'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'
-    #    }
-    #}
+    'characteristics' : {
+        'self_config' : {
+            'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'
+        }
+    }
     #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
     #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
 }
@@ -75,14 +101,6 @@ characteristic_label_strings = [
     'Culture'
 ]
 
-#ordered list used for diplaying
-vitals_strings = [
-    'kingdom',
-    'people',
-    'profession'
-]
-
-
 def update():
     #for label in characteristic_label_strings:
     #    print "{} = {}".format(label, characteristic_map[label]['var'].get())
@@ -99,30 +117,52 @@ def total_characteristics():
         try:
             total += value
         except:
-            print "NO"
+            print ("NO")
     return total
 
 def pop (event):
-    print "aaaaf"
-    print "pressed", repr(event.char)
+    print ("aaaaf")
+    print ("pressed", repr(event.char))
 
-def draw_vitals(frame, configs):
-    for vitals in vitals_strings:
-        stored_vitals = characteristic_map.get(vitals)
-        stored_vitals['var'] = StringVar()
-        options = stored_vitals['options']
-        for name, grid_config in configs.items():
-            print name
-            if vitals in name:
-                if 'options' in name:
-                    options_menu = OptionMenu(frame, stored_vitals['var'],  options[0], *options)
-                    options_menu.grid(**grid_config)
-                    characteristic_map['options_menu'] = options_menu
-                if 'label' in name:
-                    label = Label(frame, text=vitals.title())
-                    label.grid(**grid_config)
-                    stored_vitals['label'] = label
+def add_layout_pattern_layout(frame_name, name_list, rows, cols):
+    frame_description = frame_map.get(frame_name)
+    for idx, name in enumerate(name_list):
+        new_content = {
+            name :{
+                'label' : {
+                    'grid_config' : {'row' :  0 + (idx % 10), 'column' : 0 + ((idx / 10)*2),
+                    'self_config' : {'width' : 15, 'text' : 'kingdom'}
+                    },
+                 'entry' : {
+                     'grid_config' : {'row' :  0 + ((idx % 10)), 'column' :  1 + ((idx / 10)*2)},
+                     'self_config' : {'width' : 15}
+                    }
+                }
+            }
 
+
+
+def populate_frame(frame_name, configs):
+    frame = frame_map.get(frame_name).get('frame')
+    pprint (configs.keys())
+    for content_name , content_config in configs.items():
+        print "content name:{}".format(content_name)
+        content_data = characteristic_map.get(content_name)
+        content_data['var'] = StringVar()
+        for content_type, content_configs in content_config.items():
+            print "content_type {}".format(name)
+            if 'options' in content_type:
+                content_options = content_data.get('options', {})
+                options_menu = OptionMenu(frame, content_data['var'],  content_options[0], *content_options)
+                options_menu.configure(**content_configs.get('self_config', {}))
+                options_menu.grid(**content_configs.get('grid_config', {}))
+                characteristic_map['options_menu'] = options_menu
+            if 'label' in content_type:
+                label = Label(frame, **content_configs.get('self_config', {}))
+                label.grid(**content_configs.get('grid_config', {}))
+                content_data['label'] = label
+            if 'entry' in content_type:
+                entry = Entry (frame, textvariable=content_data['var']), **content_configs.get('self_config', {}))
 
 def create_frames (master, name, configs):
     new_frame = Frame(master, **configs.get('self_config', {}))
@@ -141,16 +181,12 @@ if __name__ == "__main__":
     for name, configs in frame_map.items():
         create_frames(root, name, configs)
 
-    pprint (frame_map)
-
     for frame_name, configs in frame_map.items():
-        frame = configs.get('frame')
-        if 'vitals' in frame_name:
-            print "drawing vitals"
-            draw_vitals(frame, configs.get('content_config'))
-    #pprint (characteristic_map)
-#        if 'characteristics' in frame_name:
-#            draw_characteristics(frame, name , configs)
+        print "populate"
+        populate_frame(frame_name, configs.get('content_config'))
+
+        #if 'characteristics' in frame_name:
+        #    draw_characteristics(frame, name , configs)
 #        if 'skills' in fame_name
 #    #Place characteristic labels and entries
 #    for idx, label_string in enumerate (characteristic_label_strings):
@@ -198,9 +234,9 @@ if __name__ == "__main__":
     #OptionMenu(mainframe, variable,  options[0], *options)
 
 
-    for key, val in frame_map.items():
-        for child in val['frame'].winfo_children():
-            child.grid_configure(padx=1, pady=1)
+#    for key, val in frame_map.items():
+#        for child in val['frame'].winfo_children():
+#            child.grid_configure(padx=1, pady=1)
 #
     #root.bind('<Return>', calculate)
 
