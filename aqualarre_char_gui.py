@@ -3,10 +3,8 @@ import yaml
 from Tkinter import *
 from ttk import *
 from pprint import pprint
-kingdom_options = []
-people_options = []
-#import aquallarre data
 
+#import aquallarre data
 imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
@@ -15,25 +13,30 @@ with open("data/AquallarreData.yaml", 'r') as stream:
 skills = data.get('skills', {})
 kingdoms = data.get('kingdoms', {})
 people = data.get('people', {})
+professions = data.get('professions', {})
 
-kingdom_options = [kingdom for kingdom in kingdoms.keys()]
-people_options = [option for option in people.keys()]
+kingdom_options    = sorted([kingdom for kingdom in kingdoms.keys()])
+people_options     = sorted([option for option in people.keys()])
+profession_options = sorted([option for option in professions.keys()])
 
 #Layout map
 layout_map = {
     'kingdom_label'           : {'row' : 1 , 'col' : 0},
     'kingdom_options'         : {'row' : 1 , 'col' : 1},
     'people_label'            : {'row' : 1 , 'col' : 2},
-    'people_options'            : {'row' : 1 , 'col' : 3},
+    'people_options'          : {'row' : 1 , 'col' : 3},
+    'profession_label'        : {'row' : 2, 'col' : 3},
+    'profession_options'      : {'row' : 2 , 'col' : 3},
     'characteristics_labels'  : {'row' : 2, 'col' : 0},
     'characteristics_entries' : {'row' : 2, 'col' : 1},
-    'skills_labels'             : {'row' : 2, 'col' : 4},
-    'skills_entries'            : {'row' : 2, 'col' : 5},
+    'skills_labels'           : {'row' : 2, 'col' : 4},
+    'skills_entries'          : {'row' : 2, 'col' : 5},
 }
 #Our string map
 characteristic_map = {
     'kingdom'       : {                           'options': kingdom_options, 'var':None},
     'people'        : {                           'options': people_options, 'var':None},
+    'profession'    : {                           'options': profession_options, 'var':None},
     'Strength'      : {'Name' : 'Strength',      'value' : 0, 'var':None},
     'Agility'       : {'Name' : 'Agility',       'value' : 0, 'var':None},
     'Dexterity'     : {'Name' : 'Dexterity',     'value' : 0, 'var':None},
@@ -57,7 +60,8 @@ characteristic_label_strings = [
 #ordered list used for diplaying
 vitals_label_strings = [
     'kingdom',
-    'people'
+    'people',
+    'profession'
 ]
 
 
@@ -95,9 +99,8 @@ def pop (event):
 for vitals_label in vitals_label_strings:
     vitals = characteristic_map[vitals_label]
     characteristic_map[vitals_label]['var'] = StringVar()
-    Label(mainframe, text=vitals_label).grid(column=layout_map[vitals_label+'_label']['col'],row=layout_map[vitals_label+'_label']['row'],sticky=(W))
     print vitals_label
-    print vitals['options']
+    Label(mainframe, text=vitals_label).grid(column=layout_map[vitals_label+'_label']['col'],row=layout_map[vitals_label+'_label']['row'],sticky=(W))
     OptionMenu(mainframe, characteristic_map[vitals_label]['var'],  vitals['options'][0], *vitals['options']).grid(column=layout_map[vitals_label+'_options']['col'], row=layout_map[vitals_label+'_options']['row'],sticky=W)
 
 #Place characteristic labels and entries
@@ -125,7 +128,6 @@ for idx, skill in enumerate(skills):
 total_points=StringVar()
 total_points.set( "{}".format(total_characteristics()))
 
-Label(mainframe, textvariable=total_points).grid(column=4,row=1,sticky=(E))
 
 Button(mainframe, text="Update", command=print_characteristics).grid(column=0,row=0, sticky=(N, E))
 #feet = StringVar()
