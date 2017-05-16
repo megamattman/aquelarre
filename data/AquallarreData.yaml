@@ -1,0 +1,1546 @@
+#---!Aquallare Data just to test
+kingdoms:
+    Crown of Aragon:
+        name : 'Crown of Aragon'
+        people :
+            - Aragonese
+            - Catalonian
+            - Mudejar
+            - Jew
+    Crown of Castile:
+        name : Crown of Castile
+        people:
+            - Castilian
+            - Galician
+            - Basque
+            - Astur-Leonese
+            - Mudejar
+            - Jew
+
+people:
+    Aragonese:
+        society : Christian
+        restrictions:
+            no:
+                - slave
+        languages :
+            Aragonese : 100%
+            Castilian : CUL*4%
+
+    Basque:
+        society : Christian
+        restrictions:
+            only:
+                - townsfolk
+                - peasant
+        languages :
+            Euskar : 100%
+            Castilian : CUL*4%
+
+skills:
+    - Alchemy:
+        characteristic: CUL
+    - Animal_knowledge:
+        characteristic: CUL
+    - Area_Knowledge:
+        characteristic: CUL
+    - Artisanry :
+        characteristic: STA
+    - Astrology :
+        characteristic: CUL
+    - Climbing :
+        characteristic: AGI
+    - Commanding :
+        characteristic: COM
+    - Commerce :
+        characteristic: COM
+    - Court :
+        characteristic: COM
+    - Discovering :
+        characteristic: PER
+    - Dodging :
+        characteristic: AGI
+    - Dressing_Up :
+        characteristic: COM
+    - Driving :
+        characteristic: STA
+    - Eloquence :
+        characteristic: COM
+    - Empathy :
+        characteristic: PER
+    - Forcing_Mechanisms :
+        characteristic: STA
+    - Gaming :
+        characteristic: STA
+    - Healing :
+        characteristic: STA
+    - Hiding :
+        characteristic: STA
+    - Jumping :
+        characteristic: AGI
+    - Language :
+        characteristic: CUL
+    - Legends :
+        characteristic: CUL
+    - Listening :
+        characteristic: PER
+    - Magical_Knowledge :
+        characteristic: CUL
+    - Medicine :
+        characteristic: CUL
+    - Memory :
+        characteristic: PER
+    - Mineral_Knowledge :
+        characteristic: CUL
+    - Music :
+        characteristic: CUL
+    - Navigation :
+        characteristic: STA
+    - Plant_Knowledge :
+        characteristic: CUL
+    - Reading_Writing :
+        characteristic: CUL
+    - Riding :
+        characteristic: AGI
+    - Running :
+        characteristic: AGI
+    - Seduction :
+        characteristic: APP
+    - Singing :
+        characteristic: COM
+    - Sleight_of_Hand :
+        characteristic: STA
+    - Stealth :
+        characteristic: AGI
+    - Swimming :
+        characteristic: AGI
+    - Tasting :
+        characteristic: PER
+    - Teaching :
+        characteristic: COM
+    - Theology :
+        characteristic: CUL
+    - Throwing :
+        characteristic: AGI
+    - Torture :
+        characteristic: STA
+    - Tracking :
+        characteristic: PER
+    - Axes :
+        characteristic: STR
+    - Bows :
+        characteristic: PER
+    - Broadswords :
+        characteristic: STR
+    - Clubs :
+        characteristic: AGI
+    - Crossbows :
+        characteristic: PER
+    - Fists :
+        characteristic: AGI
+    - Knives :
+        characteristic: STA
+    - Maces :
+        characteristic: STR
+    - Shields :
+        characteristic: STA
+    - Slings :
+        characteristic: PER
+    - Spears :
+        characteristic: AGI
+    - Swords :
+        characteristic: STA
+
+professions:
+    Actor:
+        description: >
+            We use this term for all performers who earn their living using their gifts of interpretation, in the
+            main part acting out religious morality plays at festivals or in palaces, or working as simple
+            comedians entertaining the people with jokes and parodies. They don’t usually work solo, but as
+            part of a troupe called a “Happy Company” or a “Company of Crazies;” many as settled
+            establishments in the great cities of the Iberian Peninsula. The times of most work for actors are the
+            summer, when they travel from town to town enlivening the many summer festivals that occur in
+            the various kingdoms—those who specialize in this sort of performance are called “strolling
+            players,” and Christmas, when they perform the Christmas Mysteries in each village, town, and city
+            of the Christian kingdoms of the Peninsula.
+        minimum_characteristics:
+            communication : 20
+        primary_skills:
+            - Costuming
+            - Eloquence
+            - Empathy
+            - Memory
+        secondary_skills:
+            - Drive Wagon
+            - Language (of choice)
+            - Legends
+            - Listen
+            - Sleight of Hand
+            - Teach
+            - Theology
+            - 1 Arms Skill from the Townsfolk category.
+        monthly_income: >
+            As many maravedíes as your percentage in Luck x2.
+
+    Alchemist:
+        description: >
+            This profession represents not only the patient alchemist, who painstakingly labors body and soul
+            to fathom the mysteries of the alchemical arts, but also the wise medieval proto-scientist who
+            observes and studies the diverse secrets of nature, as did Alberto Magno, Roger Bacon, Al-Raze,
+            and Ibn Hayyan. Alchemists are solitary and often elderly people who tend to be well versed in
+            nearly all aspects of human knowledge, frequently including magic and the occult.
+        minimum_characteristics:
+            culture : 20
+        primary_skills:
+            - Alchemy
+            - Astrology
+            - Magical Knowledge
+            - Read/Write
+        secondary_skills:
+            - Animal Knowledge
+            - Empathy
+            - Heal
+            - Language (Greek)
+            - Language (Latin)
+            - Mineral Knowledge
+            - Plant Knowledge
+            - Teach
+        monthly_income: >
+            Their percentage in Alchemy x6 in maravedíes; although if they belong to the
+            Upper Nobility, they can multiply their percentage by 20.
+
+    Alguacil:
+        description: >
+            This profession can be followed only by male characters.
+            This is an individual who, like today’s police, works under the orders of the council or mayor of a
+            city and is responsible for ensuring the safety of its people, executing the orders of judges and
+            courts, and making people comply with the laws of the king and the council within its walls.
+            During the day alguacils watch the markets, squares, and places of major gatherings; at night they
+            make rounds through the city in groups of two or four. Although alguacils as such exist only in the
+            cities of Castile, the rest of the peninsular kingdoms have a similar concept, although called
+            something different: in the Crown of Aragon they are called guaita (“guard”), and in the Nasrid
+            kingdom they are alwazir (“the official”).
+        minimum_characteristics:
+            agility : 15
+            dexterity : 15.
+        primary_skills:
+            - Area Knowledge
+            - Listen
+            - Run
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        secondary_skills:
+            - Command
+            - Detection
+            - Dodge
+            - Empathy
+            - Stealth
+            - Torture
+            - Track
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        monthly_income: >
+            A senior alguacil (Burgher class) receives 750 maravedíes each month, while the
+            rest of the alguacils, minor guards or “sword guards” (Townsfolk social class), receive only 80
+            maravedíes monthly.
+
+    Almogávar:
+        description: >
+            This profession can be chosen only by characters belonging to the Crown of Aragon, and despite
+            appearances, it can be chosen by Mudejars.
+            The almogávar—a term derived from Arabic al-mogauar, “he who pillages”—is an individual of
+            peasant origins who dedicates his life to war and sacking enemy territory. As a member of a
+            warlike occupation, he is aggressive and ferocious in combat; a terrible force in times of war, but
+            little more than a bandit and evildoer in times of peace—with the added inconvenience of being
+            better organized and better armed than a normal robber. Almogávars come to battle accompanied
+            by their wives and children – who also can join them in combat if necessary – and are accustomed
+            to fight on foot, carrying light arms and armor that doesn’t slow movement, especially shields and
+            large knives—which they call coltells. Their war cry, “¡Desperta Ferro!” (“Iron, Awake!”), is known
+            throughout the Peninsula.
+        minimum_characteristics:
+            agility : 20
+            dexterity : 20
+        primary_skills:
+            - Dodge
+            - Stealth
+            - Shields
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        secondary_skills:
+            - Discovery
+            - Heal
+            - Knives
+            - Listen
+            - Run
+            - Torture
+            - Track
+            - 1 Arms Skill of your choice Bows Crossbows or Slings
+        monthly_income: >
+            As many maravedíes as your percentage in Luck x2
+
+    Ama:
+        description: >
+            This profession can be chosen only by female characters.
+            Amas are ladies of lower noble classes who are responsible for caring for the daughter of a noble
+            or king (especially if the mother is away or has died), watching over their charge’s virtue and
+            security, and teaching her everything a highborn woman ought to know of life. Although amas are
+            accustomed to being very protective and maternal with the girls in their care, many of them end
+            up becoming their charges’ friends and confidantes; but they are always ready to serve, counsel,
+            and guard their charges.
+        minimum_characteristics:
+            perception : 20.
+        primary_skills:
+            - Court Etiquette
+            - Detection
+            - Stealth
+            - Teach.
+        secondary_skills:
+            - Command
+            - Crafts (Work)
+            - Empathy
+            - Heal Language (of choice)
+            - Listen
+            - Memory,
+            - Plant Knowledge.
+        monthly_income: >
+            The ama is maintained by the family of her charge, so her income is equal to a
+            fifth part of those of her charge (350 maravedíes is a good medium).
+
+    Artisan:
+        description: >
+            By artisan we mean all those individuals who live in a city and are dedicated to a specific job:
+            blacksmith, candlemaker, carpenter, cobbler, cooper, glassblower, gunsmith, innkeeper, potter,
+            tailor, tanner, wheelwright, etc. They are usually organized into guilds—societies formed by
+            artisans who work the same job and who, in exchange for protection of their members and of their
+            families, control the teaching of the particular job, the production of its products, and the prices at
+            which it is sold to the public, to avoid competition among the guild members themselves.
+        minimum_characteristics:
+            dexterity : 20
+            perception : 15
+        primary_skills:
+            - Craft (of choice)
+            - Commerce
+            - Detection
+            - Memory.
+        secondary_skills:
+            - Area Knowledge (the city in which they live)
+            - Drive Wagon
+            - Eloquence
+            - Empathy
+            - Knives
+            - Listen
+            - Read/Write
+            - Teach.
+        monthly_income: >
+            Your Craft percentage in maravedíes.
+
+    Bandit:
+        description: >
+            This profession represents the rural robber; he who lays in wait at crossroads far from the cities,
+            watching for defenseless travelers. Many times these robbers are no more than simple peasants
+            who fell into banditry merely to be able to fill their stomachs, or old soldiers who know no other
+            way of making a living. Despite the romantic vision held of the medieval bandit—of the
+            misunderstood rebel or the defender of the oppressed, like Robin Hood—most bandits are cruel
+            and merciless, because the punishment for banditry tends to be quite ruthless.
+        minimum_characteristics:
+            perception : 15
+            resistance : 15
+        primary_skills:
+            - Detection
+            - Stealth
+            - Torture
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        secondary_skills:
+            - Area Knowledge
+            - Climb
+            - Crossbows
+            - Empathy
+            - Listen
+            - Run
+            - Throw
+            - Track.
+        monthly_income: >
+            As many maravedíes as your Luck percentage x2.
+
+    Barber Surgeon:
+        description: >
+            In many small populations whose inhabitants are not able to pay a true médico, the practice of
+            medicine can be found in the hands of barber surgeons, whose knowledge doesn’t come from
+            studying the medical arts in universities but instead from the teachings of another barber and
+            through daily practice. Besides cutting hair and trimming beards, barber surgeons also do
+            bleedings, extract teeth, place leeches, amputate limbs, and perform minor surgical operations.
+        minimum_characteristics:
+            communication : 10
+            culture : 10
+            dexterity : 15
+        primary_skills:
+            - Eloquence
+            - Empathy
+            - Heal
+            - Medicine.
+        secondary_skills:
+            - Commerce
+            - Detection
+            - Drive Wagon
+            - Knives
+            - Language (of choice)
+            - Plant Knowledge
+            - Read/Write
+            - Run
+        monthly_income: >
+            As many maravedíes as your percentage in Heal x5 if a Burgher; x2 if you are of
+            the Townsfolk class.
+
+    Beggar:
+        description: >
+            This refers to an individual who, due to whatever circumstances, is obligated to ask for charity; or
+            who is dedicated to being a tramp and nothing more, surviving on the charity of others and a
+            certain personal craftiness. Many beggars use every type of artifice to gain their daily sustenance:
+            telling stories in the plazas, performing small juggling acts, playing some rough instrument,
+            perhaps helping peasants or artisans with some labor, or even stealing whatever comes to hand.
+        minimum_characteristics:
+
+        primary_skills:
+            - Eloquence
+            - Empathy
+            - Memory
+            - Sleight of Hand.
+        secondary_skills:
+            - Craft
+            - Brawl
+            - Commerce
+            - Games
+            - Conceal
+            - Language (of choice)
+            - Stealth
+            - 1 chosen Arms Skill of the Townsfolk category.
+        monthly_income: >
+            Half your percentage in Eloquence in maravedíes.
+
+    Bruja:
+        description: >
+            A witch (or sometimes warlock—brujo) who lives isolated from her fellows on the outskirts of the
+            village or city. Despite being feared and respected by her peers due to the magical knowledge that
+            everyone believes she has, often with reason, she is secretly visited by her neighbors. The bruja
+            prepares potions for those in love, cures sicknesses and dispels curses (which sometimes she
+            herself has caused), locates objects that have been lost for years, and casts curses and the evil eye
+            on all who dare to insult her. But, as opposed to the alchemist or the Arabic mage, the bruja
+            doesn’t have true theoretical knowledge of magic, for her power is based on oral tradition, popular
+            beliefs, and superstition.
+        minimum_characteristics:
+            culture : 15
+        primary_skills:
+            - Alchemy
+            - Astrology
+            - Magical Knowledge
+            - Plant Knowledge.
+        secondary_skills:
+            - Animal Knowledge
+            - Detection
+            - Empathy
+            - Heal
+            - Legends
+            - Medicine
+            - Mineral Knowledge
+            - Teach.
+        monthly_income: >
+            As many maravedíes as your percentage in Luck.
+
+    Charlatan:
+        description: >
+            The charlatan is one of the many rogues who proliferated in the Middle Ages. This fraud passes
+            himself off as a genuine alchemist to the common people, traveling to as many fairs and markets as
+            possible, presenting his miraculous elixirs and other products, each more marvelous than the last.
+            Because his remedies and medicines have a better chance of provoking indigestion than a cure,
+            the charlatan is wont to live an itinerant life, traveling from town to town in his cart or wagon.
+        minimum_characteristics:
+            agility : 10
+            communication : 15
+        primary_skills:
+            - Commerce
+            - Drive Wagon
+            - Eloquence
+            - Empathy.
+        secondary_skills:
+            - Alchemy
+            - Disguise
+            - Dodge
+            - Language (of choice)
+            - Sleight of Hand
+            - Plant Knowledge
+            - Run
+            - 1 chosen Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Eloquence in maravedíes.
+
+#    Cleric:
+#        description: >
+#            This profession can be chosen only by male characters. Those who wish to have a female character
+#            with an ecclesiastic profession can choose either Knight of a Military Order or Monk (Nun).
+#            Within this profession are included all those who make up the aristocracy of the Christian Church:
+#            the bishops, archbishops, and high functionaries of the Church; those men who, in sum, control
+#            the institution of the Holy Church of Rome in the Iberian Peninsula. If you wish your character to
+#            belong to the lower ranks of the Church, you should instead choose the profession of Priest.
+#            In most cases, ecclesiastic offices are granted to second sons of the Upper Nobility, who often
+#            don’t have a true priestly vocation. They carry on with their normal life (without marrying—as this
+#            is prohibited, though having children is not), often without ever visiting the diocese that they are
+#            supposed to guide. For all purposes, the order received is considered merely another noble title, so
+#            to determine what rank a character holds, consult the following list according to the title held by
+#            his family:
+#            Ecclesiastical Rank
+#            Cardinal: A bishop of high rank, called by the title Father as a member of the Cardinal College.
+#            Equivalent to a duke.     monthly_income: 2,450 maravedíes.
+#            Archbishop: A bishop in charge of an archdiocese, an especially important diocese. Equivalent to a
+#            marquis.     monthly_income: 2,100 maravedíes.
+#            Bishop: A priest in charge of a diocese. Equivalent to a count.     monthly_income: 1,750 maravedíes.
+#            Archdeacon: An assistant to the bishop in administering a diocese. Equivalent to a viscount.
+#                monthly_income: 1,400 maravedíes.
+#            Dean: A priest who presides over the meeting of canons in the chapter of a diocese. Equivalent to
+#            a baron.     monthly_income: 1,050 maravedíes.
+#            Archpriest: A substitute for the bishop in ceremonies, in case of sickness or incapacity of that
+#            official. Equivalent to a lord.     monthly_income: 700 maravedíes.
+#            Canon: One of the advisors to a bishop who make up the council of the diocese. Equivalent to a
+#            caballero.     monthly_income: 350 maravedíes.
+#            Porter: A type of ecclesiastical treasurer whose principal function is to track down all those who
+#            do not pay a tithe to the Church and send them to prison. Equivalent to a hidalgo. Monthly
+#            Income: 350 maravedíes.
+#            The Cleric profession permits use of rituals of faith.
+#        minimum_characteristics:
+#            culture : 15
+#            luck : 50
+#        primary_skills:
+#            - Eloquence
+#            - Language (Latin)
+#            - Read/Write
+#            - Theology.
+#        secondary_skills:
+#            - Court Etiquette
+#            - Detection
+#            - Empathy
+#            - Language (Greek)
+#            - Listen
+#            - Memory
+#            - Teach
+#            - 1 Arms Skill from the Noble category.
+#        monthly_income: >
+#            Revenues increase with increasing rank in the ecclesiastical hierarchy. The
+#            lowest of ranks, canon and porter, receive 350 maravedíes monthly, and each step upward in office
+#            increases this by 350 until cardinal, who draws 2,450 maravedíes monthly. Truly it is good to be a
+#            cleric…
+
+    Courtier:
+        description: >
+            By courtier, we mean the group of people who surround the king and his family, accompanying
+            him on his journeys and boasting positions of one sort or another about the court, whether of an
+            administrative nature or as a trusted servitor. Therefore, every person who belongs to the court is
+            considered a courtier: nobles who live with the king and encounter him directly in their service, or
+            others of his family members, or hangers-on. They usually have refined manners, an extensive
+            education, and a capacity for intrigue and conspiracy well above average; for the life of a courtier
+            depends on both what he says, and what is said about him.
+        minimum_characteristics:
+            communication : 15
+            perception : 15
+        primary_skills:
+            - Court Etiquette
+            - Eloquence
+            - Empathy
+            - Seduction.
+        secondary_skills:
+            - Commerce
+            - Detection
+            - Ride
+            - Language (of choice)
+            - Listen
+            - Read/Write
+            - Stealth
+            - 1 chosen Arms Skill of the Noble category.
+        monthly_income: >
+            Courtiers of the Upper Nobility receive 1,800 maravedíes each month. The rest
+            (Lower Nobility) get only 500 maravedíes.
+
+    Curandera:
+        description: >
+            The medicine woman (or sometimes the medicine man—curandero) is the counterpart of the
+            bruja; she is accustomed to using natural remedies or treatments, which isn’t to say that some
+            curanderas don’t have important occult knowledge, only that they don’t choose to use it very
+            often. Because they also have an aptitude as midwives, veterinarians, and in the treatment of
+            diseases, curanderas are very respected in the community in which they live, although they don’t
+            often receive great economic compensation for their work, since their payment is usually “in
+            kind,” or at most, a few maravedíes.
+        minimum_characteristics:
+            culture : 10
+            dexterity : 15
+        primary_skills:
+            - Alchemy
+            - Empathy
+            - Heal
+            - Magical Knowledge.
+        secondary_skills:
+            - Animal Knowledge
+            - Astrology
+            - Detection
+            - Legends
+            - Medicine
+            - Mineral Knowledge
+            - Plant Knowledge
+            - 1 chosen Arms Skill from the Townsfolk category
+        monthly_income: >
+            Your percentage in Heal in maravedíes. Curanderas belonging to the Slave class
+            are maintained by their master.
+
+    Dervish:
+        description: >
+            This profession can be chosen only by male characters.
+            The dervish—from the Persian dervix, which means “religious”—is a man who, similar to a
+            Christian hermit, puts aside all his possessions to dedicate his life to prayer and to philosophical
+            pursuit of Allah. The custom of dervishes is to pray while performing a series of dances, songs,
+            spins, and swings while repeating again and again the name Allah until they achieve a state of
+            ecstasy.
+            Most dervishes live in religious communities called khankahs, which is the closest thing the
+            Muslim world has to a monastery. All dervishes are Sufis, religious Islamics who seek direct union
+            with Allah through fasting, meditation, and prayer.
+            The dervish profession permits the use of rituals of faith. If you have a dervish PC with rituals of
+            faith, he should dance and spin while performing the rituals he knows, as this is the way in which
+            he is able to contact the Divine.
+        minimum_characteristics:
+            agility : 15
+            culture : 20
+        primary_skills:
+            - Eloquence
+            - Empathy
+            - Read/Write
+            - Theology.
+        secondary_skills:
+            - Detection
+            - Dodge
+            - Heal
+            - Legends
+            - Listen
+            - Magical Knowledge
+            - Memory
+            - Teach.
+        monthly_income: >
+            Dervishes don’t have possessions or their own equipment, so they don’t have a
+            monthly income. Instead, no matter what their class, their expenses are minimum: just 10
+            maravedíes a week.
+
+    Ghazi:
+        description: >
+            The ghazi—a word meaning paladin or champion—is a fanatical Muslim warrior who has vowed
+            to wage war against the infidels, to disseminate Islam, and to defend its borders, in a manner
+            similar to those who join Christian military orders, although the ghazi can come from any class.
+            They are also called al-morabit, “those who live in castles,” because they are accustomed to
+            dwelling in fortified communities called ribats, a cross between a castle and a monastery situated
+            on the frontier, which fulfill the same function as fortifications of the Christian military orders. Most
+            ghazis are Sufis, though some of them may secretly belong to the Ismaili (Shiite) Islamic sect.
+            The ghazi profession allows use of rituals of faith.
+        minimum_characteristics:
+            agility : 15
+            dexterity : 15
+            luck : 40
+        primary_skills:
+            - Bows
+            - Ride
+            - Theology
+            - 1 chosen Arms Skill of any type.
+        secondary_skills:
+            - Command
+            - Detection
+            - Dodge
+            - Empathy
+            - Heal
+            - Read/Write
+            - Shields
+            - Torture.
+        monthly_income: >
+            Ghazis of high rank (Noble or Merchant class) receive 500 maravedíes each
+            month, while those of minor rank (Townsman or Peasant class) receive only 80 maravedíes
+            monthly.
+
+    Goliardo:
+        description: >
+            This profession can be held by female characters, though they will need to do so in disguise.
+            Although the term goliardo—French gouliard—means, in one sense, vagabond clerics, lazy and
+            licentious; the term is equally used to refer to student monks of the first universities controlled by
+            the Church, who, as much as the former meaning, enjoy wine, women, and entertainment. They
+            are generally young, dissolute, amoral rogues, protected from secular justice by their status as
+            monks, and able to receive food and accommodation at parish churches and monasteries.
+            Goliardos are imaginative people, without personal economic resources, in love with a life of
+            wandering and partying, who despise serious regular work, being more comfortable begging a few
+            coins with which to meet their needs. There exists an entire medieval literary trend in which the
+            goliardo is the protagonist of tales and stories: THE BOOK OF GOOD LOVE, THE DECAMERON, and
+            CARMINA BURANA are good examples of that genre.
+            The profession of goliardo permits use of rituals of faith.
+        minimum_characteristics:
+            agility : 10
+            culture : 15
+            dexterity : 10
+        primary_skills:
+            - Read/Write
+            - Sleight of Hand
+            - Seduction
+            - Sing.
+        secondary_skills:
+            - Brawl
+            - Dodge
+            - Eloquence
+            - Games
+            - Language (Latin)
+            - Run
+            - Theology
+            - 1 Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Read/Write in maravedíes, an amount usually spent rapidly.
+
+    Herder:
+        description: >
+            A peasant or slave who works in the service of a noble or a rich merchant, guarding and caring for
+            his livestock. This is usually a full-time job, as a herder has to leave at sunrise to take the animals to
+            pasture in the fields reserved for them, and not return until nightfall. Herders typically take along
+            various dogs to help them guide and protect the livestock.
+        minimum_characteristics:
+            agility : 15
+            perception : 20
+        primary_skills:
+            - Animal Knowledge
+            - Detection
+            - Listen
+            - Track.
+        secondary_skills:
+            - Craft
+            - Astrology
+            - Climb
+            - Jump
+            - Run
+            - Staffs
+            - Slings
+            - Throw.
+        monthly_income: >
+            Half of your percentage in Animal Knowledge in maravedíes. Herders who are
+            slaves are maintained by their lord.
+
+    Hunter:
+        description: >
+            This profession encompasses all those peasants who survive by hunting, those being
+            mountaineering individuals in most cases, servants of the forests and mountains with little contact
+            with their fellows. The hunter or mountaineer customarily hunts with a bow—it is the only
+            medieval occupation in the Iberian Peninsula that employs it—and a team of bloodhounds to
+            harass, pursue, and pull down their quarry. The sport of flying birds, called falconry, is practiced by
+            nobles and kings, so it is practically unknown to the hunter.
+        minimum_characteristics:
+            perception : 20
+        primary_skills:
+            - Bows
+            - Listen
+            - Track
+            - Stealth.
+        secondary_skills:
+            - Animal Knowledge
+            - Area Knowledge
+            - Climb
+            - Detection
+            - Ride
+            - Plant Knowledge,
+            - Throw
+            - 1 Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Track in maravedíes.
+
+    Infanzón:
+        description: >
+            A feudal lord who lives for and by war, a warrior who serves and protects the lord to whom he is
+            vassal, whether that be another noble of higher rank or his own king. Similar to the English and
+            French concept of “knight,” without the ceremony of knighthood. The infanzón is the cornerstone
+            of the feudal system, being a leader in battle and defender of the values they have sworn to follow
+            since infancy; trained in the use of arms since they were little, when they worked as pages and
+            squires to other knights. With their social position, their privileges, and their economic level,
+            infanzones possess their own arms, armor, and horse, with which they go into battle, waving their
+            own standard or that of their lord at the end of their lance.
+            In the Islamic world, he is called an arif—“captain of troops”—and is usually an expert combatant
+            with a troop under his command.
+        minimum_characteristics:
+            agility : 15
+            strength : 15
+        primary_skills:
+            - Command
+            - Ride
+            - 2 chosen Arms Skills from the Noble or Soldier categories.
+        secondary_skills:
+            - Crossbows
+            - Detection
+            - Dodge
+            - Games
+            - Listen
+            - Read/Write
+            - Shields
+            - Torture.
+        monthly_income: >
+            The grandest infanzones (Upper Nobility) receive 1,800 maravedíes monthly,
+            while those of lesser rank (Lower Nobility) receive only 500 maravedíes.
+
+    Informer:
+        description: >
+            This name is given to Jews who betray and turn their own people over to the Christian authorities
+            in exchange for payment—of whatever type—or simply for the benefit of cheaply acquiring the
+            goods of the betrayed in cases of execution. It also refers to those who denounce those Jews who
+            have been baptized in the Christian faith but continue practicing their native religion in secret.
+            Characters who choose this profession should take caution and practice it in secret, because
+            informers do not have a good reputation within the Jewish community, and it is typical for them to
+            end up expelled, stoned, or even assassinated.
+        minimum_characteristics:
+            agility : 15
+            perception : 20
+        primary_skills:
+            - Area Knowledge
+            - Forcing Mechanisms
+            - Listen
+            - Stealth.
+        secondary_skills:
+            - Climb
+            - Commerce
+            - Detection
+            - Empathy
+            - Jump
+            - Memory
+            - Run
+            - 1 chosen Arms Skill from the Townsfolk category
+        monthly_income: >
+            Their percentage in Luck x2 in maravedíes.
+
+    Jester:
+        description: >
+            Also called albardán—an Arabic word meaning “cheeky”—the jester often seems stricken with
+            insanity as he dances in grotesque fashion, jokes about any topic whatever, and tells comical
+            stories. Although some jesters perform in streets and plazas, it is most usual to see them in houses
+            of grand nobles and kings, where their only task is entertaining their lords, a work so appreciated
+            that they are sometimes even rewarded with riches or noble titles—provided that they do well, of
+            course; otherwise they might be punished with beatings or sent to eat with the house servants.
+        minimum_characteristics:
+            agility : 20
+            dexterity : 20
+        primary_skills:
+            - Disguise
+            - Eloquence
+            - Jump
+            - Sleight of Hand.
+        secondary_skills:
+            - Climb
+            - Court Etiquette
+            - Games
+            - Conceal
+            - Music
+            - Run
+            - Stealth
+            - Throw.
+        monthly_income: >
+            The character’s percentage in Eloquence or Jump—whichever is the higher—in
+            maravedíes. Those who belong to the Slave class are maintained instead by their lord.
+
+    Knight of a Military Order:
+        description: >
+            The religious military orders—which merge the martial world with the monastic—arose in the
+            Christian kingdoms of the Peninsula during the 12th century, when the fight against the Almohad
+            Caliphate was at its height. In the following centuries, the military orders gained further strength,
+            becoming institutions to be taken into account, with great territories under their jurisdiction and
+            enormous sources of income. This profession, therefore, represents all those nobles that belong to
+            one of these orders; warriors well trained as religious ascetics, and in many cases, fanatics.
+            Moreover, contrary to what might seem the case, women can also belong to a military order, as
+            there are many nuns associated with a convent of an order (in this case the two Primary Arms Skills
+            should be changed to Heal and Empathy).
+            the following are the most important military orders of the Iberian Peninsula:
+            • Order of Calatrava: Created in 1158 in Calatrava under the Cistercian rule, it
+            frequently intervened in battles and politics during the following centuries.
+            Their symbol is a Greek cross of red with lily flowers at the tips, and their habit
+            is white. Only characters from Castile and the Castilian people can belong to it.
+            • Order of Alcántara: Founded in 1176 under the auspices of the Calatravan
+            order, it quickly became independent and acquired large territories in
+            Extremadura and Andalusia. Their symbols is a green cross of the same style as
+            Calatrava, and their habit is also white. Only characters of Castile and the
+            Castilian people can belong to it.
+            • Order of Santiago: Created in 1170 under the Augustinian rule, it permits its members to
+            marry. This order is deeply involved in Castilian politics during the 14th and 15th
+            centuries. Their habit is also white, but they carry a red Cross of Santiago. Characters of
+            the kingdoms of Castile, Aragon, or Navarre can belong to this order, whatever their
+            people of origin.
+            • Order of Aviz: Founded in 1147 after the conquest of Lisbon, this order vowed from
+            the beginning to fight perpetually against the Muslim enemies. Its symbol is a fleur de
+            lis cross of green, similar to that of Alcántara, as gratitude for the support that order has
+            always shown to Avis. Characters of the kingdom of Portugal can belong to this order.
+            • Order of Montesa: Jaime II of Aragon created the military order of Montesa in
+            1317 with assets seized from the Templars. Their device is a simple red Greek
+            cross, and their habit is white. Characters who come from the Crown of Aragon
+            can belong to this order.
+            • Order of Christ: In 1319, King Dionis of Portugal assigned assets taken from the
+            Templars to this new order, considered from the beginning to continue the work
+            the Templars did in Portugal in their fight against the Muslims. Their device is a
+            red and white cross. Characters of the kingdom of Portugal can belong to this
+            order.
+            The profession of Knight of a Military Order allows the use of rituals of faith.
+        minimum_characteristics:
+            agility : 15
+            culture : 15
+        primary_skills:
+            - Ride
+            - Theology
+            - 2 Arms Skills from the Soldier or Noble categories.
+        secondary_skills:
+            - Command
+            - Detection
+            - Dodge
+            - Eloquence
+            - Empathy
+            - Language (Latin)
+            - Listen
+            - Read/Write.
+        monthly_income: >
+            Minor brothers (Lower Nobility) receive some 500 maravedíes monthly, while
+            those belonging to higher classes (Upper Nobility) receive 1,800 maravedíes.
+
+    Mage:
+        description: >
+            This profession cannot be pursued by female characters.
+            The mage—from the Persian magus, which came, in turn, from Latin—is a gentleman from a noble
+            or well-to-do family who has received an instruction in law, theology, and magic since childhood.
+            Such characters are usually considered notable sages, with profound knowledge with which they
+            can make predictions, interpret dreams, craft love potions, and much more. They are so well
+            regarded in the Islamic world that many occupy important positions in government or society.
+        minimum_characteristics:
+            culture : 20
+            perception : 15
+        primary_skills:
+            - Eloquence
+            - Read/Write
+            - Magical Knowledge
+            - Theology.
+        secondary_skills:
+            - Alchemy
+            - Animal Knowledge
+            - Astrology
+            - Medicine
+            - Memory
+            - Mineral Knowledge
+            - Plant Knowledge
+            - Teach.
+        monthly_income: >
+            Their Percentage in Magical Knowledge x5 in maravedíes, although if they
+            belong to the Upper Nobility, they can multiply their percentage by 20.
+
+    Mariner:
+        description: >
+            We use the term mariner for all those who work and, typically, live on the deck of a ship, whether
+            the simple fisher who leaves the town shore every morning to fish, the merchant who travels from
+            port to port carrying his products wherever they are needed—charging a good price for them along
+            the way, the sailor who passes weeks and months raising and hoisting sails, or the explorer who
+            embarks on unknown seas to find the Indies or the most hidden parts of Africa.
+        minimum_characteristics:
+            agility : 15
+            dexterity : 15
+        primary_skills:
+            - Climb
+            - Detection
+            - Shiphandling
+            - Swim.
+        secondary_skills:
+            - Astrology
+            - Games
+            - Heal
+            - Languages (2 languages of choice)
+            - Memory
+            - Seduction,
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        monthly_income: >
+            Your percentage in Shiphandling x5 in maravedíes (though many of them
+            typically spend it all as soon as they reach port).
+
+    Médico:
+        description: >
+            In the medieval Christian world, the practice of medicine is based on the theories of Galen, using
+            bleeding, purgatives, and emetics, with treatments including rest, dosing with particular minerals
+            and plants, amputation, and fixing fractures by methods as violent as they are painful. However, in
+            the Jewish and Arab worlds, medicine has long been enriched by great scientific study, and the
+            beneficial properties of good physical hygiene and a balanced diet are already known, as well as
+            the use of specific anesthetic products before starting a surgical operation. It isn’t unusual,
+            therefore, for people to prefer the services of a Jewish or Arab médico to those of a Christian one.
+        minimum_characteristics:
+            culture : 15
+            dexterity : 15
+        primary_skills:
+            - Empathy
+            - Heal
+            - Medicine
+            - Plant Knowledge.
+        secondary_skills:
+            - Alchemy
+            - Animal Knowledge
+            - Detection
+            - Eloquence
+            - Mineral Knowledge
+            - Memory
+            - Read/Write
+            - 1 chosen Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Medicine x10 in maravedíes.
+
+    Merchant:
+        description: >
+            Within this profession we can find everyone from the great merchant who makes transactions with
+            cities in other kingdoms, to those who control the market of a single city, the customs house of a
+            port, or a provincial fair, without forgetting all those small peddlers who travel from town to town
+            selling their merchandise and buying local products, or the modest ship-owner sending a ship to
+            establish a new commercial route through the Mediterranean. In short, this refers to the Medieval
+            businessperson disposed to run the risks required if the gain is worth the trouble.
+        minimum_characteristics:
+            communication :20
+        primary_skills:
+            - Commerce
+            - Eloquence
+            - Empathy
+            - Language (of choice).
+        secondary_skills:
+            - Area Knowledge
+            - Detection
+            - Drive Wagon or Navigate (choose one of the two),
+            - Conceal
+            - Listen
+            - Read/Write
+            - Swim
+            - 1 chosen Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Commerce x10 in maravedíes.
+
+    Middleman:
+        description: >
+            This profession, widespread among the Jews, is a merchant who ships goods in bulk, and who, for
+            a modest (or, more likely, extravagant) fee, can acquire illegal merchandise or that of suspect origin
+            for his select clients, hiding his illegal goods amongst his bulk cargoes.
+        minimum_characteristics:
+            communication : 15
+            culture : 15
+        primary_skills:
+            - Area Knowledge
+            - Commerce
+            - Eloquence
+            - Empathy.
+        secondary_skills:
+            - Command
+            - Disguise
+            - Dodge
+            - Read/Write
+            - Sleight of Hand
+            - Stealth
+            - Torture
+            - 1 chosen Arms skill from the Townsfolk category.
+        monthly_income: >
+            Percentage in Commerce x10 maravedíes.
+
+    Minstrel:
+        description: >
+            We use minstrel to refer to the wandering musician and storyteller who travels from town to town
+            to make a living, converting the street or plaza into a stage, especially during important fairs or
+            festivals. Some, with more luck and talent, can work in the service of a lord, entertaining him and
+            his family with music and with acrobatics, although most of them ultimately grow tired of
+            sedentary life and return to the roads sooner or later. In the Islamic world they receive the name of
+            hazzan—“singer”—because they accompany their musical instruments with their own voices.
+        minimum_characteristics:
+            agility : 15
+            communication : 20
+            culture : 10
+        primary_skills:
+            - Sing
+            - Eloquence
+            - Music
+            - Sleight of Hand.
+        secondary_skills:
+            - Brawl
+            - Dodge
+            - Jump
+            - Legends
+            - Read/Write
+            - Run
+            - Stealth
+            - 1 Arms Skill from the Townsfolk category
+        monthly_income: >
+            Your percentage in Sing, Eloquence, or Music (whichever is highest) in
+            maravedíes. Minstrels who belong to the Slave class are maintained by their lord.
+
+    Moneychanger:
+        description: >
+            This refers to all those individuals dedicated to changing money from the different kingdoms; using
+            balances to weigh coins to determine their worth in local currency, and taking a percentage as part
+            of the exchange. They can also perform other types of financial operations, such as making loans
+            (charging a high interest for them, of course). They are accustomed to working in the street or
+            under a colonnade, using a plank as a sort of table—a plank called a banca (bench), whence
+            comes the term “banker.” The work of a moneychanger is looked upon poorly by both Christians
+            and Moslems, as they are seen as no more than simple usurers and most are Jews.
+        minimum_characteristics:
+            culture : 15
+            dexterity : 10
+            perception : 10
+        primary_skills:
+            - Alchemy
+            - Commerce
+            - Eloquence
+            - Mineral Knowledge.
+        secondary_skills:
+            - Craft
+            - Detection
+            - Empathy
+            - Conceal
+            - Knives
+            - Language (of choice)
+            - Read/Write
+            - Memory
+        monthly_income: >
+            Your percentage in Commerce x10 in maravedíes.
+
+    Monk:
+        description: >
+            While priests and clerics make up the secular clergy, monks make up the so-called regular clergy,
+            as they are the ones who accept the regulae (rules) of a monastic order, practicing their vows of
+            poverty, chastity, and obedience, while leading an ascetic life of reflection, prayer, and
+            contemplation—at least in theory; in practice it is common to encounter monks with a lifestyle
+            considerably more relaxed. To achieve the solitude and the peace they so need, religious orders
+            build monasteries and abbeys that, with the passage of time, develop into great centers of
+            knowledge and of culture, thanks to their copyists and libraries. Inside a monastery, a strict
+            hierarchy of ranks and classes is maintained:
+            • Abbot: The leader of a monastery, responsible for the administration of the same and the
+            lands surrounding it, similar to the way feudal lords perform. Equivalent to a Count.
+            • Prior: Helper to the abbot of a great monastery or leader of a priory (a small monastery
+            which may or may not be subject to an abbey). Equivalent to a Lord.
+            • Brothers: Under this term fall all of those monks who hold a specific function within a
+            monastery, whether that be as a dean (in charge of economic affairs), cloistered brother (in
+            charge of discipline and fulfilment of rules among the monks), or as the cellarer (butler and
+            steward, in charge of buying and selling products necessary for the maintenance of the
+            monastery). Equivalent to Burgher.
+            • Monk: Each of the members of a monastery. Equivalent to Townsfolk.
+            • Novice: A votary who has taken the habit of an order, but who has not yet achieved the
+            status of monk. A novice must wait from one to four years, depending on the order, before
+            becoming a monk. Equivalent to Peasant.
+            The most important medieval religious orders in the Iberian Peninsula are:
+            • Augustines: Monks specializing in teaching, they commonly wear a dark habit.
+            • Benedictines: Wear black habits, from which they are called “black monks.”
+            • Carthusians: Monks with a white habit who withdraw completely from the world and live
+            as hermits within their own monastery. They rarely leave it or communicate with the
+            outside, for which reason this is not an order much recommended for player characters.
+            • Cistercians: A offshoot of the Benedictines, but wear a white habit, for which they are
+            called “white monks.”
+            • Dominicans: Followers of the Rule of St. Dominic, who wear a white habit and black cap.
+            The Domini canis—“dogs of the Lord”—sprang up to defend the Church from every type of
+            heresy that might try to undermine its foundations. Because of this, the Dominicans are an
+            integral part of the Inquisition from its inception.
+            • Franciscans: Wearing a brown habit, the Franciscans are a mendicant order that follows the
+            postulates of Saint Francis of Asisi. They are called friars (brothers), and during the entire
+            14th century had various disputes with the ecclesiastical hierarchy for their strict
+            observance of the vow of poverty, which they followed to the extent that they begged from
+            town to town and city to city.
+            • Mercedarians: Dedicated to the rescue of prisoners from infidel lands, the Mercedarians,
+            who dress in a white habit, sometimes even exchange their own lives for those of captives.
+            The monk profession permits use of rituals of faith.
+        minimum_characteristics:
+            culture : 15
+            luck : 45
+        primary_skills:
+            - Language (Latin)
+            - Read/Write
+            - Teach
+            - Theology.
+        secondary_skills:
+            - Detection
+            - Eloquence
+            - Empathy
+            - Language (Greek)
+            - Language (Arabic)
+            - Listen,
+            - Memory
+            - Sing.
+        monthly_income: >
+            The abbot receives 1,800 maravedíes each month, the prior and brothers 500,
+            monks 80, and novices only 40 maravedíes.
+
+    Muccadim:
+        description: >
+            This profession can be followed only by male characters.
+            Although at first muccadim referred to each of the members of the council of elders who governed
+            the Jewish community of a particular city, in the later Middle Ages the term applies to all those
+            individuals who formed part of the Jewish militia; a type of police force that, in a form similar to
+            the profession of alguacil, is in charge of maintaining security within the precincts of the ghetto,
+            especially at the gates that gave access to that area. They typically had a knowledge of Law, and
+            they had the authority to punish misdeeds where they saw them.
+        minimum_characteristics:
+            culture: 10
+            strength: 15
+        primary_skills:
+            - Brawl
+            - Empathy
+            - Theology
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories (but not bladed arms).
+        secondary_skills:
+            - Command
+            - Detection
+            - Dodge
+            - Listen
+            - Heal
+            - Jump
+            - Run
+            - Torture.
+        monthly_income: >
+            They receive 80 maravedíes each month.
+
+    Pardo:
+        description: >
+            This profession can be chosen only by characters from the kingdoms of Castile or Granada.
+            The pardo is a semi-professional cavalryman of Townsfolk origin, who doesn’t belong to the
+            nobility nor acts as a professional soldier. He is treated as a small landlord, an artisan, or moneyed
+            countryperson who has acquired enough wealth to pay for a horse and some weapons with which
+            he participates in “cavalcades”– expeditions to sack Muslim territory, paying no attention to truces
+            or peace treaties. Many pardos are nothing more than bandits and killers who act along the
+            Granadan frontier. Of course, the Nasrid kingdom also has its equivalent, the al-mogauar—“those
+            who make raids”—who also dedicate themselves to attacking the Castilian frontier.
+        minimum_characteristics:
+            agility : 20
+            dexterity : 15
+        primary_skills:
+            - Command
+            - Detection
+            - Ride
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        secondary_skills:
+            - Area Knowledge
+            - Commerce
+            - Heal
+            - Language (of choice)
+            - Listen
+            - Track
+            - Stealth
+            - Torture.
+        monthly_income: >
+            Your percentage in Luck x10 in maravedíes.
+
+    Pirate:
+        description: >
+            In a similar manner to a mariner, a pirate passes the major part of his life at sea, but he makes his
+            living attacking and raiding whatever ship comes his way, provided that it presents a good haul
+            without posing a great threat. Although pirates exist on all the seas that surround the Iberian
+            Peninsula, those that raid the Mediterranean coast are particularly famous, especially Islamic ships
+            coming from Africa or the Nasrid kingdom, as many Muslims consider piracy against the infidel a
+            type of Holy War (which incidentally paid good dividends).
+        minimum_characteristics:
+            agility : 15
+            dexterity : 15
+        primary_skills:
+            - Detection
+            - Shiphandling
+            - Swim
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories
+        secondary_skills:
+            - Astrology
+            - Climb
+            - Crossbows
+            - Games
+            - Heal
+            - Language (of choice)
+            - Seduction
+            - Throw.
+        monthly_income: >
+            Your percentage in Luck x5 in maravedíes, although pirates with their own boat
+            (Burgher class) earn Luck x15. In any case, a pirate usually quickly spends everything he gains.
+
+    Priest:
+        description: >
+            This profession can be chosen only by male characters.
+            As we said before, we call the ecclesiastics who made up the Church aristocracy clerics. Priests
+            occupy the lower ranks within the ecclesiastical hierarchy, the religious workers closest to the
+            lowest social classes, from which they often come. The priest or presbítero has been ordained by a
+            bishop and officiates at mass, administers the sacraments, and forgives the sins of those who
+            confess to him. We find different ranks within the priesthood:
+            • Parish Priest: The priest in charge of a parish church. Equivalent to Burgher.
+            • Vicar: Assistant to a parish priest in directing a parish church. Equivalent to Townsfolk.
+            • Chaplain: A priest who has in his charge a group of faithful not organized as a church or
+            parish, but instead within a hospital, prison, army, or private chapel of some noble.
+            Equivalent to Peasant.
+            The priestly profession permits use of rituals of faith.
+        minimum_characteristics:
+            culture : 15
+            luck : 50
+        primary_skills:
+            - Eloquence
+            - Language (Latin)
+            - Read/Write
+            - Theology.
+        secondary_skills:
+            - Area Knowledge
+            - Command
+            - Detection
+            - Empathy
+            - Listen
+            - Memory
+            - Sing
+            - Teach.
+        monthly_income: >
+            Parish priests gain 750 maravedíes monthly, while vicars and chaplains receive
+            only 80 each month.
+
+    Qaina:
+        description: >
+            This profession can be followed only by female characters.
+            The term refers to a singer or dancer of Arabic origin who alternates between musical services and
+            sexual ones. They are quite common in the cities of the Nasrid kingdom in the houses of nobles,
+            wealthy merchants, and men of resource, often purchased as slaves for exorbitant sums. In the rare
+            moments of peace between Arabs and Christians some quainas may visit Christian courts, where
+            they participate in parties and private banquets. Despite their status as Arabs, women, prostitutes,
+            and—in many cases—slaves, they are often held in high esteem.
+        minimum_characteristics:
+            agility : 15
+            Appearance : 17
+            communication : 15
+        primary_skills:
+            - Eloquence
+            - Music
+            - Seduction
+            - Sing.
+        secondary_skills:
+            - Courtliness
+            - Empathy
+            - Conceal
+            - Jump
+            - Language (of choice)
+            - Legends
+            - Memory
+            - Stealth
+        monthly_income: >
+            Their percentage in Sing, Music, or Seduction x2 (whichever is greatest) in
+            maravedíes. Enslaved qainas are maintained by their lord instead.
+
+    Rabbi :
+        description: >
+            This profession can be pursued only by male characters.
+            The rabbi is a Jewish priest, knowledgeable in Theology and Hebrew Law, since in order to obtain
+            the position he has to show mastery of these disciplines, as well as proving that he carries out an
+            honorable life in his community and with his wife—yes, I’m afraid it is obligatory for a rabbi to be
+            married, so bear that in mind for the rest of character creation. Contrary to Christian priests, a rabbi
+            doesn’t exercise his profession full time, but only on Saturdays and during religious festivals; the
+            rest of the time, he is dedicated another profession of his choice—as long as it is honorable, that is.
+            The player should choose another profession for the rabbi as his “day job”.
+            The profession of rabbi permits use of rituals of faith.
+        minimum_characteristics:
+            culture : 20
+            luck : 50
+        primary_skills:
+            - Eloquence
+            - Language (Hebrew)
+            - Read/Write
+            - Theology.
+        secondary_skills:
+            - Astrology
+            - Empathy
+            - Language (Arabic)
+            - Language (Latin)
+            - Listen
+            - Memory
+            - Stealth
+            - Teach
+        monthly_income: >
+            Although they do not receive any income as a rabbi, they receive their
+            percentage in Theology x10 in maravedíes to maintain themselves and their wife, in addition to
+            income from their other profession.
+
+    Ramera:
+        description: >
+            This profession can be pursued only by female characters.
+            The term harlot, concubine, prostitute, trollop, or whore applies to all those women who make
+            their living selling their body, whether that be on the street or, more commonly, in brothels or baths
+            established for this purpose; establishments run by the municipality, which are marked with a
+            branch (rama) on the lintel of the entryway (whence the term ramera). They are often girls born into
+            a violent or amoral environment, so that they had to turn to their own devices to survive on the
+            street. In the Arab world they are called djaria, which is the name given to a slave who sleeps with
+            her master.
+        minimum_characteristics:
+            appearance : 17
+        primary_skills:
+            - Eloquence
+            - Sleight of Hand
+            - Stealth
+            - Seduction.
+        secondary_skills:
+            - Commerce
+            - Detection
+            - Empathy
+            - Pick Lock
+            - Games
+            - Conceal
+            - Run
+            - 1 chosen Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Their percentage in Seduction in maravedíes. Enslaved prostitutes are maintained
+            by their master instead.
+
+    Scribe:
+        description: >
+            This name designates all minor functionaries who carry out work for merchants or influential
+            courtiers, being skilled with numbers and letters. Their job is similar to that of a secretary, as they
+            write all letters and documents dictated to them, and also of a notary, as they also draft every type
+            of official certificate and transaction. The Muslims call them katib—which means secretary—or
+            khasi if they work as a slave, while the Jews call them soferim and grant them a certain religious
+            function, as only scribes are permitted to copy the Sacred Scriptures.
+        minimum_characteristics:
+            culture : 15
+            perception : 15
+        primary_skills:
+            - Commerce
+            - Language (Latin Hebrew or Arabic according to their culture)
+            - Read/ Write
+            - Memory
+        secondary_skills:
+            - Detection
+            - Eloquence
+            - Empathy
+            - Language (of choice)
+            - Listen
+            - Stealth
+            - Teach
+            - 1 chosen Arms Skill from the Townsfolk category
+        monthly_income: >
+            Their percentage in Read/Write x10 in maravedíes. Scribes who are slaves
+            receive nothing, as they are maintained by their lord.
+
+    Servant:
+        description: >
+            This refers to the individual who performs every type of servile labor: preparing meals, tending to
+            the fire, cleaning horses, or scrubbing floors; whether it be in a manor house, the mansion of a rich
+            merchant, a noble house, or even in the court of a king. Some are no more than mere shadows
+            that move about the house, and no one remembers their name—which does not mean that they in
+            turn aren’t aware of everything that happens there—while others, through many years of
+            cohabitation, become friends or even counselors to their masters.
+        minimum_characteristics:
+            agility : 15
+            dexterity : 15
+        primary_skills:
+            - Drive Wagon
+            - Handcrafts
+            - Plant Knowledge
+            - Stealth.
+        secondary_skills:
+            - Commerce
+            - Court Etiquette
+            - Games
+            - Jump
+            - Listen
+            - Run
+            - Taste
+            - 1 chosen Arms Skill of the Townsfolk category.
+        monthly_income: >
+            They receive 40 maravedíes each month, although those of the Slave class
+            receive nothing, as they are maintained by their lord.
+
+    Soldier:
+        description: >
+            This profession represents the professional soldier, an individual of humble origins—many are
+            peasants recruited whether willingly or by force—with equipment of poorer quality than
+            infanzones, who have also made war their trade and battle their life. Many live permanently
+            stationed in a castle or fortress, fending off attacks from enemies of their master, while others end
+            their lives lying in the mud of a battlefield. In the Arabic world, soldiers are called askari, which is
+            a term used to indicate an expert combatant.
+        minimum_characteristics:
+            dexterity : 15
+            strength : 15
+        primary_skills:
+            - Crossbows
+            - Ride
+            - Shields
+            - 1 chosen Arms Skill from the Townsfolk or Soldier categories.
+        secondary_skills:
+            - Brawl
+            - Detection
+            - Dodge
+            - Drive Wagon
+            - Heal
+            - Knives
+            - Stealth
+            - Torture.
+        monthly_income: >
+            If Townsfolk or Peasant, they receive maravedíes equal to the percentage of their
+            highest Arms Skill; if of superior rank (class Burgher) they receive that percentage x5 in maravedíes.
+            Slave soldiers are maintained by their master.
+
+    Thief:
+        description: >
+            This refers to one of those professions that can be pursued only in the context of a city, in which it
+            is easier to pass unobserved, and the possibilities to commit a misdeed and not be caught are
+            better than in a town or village, where everyone knows everyone. The thief lives by theft and
+            robbery, whether as a light-fingered cutpurse who passes unnoticed or as a brutal cutthroat who
+            corners his victims in some solitary cul-de-sac to take their purse, their life, or perhaps both.
+        minimum_characteristics:
+            agility : 15
+            dexterity : 20
+        primary_skills:
+            - Climb
+            - Dodge
+            - Sleight of Hand
+            - Run.
+        secondary_skills:
+            - Commerce
+            - Detection
+            - Disguise
+            - Pick Lock
+            - Listen
+            - Stealth
+            - Throw
+            - 1 chosen Arms Skill from the Townsfolk category.
+        monthly_income: >
+            Your percentage in Luck x2 in maravedíes.
+
+    Troubador:
+        description: >
+            In contrast to the minstrel, who comes from humble origins, the troubadour represents the noble
+            and cultured poet; a mix of warrior, courtier, and artiste who dedicates the main part of his time
+            composing songs to extol his love of his lady, chronicles of recent acts, or legends of the past. He
+            considers himself more a creator or composer than a true musician, and rarely performs his own
+            songs, except in very private circles. Often he can neither sing well nor play an instrument with
+            any skill, preferring to hire a minstrel to do it for him.
+        minimum_characteristics:
+            communication : 15
+            culture : 15
+        primary_skills:
+            - Eloquence
+            - Read/Write
+            - Music
+            - Seduction.
+        secondary_skills:
+            - Courtliness
+            - Empathy
+            - Ride
+            - Legends
+            - Memory
+            - Stealth
+            - Sing
+            - 1 chosen Arms Skill from the Noble category.
+        monthly_income: >
+            Troubadours from the Lower Nobility receive 500 maravedíes monthly, but those
+            of Upper Nobility have at their disposition 1,800 each month.
+
+    Ulema:
+        description: >
+            Although in the Muslim world there exists no priesthood as known in the Christian world, the
+            ulema—an Arabic word that means “wise”—also called alfaqui, is the closest thing to it. An ulema
+            is a man educated in the Koran and Sunnah, a master of Islamic law (which proceeds from the
+            Koran); from which he gains certain religious attributes similar to those of Christian priests,
+            including the office of judge, which make him a powerful and influential member of his
+            community. Some ulemas have committed the Koran to memory—which requires a 75% or more
+            in Theology—and are referred to as hafiz, and considered a master among masters.
+            The profession of ulema permits use of rituals of faith.
+        minimum_characteristics:
+            culture : 20
+            luck : 50
+        primary_skills:
+            - Language (Arabic)
+            - Read/Write
+            - Memory
+            - Theology.
+        secondary_skills:
+            - Courtliness
+            - Detection
+            - Eloquence
+            - Language (of choice)
+            - Listen
+            - Empathy
+            - Teach
+            - 1 chosen Arms Skill from the Noble category
+        monthly_income: >
+            An ulema receives a monthly salary equivalent to 1,800 maravedíes.
