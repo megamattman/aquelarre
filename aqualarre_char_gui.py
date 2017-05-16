@@ -25,12 +25,12 @@ frame_map = {
         'self_config' : {'height' : 200, 'width' : 200, 'padding' : "12 12 12 12" },
         'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W, E, S'},
         'content_config' : {
-            'kingdom_label'           : {'row' : 0, 'column' : 0},
-            'kingdom_options'         : {'row' : 0, 'column' : 1},
-            'people_label'            : {'row' : 0, 'column' : 2},
-            'people_options'          : {'row' : 0, 'column' : 3},
-            'profession_label'        : {'row' : 0, 'column' : 4},
-            'profession_options'      : {'row' : 0, 'column' : 5},
+            'kingdom_label'           : {'grid_config' : {'row' : 0, 'column' : 0}},
+            'kingdom_options'         : {'grid_config' : {'row' : 0, 'column' : 1}},
+            'people_label'            : {'grid_config' : {'row' : 0, 'column' : 2}},
+            'people_options'          : {'grid_config' : {'row' : 0, 'column' : 3}},
+            'profession_label'        : {'grid_config' : {'row' : 0, 'column' : 4}},
+            'profession_options'      : {'grid_config' : {'row' : 0, 'column' : 5}},
         }
     },
     #'skills'          : {
@@ -109,6 +109,7 @@ def draw_vitals(frame, configs):
         stored_vitals['var'] = StringVar()
         options = stored_vitals['options']
         for name, grid_config in configs.items():
+            print name
             if vitals in name:
                 if 'options' in name:
                     options_menu = OptionMenu(frame, stored_vitals['var'],  options[0], *options)
@@ -143,7 +144,8 @@ if __name__ == "__main__":
         frame = configs.get('frame')
         if 'vitals' in frame_name:
             print "drawing vitals"
-            draw_vitals(frame, configs)
+            draw_vitals(frame, configs.get('content_config'))
+    #pprint (characteristic_map)
 #        if 'characteristics' in frame_name:
 #            draw_characteristics(frame, name , configs)
 #        if 'skills' in fame_name
