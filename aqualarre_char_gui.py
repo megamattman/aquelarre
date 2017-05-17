@@ -24,6 +24,9 @@ kingdom_options    = sorted([kingdom for kingdom in kingdoms.keys()])
 people_options     = sorted([option for option in people.keys()])
 profession_options = sorted([option for option in professions.keys()])
 
+#this should be derived from people
+class_options = ['Upper Nobility', 'Lesser Nobility', 'Burgher', 'Townsfolk', 'Peasant', 'Slave']
+
 frame_order = ['vitals', 'characteristics', 'skills']
 
 def update():
@@ -42,7 +45,17 @@ def clear():
 
 
 def event_handler (event, widget_name):
-    print widget_name
+    widget_data = characteristic_map.get(widget_name)
+    widget_value = widget_data['var'].get()
+    if 'kingdom' in widget_name and widget_value != '':
+        #limit choices in people options_menu
+        new_people = kingdoms.get(widget_value)['people']
+        people_widget = characteristic_map.get('people')['option_menu']
+        people_widget_var = characteristic_map.get('people')['var']
+        people_widget['menu'].delete(0, 'end')
+        for people in new_people:
+            people_widget['menu'].add_command(label=people, command=lambda v=people: people_widget_var.set(v))
+
 
 
 #This map should contain data and pointers to the widgets
@@ -51,6 +64,7 @@ characteristic_map = {
     'kingdom'       : {'frame': 'vitals', 'options': kingdom_options},
     'people'        : {'frame': 'vitals', 'options': people_options},
     'profession'    : {'frame': 'vitals', 'options': profession_options},
+    'class'         : {'frame': 'vitals', 'options': class_options},
     'Strength'      : {'frame': 'characteristics', 'Name' : 'Strength',      'value' :  5, 'type' : 'int'},
     'Agility'       : {'frame': 'characteristics', 'Name' : 'Agility',       'value' :  5, 'type' : 'int'},
     'Dexterity'     : {'frame': 'characteristics', 'Name' : 'Dexterity',     'value' :  5, 'type' : 'int'},
@@ -96,42 +110,52 @@ frame_map = {
         'content_config' : {
             'character_name' : {
                 'label' : {
-                    'grid_config' : {'row' : 0, 'column' : 0, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 0, 'sticky' : 'W'},
                     'self_config' : {'width' : 15, 'text' : 'Character name'}
                 },
                 'entry' : {
-                    'grid_config' : {'row' : 0, 'column' : 1, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 1, 'sticky' : 'W'},
                     'self_config' : {'width' : 15}
                     }
             },
             'kingdom' :{
                 'label' : {
-                    'grid_config' : {'row' : 0, 'column' : 2, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 2, 'sticky' : 'W'},
                     'self_config' : {'width' : 15, 'text' : 'Kingdom'}
                 },
                 'option_menu' : {
-                    'grid_config' : {'row' : 0, 'column' : 3, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 3, 'sticky' : 'W'},
                     'self_config' : {'width' : 15}
                 }
             },
             'people' : {
                 'label' : {
-                    'grid_config' : {'row' : 1, 'column' : 0, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 4, 'sticky' : 'W'},
                     'self_config' : {'width' : 15. , 'text' : 'People'}
                 },
                 'option_menu' : {
-                    'grid_config' : {'row' : 1, 'column' : 1, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 0, 'column' : 5, 'sticky' : 'W'},
                     'self_config' : {'width' : 15}
                 }
             },
             'profession' : {
                 'label' : {
-                    'grid_config' : {'row' : 1, 'column' : 2, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 1, 'column' : 0, 'sticky' : 'W'},
                     'self_config' : {'width' : 15, 'text' : 'Profession'}
                 },
                 'option_menu' : {
-                    'grid_config' : {'row' : 1, 'column' : 3, 'sticky' : 'N, W'},
+                    'grid_config' : {'row' : 1, 'column' : 1, 'sticky' : 'W'},
                     'self_config' : {'width' : 25}
+                }
+            },
+            'class' : {
+                'label' :{
+                    'grid_config' : {'row' : 1, 'column' : 2, 'sticky' : 'W'},
+                    'self_config' : {'width' : 15, 'text' : 'Class'}
+                },
+                'option_menu' :{
+                    'grid_config' : {'row' : 1, 'column' : 3, 'sticky' : 'W'},
+                    'self_config' : {'width' : 15, 'text' : 'Class'}
                 }
             }
         }
@@ -180,8 +204,8 @@ def pop (*args):
     for key, val in characteristic_map.items():
         try:
             value = val['var'].get()
-            if value:
-                print "{} : {}".format(key, value)
+            #if value:
+            #    print "{} : {}".format(key, value)
         except:
             print "failed to get value of {}".format(key)
 
@@ -218,7 +242,7 @@ def create_frame_content(frame_name, name_list, rows, cols):
 def get_empty_widget (content_type, frame, content_data):
     if 'option_menu' in content_type :
         content_options = content_data.get('options', {})
-        return OptionMenu(frame, content_data['var'],  content_options[0], *content_options)
+        return OptionMenu(frame, content_data['var'],  'select', *content_options)
     if 'button' in content_type :
         return Button(frame)
     if 'label' in content_type:
@@ -239,16 +263,19 @@ def populate_frame(frame_name, configs):
 
         for content_type, content_configs in content_config.items():
             new_content = get_empty_widget(content_type, frame, content_data)
-            def handler (event, name=content_name) :
+            def focus_out_handler (event, name=content_name) :
                 return event_handler(event, name)
+
+            def trace_handler (a,b,c, name=content_name) :
+                return event_handler(None, name)
 
             if 'textvariable' in content_configs.get('self_config').keys():
                 content_configs.get('self_config')['textvariable'] = content_data['var']
 
             if 'option_menu' in content_type:
-                content_data['var'].trace("w", pop)
+                content_data['var'].trace("w", trace_handler)
             elif 'entry' in content_type:
-                new_content.bind('<FocusOut>', handler)
+                new_content.bind('<FocusOut>', focus_out_handler)
 
             if new_content is not None :
                 new_content.grid(**content_configs.get('grid_config', {}))
