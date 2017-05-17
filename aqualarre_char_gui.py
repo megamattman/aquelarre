@@ -15,14 +15,14 @@ with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
 
 
-skills = data.get('skills', {})
-kingdoms = data.get('kingdoms', {})
-people = data.get('people', {})
-professions = data.get('professions', {})
+skills_data = data.get('skills', {})
+kingdoms_data = data.get('kingdoms', {})
+people_data = data.get('people', {})
+professions_data = data.get('professions', {})
 
-kingdom_options    = sorted([kingdom for kingdom in kingdoms.keys()])
-people_options     = sorted([option for option in people.keys()])
-profession_options = sorted([option for option in professions.keys()])
+kingdom_options    = sorted(kingdoms_data.keys())
+people_options     = sorted(people_data.keys())
+profession_options = sorted(professions_data.keys())
 
 #this should be derived from people
 class_options = ['Upper Nobility', 'Lesser Nobility', 'Burgher', 'Townsfolk', 'Peasant', 'Slave']
@@ -44,18 +44,22 @@ def clear():
             val.get('var').set('')
 
 
-def event_handler (event, widget_name):
+def event_handler (_, widget_name):
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
     if 'kingdom' in widget_name and widget_value != '':
         #limit choices in people options_menu
-        new_people = kingdoms.get(widget_value)['people']
+        new_people = kingdoms_data.get(widget_value)['people']
         people_widget = characteristic_map.get('people')['option_menu']
         people_widget_var = characteristic_map.get('people')['var']
         people_widget['menu'].delete(0, 'end')
         for people in new_people:
             people_widget['menu'].add_command(label=people, command=lambda v=people: people_widget_var.set(v))
-
+    if 'people' in widget_name and widget_value != '':
+        society_value = characteristic_map.get('society')['var']
+        print widget_value
+        pprint( people_data.get(widget_value))
+        society_value.set(people_data.get(widget_value)['society'])
 
 
 #This map should contain data and pointers to the widgets
@@ -138,6 +142,12 @@ frame_map = {
                     'self_config' : {'width' : 15}
                 }
             },
+            'society' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 6, 'sticky' : 'W'},
+                    'self_config' : {'width' : 15. , 'text' : 'society', 'textvariable' : None}
+                }
+            },
             'profession' : {
                 'label' : {
                     'grid_config' : {'row' : 1, 'column' : 0, 'sticky' : 'W'},
@@ -179,7 +189,7 @@ frame_map = {
     #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
 }
 
-characteristic_map.update(skills)
+characteristic_map.update(skills_data)
 
 def total_characteristics():
     total = 0
@@ -303,7 +313,7 @@ if __name__ == "__main__":
 
     create_frame_content('characteristics', characteristic_label_strings, 7, 7)
     create_frame_content('derived', derived_label_strings, 7, 7)
-    create_frame_content('skills', skills, 7, 7)
+    create_frame_content('skills', skills_data, 7, 7)
 
     #pprint (frame_map)
     #exit()

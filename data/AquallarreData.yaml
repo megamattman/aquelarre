@@ -16,7 +16,7 @@ kingdoms:
             - Aragonese
             - Catalonian
             - Mudejar
-            - Jew
+            - Jews
 
     Crown of Castile:
         name : Crown of Castile
@@ -35,7 +35,7 @@ kingdoms:
             - Basque
             - Astur-Leonese
             - Mudejar
-            - Jew
+            - Jews
 
     Kingdom of Granada:
         name: Kingdom of Granada
@@ -88,7 +88,7 @@ kingdoms:
             - Mudejars
 
 people:
-    Arab:
+    Arabs:
         description: >
             For convenience, we use the word “Arab” for the Muslim inhabitants of the Kingdom of Granada,
             though the population is composed mainly of Nasrids—that is, Andalusian Arab descendants of
@@ -96,7 +96,7 @@ people:
             kingdoms of Ghana, Mali, and Songhay, in addition to true Arabs from the Arabian peninsula.
             Which group, exactly, a character springs from is immaterial to these rules, so the player is free to
             choose one ethnicity or another.
-        Society: Islamic
+        society: Islamic
         Restrictions: None
         Languages:
             - Andalusian : 100
@@ -110,7 +110,7 @@ people:
             Muslims during the first part of the Reconquest. They have their own language, Aragonese,
             descended from Latin, which is slowly being lost after the ascension of a Castilian dynasty to the
             Aragonese throne in 1412.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slaves
@@ -123,7 +123,7 @@ people:
             and part of the Cantabrian zone. The Asturleonese descended in the main from old Visigoth
             families and don’t differ much from the Castilian people, except in their use of their own Romance
             language, Asturleonese.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slaves
@@ -137,7 +137,7 @@ people:
             Besides an exclusive language, Euskara, the Basques possess a culture of their own, based on old
             pre-Roman myths and nearly forgotten pagan rites, a culture the Church aims at converting to
             Christian symbols and ceremonies.
-        Society: Christian
+        society: Christian
         Restrictions:
             only :
                 class :
@@ -153,7 +153,7 @@ people:
             repopulation policy of the Castilian kings, this is the most populous people of the Iberian
             Peninsula, and they have been imposing Castilian as the common language in all the peninsular
             kingdoms in the later Middle Ages.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slaves
@@ -166,7 +166,7 @@ people:
             the Kingdom of Mallorca, integrated now in the Crown of Aragon. They share a Romance language
             in common—Catalan—although they use different dialects in Valencia and in Mallorca—
             Valenciano and Balear respectively.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slave
@@ -178,7 +178,7 @@ people:
             These are the inhabitants of the old kingdom of Galicia, currently part of the Crown of Castile,
             descended from Celtic tribes that inhabited the ruined forts still found in their territory, They have
             their own language descended from Latin.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slave
@@ -186,7 +186,7 @@ people:
             - galician : 100
             - castilian : CULx4
 
-    Jew:
+    Jews:
         description: >
             The Jewish people—or Sephardim, if we want to be more precise—can be found extensively
             through all of the Iberian Peninsula and Jewish ghettos—calls, as they are termed in the Crown of
@@ -195,21 +195,21 @@ people:
             centuries is progressively dwindling during the 14th and 15th centuries, with slaughter and forced
             conversion occurring within their ghettos, and ending with their expulsion from the kingdoms of
             Castile and Aragon in 1492.
-        Society: Jewish
+        society: Jewish
         Restrictions: None
         Languages:
             - ladino : 100%
             - hebrew : CULx2
             - castilian : CULx4
 
-    Mozarab:
+    Mozarabs:
         description: >
             The Christians who live in the Nasrid kingdom of Granada are called Mozarabs—from the Arabic
             mustarab, which means “Arabized”—where, in exchange for paying various taxes and accepting a
             lower social class, they are permitted to maintain their customs and rites by the Sultan, but with
             severe limitations. They use their own language, Mozarab, constructed of different Romance
             dialects and, unlike other Christian tongues, written not with Latin characters but Arabic ones.
-        Society: Islamic
+        society: Islamic
         Restrictions:
                 class:
                     - Nobility
@@ -235,7 +235,7 @@ people:
             until the intransigence and fanaticism of the 14th and 15th centuries begin to forbid them; by the
             end of the 15th century they are required to be baptized, after which they began to be known as
             "Morisco", meaning "Moorish."
-        Society: Christian
+        society: Christian
         Restrictions:
             no:
                 class:
@@ -259,7 +259,7 @@ people:
             cities and in the southern regions of the kingdom (the north and the coast are populated by
             Basques). The Navarrese are largely descended from Aragonese and Castilians, with whom they
             share a language and a good part of their history.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slave
@@ -274,7 +274,7 @@ people:
             by the Muslims. They share their language with the Galicians: Galician or Galicoportuguese.
             Although a different dialect is used in Portugal, we have decided to unify them in the same
             language skill.
-        Society: Christian
+        society: Christian
         Restrictions:
             no :
                 class : slave
