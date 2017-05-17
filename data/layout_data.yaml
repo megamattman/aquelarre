@@ -1,0 +1,116 @@
+---
+vitals:
+    self_config:
+        padding: 8 0 0 0
+    grid_config:
+        row: 1
+        column: 0
+        sticky: N, W
+        columnspan: 3
+    content_config:
+        character_name:
+            label:
+                grid_config:
+                    row: 0
+                    column: 0
+                    sticky: W
+                self_config:
+                    width: 15
+                    text: Character name
+            entry:
+                grid_config:
+                    row: 0
+                    column: 1
+                    sticky: W
+                self_config:
+                    width: 15
+        kingdom:
+            label:
+                grid_config:
+                  row: 0
+                  column: 2
+                  sticky: W
+                self_config:
+                  width: 15
+                  text: Kingdom
+            option_menu:
+                grid_config:
+                    row: 0
+                    column: 3
+                    sticky: W
+                self_config:
+                    width: 15
+        people:
+            label:
+                grid_config:
+                row: 0
+                column: 4
+                sticky: W
+                self_config:
+                width: 20
+                text: People
+        option_menu:
+            grid_config:
+                row: 0
+                column: 5
+                sticky: W
+                self_config:
+                width: 20
+        society:
+            label:
+                grid_config:
+                    row: 0
+                    column: 6
+                    sticky: W
+            self_config:
+                width: 20
+                text: Society
+                textvariable: True
+        profession:
+            label:
+                grid_config:
+                row: 1
+                column: 0
+                sticky: W
+            self_config:
+                width: 15
+                text: Profession
+            option_menu:
+                grid_config:
+                row: 1
+                column: 1
+                sticky: W
+            self_config:
+                width: 25
+        class:
+            label:
+            grid_config:
+              row: 1
+              column: 2
+              sticky: W
+            self_config:
+              width: 15
+              text: Class
+            option_menu:
+                grid_config:
+                row: 1
+                column: 3
+                sticky: W
+            self_config:
+                width: 25
+
+skills:
+    grid_config:
+        row: 2
+        column: 2
+        sticky: E
+characteristics:
+    grid_config:
+        row: 2
+        column: 0
+        sticky: W
+derived:
+    grid_config:
+        row: 2
+        column: 1
+        sticky: W
