@@ -14,22 +14,29 @@ imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
 
-with open("data/layout_data.yaml",'r') as stream:
-    layout_data = yaml.load(stream)
 
 skills_data = data.get('skills', {})
 kingdoms_data = data.get('kingdoms', {})
 people_data = data.get('people', {})
 professions_data = data.get('professions', {})
+society_data = data.get('society', {})
 
 kingdom_options    = sorted(kingdoms_data.keys())
 people_options     = sorted(people_data.keys())
 profession_options = sorted(professions_data.keys())
 
+previous_profession = ""
+
 #this should be derived from people
-class_options = ['Upper Nobility', 'Lesser Nobility', 'Burgher', 'Townsfolk', 'Peasant', 'Slave']
+class_options = ['upper_nobility', 'lesser_nobility', 'burgher', 'townsfolk', 'peasant', 'slave']
 
 frame_order = ['vitals', 'characteristics', 'skills']
+
+def get_widget_var (characteristic):
+    return characteristic_map[characteristic]['var']
+
+def get_widget (characteristic, widget_type):
+    return characteristic_map[characteristic][widget_type]
 
 def update():
     #for label in characteristic_label_strings:
@@ -39,29 +46,78 @@ def update():
     print total_points.get()
 
 def clear():
-    for key, val in characteristic_map.items():
+    for _, val in characteristic_map.items():
         if 'int' in val.get('type', ''):
             val.get('var').set(0)
         else :
             val.get('var').set('')
 
+def update_options_menu(target_label, base_list, restrictions):
+    widget_to_modify = characteristic_map[target_label]['option_menu']
+    widget_var = get_widget_var(target_label)
+    widget_to_modify['menu'].delete(0, 'end')
+    new_options = [option for option in base_list if option not in restrictions]
+    for option in new_options:
+        widget_to_modify['menu'].add_command(label=option, command=lambda v=option: widget_var.set(v))
+
+def update_kingdom(_, kingdom_value):
+    new_people = kingdoms_data.get(kingdom_value)['people']
+    update_options_menu('people', new_people, [])
+
+
+#Setting people can impact profession AND class
+#Not going to support backwards gen i.e. people -> kingdom
+def update_people(_, people_value):
+    new_society = people_data.get(people_value)['society']
+    base_list = society_data[new_society.lower()].get('class',[]).keys()
+    characteristic_map.get('society')['var'].set(new_society)
+    people_restricitons = people_data.get(people_value).get('restrictions',{})
+    if people_restricitons:
+        for key, val in people_restricitons.items():
+            if 'profession' in key :
+                base_list = profession_options
+            update_options_menu(key, base_list, val)
+    else:
+        update_options_menu('class',base_list.keys(),people_restricitons.get('class',[]))
+
+# when updating classes find society base list and then remove people
+def update_class(_, class_value):
+    current_society = get_widget_var('society').get().lower()
+    current_class = class_value.lower()
+    try:
+        #class and society determine profession list
+        allowed_list = society_data.get(current_society).get('class').get(class_value)
+        exlcusion_list = [exclusion for exclusion in profession_options if exclusion not in allowed_list]
+        update_options_menu('profession', profession_options, exlcusion_list)
+    except Exception as e :
+        print e
+        pprint (society_data.get(current_society))
+        print "{} {} bad combination when filtering classes".format(current_society, current_class)
+
+
+def update_profession(_, profession_value):
+    #unset any changes made by previous professions
+    #if previous_profession != "":
+    #    for skill in previous_profession.get('primary_skills'):
+    #        skill_label = get_widget(skill, 'label')
+    #        skill_label.configure(background='grey')
+    new_profession = professions_data[profession_value]
+    #previous_profession = new_profession
+    for skill in new_profession.get('primary_skills'):
+        skill_label = get_widget(skill, 'label')
+        skill_label.configure(background='green')
 
 def event_handler (_, widget_name):
+    widget_function_mapping = {
+    'kingdom' : update_kingdom,
+    'people' : update_people,
+    'class'  : update_class,
+    'profession' : update_profession,
+    }
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
-    if 'kingdom' in widget_name and widget_value != '':
-        #limit choices in people options_menu
-        new_people = kingdoms_data.get(widget_value)['people']
-        people_widget = characteristic_map.get('people')['option_menu']
-        people_widget_var = characteristic_map.get('people')['var']
-        people_widget['menu'].delete(0, 'end')
-        for people in new_people:
-            people_widget['menu'].add_command(label=people, command=lambda v=people: people_widget_var.set(v))
-    if 'people' in widget_name and widget_value != '':
-        society_value = characteristic_map.get('society')['var']
-        print widget_value
-        pprint( people_data.get(widget_value))
-        society_value.set(people_data.get(widget_value)['society'])
+    if widget_value != '':
+        widget_function_mapping[widget_name](widget_data, widget_value)
 
 
 #This map should contain data and pointers to the widgets
@@ -85,10 +141,11 @@ characteristic_map = {
 }
 
 #Layout map
+
 frame_map = {
     'controls'        :{
         'self_config' : {'padding' : "8 0 0 0" },
-        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W'},#'columnspan' : 2},
+        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W'},
         'content_config' :{
             'clear' : {
                 'button' : {
@@ -110,104 +167,20 @@ frame_map = {
             }
         }
     }
-}#,
-#    'vitals'          : {
-#        'self_config' : {'padding' : "8 0 0 0" },
-#        'grid_config' : {'row' : 1, 'column': 0, 'sticky' : 'N, W','columnspan' : 3},
-#        'content_config' : {
-#            'character_name' : {
-#                'label' : {
-#                    'grid_config' : {'row' : 0, 'column' : 0, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15, 'text' : 'Character name'}
-#                },
-#                'entry' : {
-#                    'grid_config' : {'row' : 0, 'column' : 1, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15}
-#                    }
-#            },
-#            'kingdom' :{
-#                'label' : {
-#                    'grid_config' : {'row' : 0, 'column' : 2, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15, 'text' : 'Kingdom'}
-#                },
-#                'option_menu' : {
-#                    'grid_config' : {'row' : 0, 'column' : 3, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15}
-#                }
-#            },
-#            'people' : {
-#                'label' : {
-#                    'grid_config' : {'row' : 0, 'column' : 4, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15. , 'text' : 'People'}
-#                },
-#                'option_menu' : {
-#                    'grid_config' : {'row' : 0, 'column' : 5, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15}
-#                }
-#            },
-#            'society' : {
-#                'label' : {
-#                    'grid_config' : {'row' : 0, 'column' : 6, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15. , 'text' : 'society', 'textvariable' : None}
-#                }
-#            },
-#            'profession' : {
-#                'label' : {
-#                    'grid_config' : {'row' : 1, 'column' : 0, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15, 'text' : 'Profession'}
-#                },
-#                'option_menu' : {
-#                    'grid_config' : {'row' : 1, 'column' : 1, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 25}
-#                }
-#            },
-#            'class' : {
-#                'label' :{
-#                    'grid_config' : {'row' : 1, 'column' : 2, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15, 'text' : 'Class'}
-#                },
-#                'option_menu' :{
-#                    'grid_config' : {'row' : 1, 'column' : 3, 'sticky' : 'W'},
-#                    'self_config' : {'width' : 15, 'text' : 'Class'}
-#                }
-#            }
-#        }
-#    },
-#    'skills'          : {
-#        'grid_config' : {
-#            'row' : 2, 'column': 2, 'sticky' : 'E'
-#        }
-#    },
-#    'characteristics' : {
-#        'grid_config' : {
-#            'row' : 2, 'column': 0, 'sticky' : 'W'
-#        }
-#    },
-#    'derived' : {
-#        'grid_config' : {
-#            'row' : 2, 'column': 1, 'sticky' : 'W'
-#        }
-#    }
-#    #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
-#    #'vitals' : {'row' : 0, 'column': 0, 'width' : 0, 'height': 0},
-#}
+}
+
+#import layout data from yaml file
+with open("data/layout_data.yaml",'r') as stream:
+    layout_data = yaml.load(stream)
 
 frame_map.update(layout_data)
 characteristic_map.update(skills_data)
 
 def total_characteristics():
     total = 0
-    strings_to_total = [
-    'Strength',
-    'Agility',
-    'Dexterity',
-    'Resistance',
-    'Perception',
-    'Communication',
-    'Culture'
-    ]
-    for label in strings_to_total:
-        value = characteristic_map[label]['var'].get()
+    characteristic_strings = [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]
+    for label in characteristic_strings:
+        value = get_widget_var(label).get()
         try:
             total += value
         except:
@@ -241,7 +214,7 @@ def create_frame_content(frame_name, name_list, rows, cols):
             name :{
                 'label' : {
                     'grid_config' : {'row' :  0 + (idx % rows), 'column' : 0 + ((idx / cols)*2), 'sticky' : "W"},
-                    'self_config' : {'width' : 15, 'text' : name}
+                    'self_config' : {'width' : len(name)+2, 'text' : name}
                     },
                  'entry' : {
                      'grid_config' : {'row' :  0 + ((idx % rows)), 'column' :  1 + ((idx / cols)*2), 'sticky' : "W"},
@@ -282,9 +255,13 @@ def populate_frame(frame_name, configs):
 
             def trace_handler (a,b,c, name=content_name) :
                 return event_handler(None, name)
-
-            if 'textvariable' in content_configs.get('self_config').keys():
-                content_configs.get('self_config')['textvariable'] = content_data['var']
+            try:
+                if 'textvariable' in content_configs.get('self_config').keys():
+                    content_configs.get('self_config')['textvariable'] = content_data['var']
+            except:
+                print content_name
+                pprint (content_configs)
+                exit()
 
             if 'option_menu' in content_type:
                 content_data['var'].trace("w", trace_handler)
@@ -317,72 +294,15 @@ if __name__ == "__main__":
 
     create_frame_content('characteristics', characteristic_label_strings, 7, 7)
     create_frame_content('derived', derived_label_strings, 7, 7)
-    create_frame_content('skills', skills_data, 7, 7)
-
-    #pprint (frame_map)
-    #exit()
+    create_frame_content('skills', sorted(skills_data), 7, 7)
 
     for frame_name, configs in frame_map.items():
     #for frame_name in frame_order:
         print "populate"
         populate_frame(frame_name, configs.get('content_config', {}))
-        #populate_frame(frame_name, frame_map.get(frame_name).get('content_config', {}))
-
-        #if 'characteristics' in frame_name:
-        #    draw_characteristics(frame, name , configs)
-#        if 'skills' in fame_name
-#    #Place characteristic labels and entries
-#    for idx, label_string in enumerate (characteristic_label_strings):
-#        characteristic_map[label_string]['var'] = IntVar()
-#        label_row = layout_map['characteristics_labels']['row'] + idx
-#        label_col = layout_map['characteristics_labels']['col']
-#        entry_col = layout_map['characteristics_entries']['col']
-#        entry_row = layout_map['characteristics_entries']['row'] +idx
-#        characteristic_map[label_string]['label'] = Label(mainframe, text=label_string).grid(column=label_col,row=label_row,sticky=(W))
-#        characteristic_map[label_string]['entry'] = Entry(mainframe, width=3, textvariable=characteristic_map[label_string]['var']).grid(column=entry_col, row=entry_row,sticky=(W))
-#
-#    #Place skill label and entries
-#    for idx, skill in enumerate(skills):
-#        #assumes {skill_name : {characteristic : XXX}}
-#        label_string, _ = skill.items()[0]
-#        skill['var'] = IntVar()
-#        label_row = layout_map['skills_labels']['row'] + idx % 10
-#        label_col = layout_map['skills_labels']['col'] + ((idx / 10)*2)
-#        entry_col = layout_map['skills_entries']['col'] + ((idx / 10)*2)
-#        entry_row = layout_map['skills_entries']['row'] + idx % 10
-#        skill['label'] = Label(mainframe, text=label_string).grid(column=label_col,row=label_row,sticky=(E))
-#        skill['entry'] = Entry(mainframe, width=3, textvariable=skill['var']).grid(column=entry_col, row=entry_row,sticky=(E))
-#
-#    total_points=StringVar()
-#    total_points.set( "{}".format(total_characteristics()))
-#
-#
-#    Button(mainframe, text="Update", command=update).grid(column=0,row=0, sticky=(N, E))
-#    #feet = StringVar()
-    #meters = StringVar()
-    #
-    #feet_entry = Entry(mainframe, width=7, textvariable=feet)
-    #feet_entry.grid(column=2, row=1, sticky=(W, E))
-    #
-    #Label(mainframe, textvariable=meters).grid(column=2,row=2,sticky=(W, E))
-    #Button(mainframe, text="Calculate", command=calculate).grid(column=3,row=3, sticky=E)
-    #
-    #Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
-    #Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=W)
-    #Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
-    #
-    #options = ["one", "two", "three"]
-    #variable = StringVar(mainframe)
-    #
-    #OptionMenu(mainframe, variable,  options[0], *options)
-
 
     for key, val in frame_map.items():
         for child in val['frame'].winfo_children():
             child.grid_configure(padx=1, pady=1)
-
-    #root.bind('<Return>', calculate)
-
-
 
     root.mainloop()
