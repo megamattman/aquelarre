@@ -6,7 +6,7 @@ vitals:
         row: 1
         column: 0
         sticky: N, W
-        columnspan: 3
+        columnspan: 5
     content_config:
         character_name:
             label:
@@ -31,7 +31,7 @@ vitals:
                   column: 2
                   sticky: W
                 self_config:
-                  width: 15
+                  width: 8
                   text: Kingdom
             option_menu:
                 grid_config:
@@ -69,16 +69,16 @@ vitals:
         profession:
             label:
                 grid_config:
-                    row: 1
-                    column: 0
+                    row: 0
+                    column: 9
                     sticky: W
                 self_config:
                     width: 15
                     text: Profession
             option_menu:
                 grid_config:
-                    row: 1
-                    column: 1
+                    row: 0
+                    column: 10
                     sticky: W
                 self_config:
                     width: 25
@@ -103,7 +103,18 @@ skills:
     grid_config:
         row: 2
         column: 2
-        sticky: E
+        sticky: W
+arm_skills:
+    grid_config:
+        row: 3
+        column: 2
+        sticky: W
+language_skills:
+    grid_config:
+        row: 4
+        column: 2
+        sticky: W
+
 characteristics:
     grid_config:
         row: 2

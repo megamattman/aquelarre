@@ -16,6 +16,8 @@ with open("data/AquallarreData.yaml", 'r') as stream:
 
 
 skills_data = data.get('skills', {})
+language_skills_data = data.get('language_skills', {})
+arm_skills_data = data.get('arm_skills', {})
 kingdoms_data = data.get('kingdoms', {})
 people_data = data.get('people', {})
 professions_data = data.get('professions', {})
@@ -104,8 +106,11 @@ def update_profession(_, profession_value):
     new_profession = professions_data[profession_value]
     #previous_profession = new_profession
     for skill in new_profession.get('primary_skills'):
-        skill_label = get_widget(skill, 'label')
-        skill_label.configure(background='green')
+        try:
+            skill_label = get_widget(skill, 'label')
+            skill_label.configure(background='green')
+        except:
+            print "Not a valid skill {}".format(skill)
 
 def event_handler (_, widget_name):
     widget_function_mapping = {
@@ -289,9 +294,12 @@ if __name__ == "__main__":
 
     for name, configs in frame_map.items():
         create_frames(root, name, configs)
+
     characteristic_label_strings = [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]
     derived_label_strings = [key for key, val in characteristic_map.items() if 'derived' in val.get('frame','')]
 
+    create_frame_content('language_skills', sorted(language_skills_data), 1,1)
+    create_frame_content('arm_skills', sorted(arm_skills_data), 1,1)
     create_frame_content('characteristics', characteristic_label_strings, 7, 7)
     create_frame_content('derived', derived_label_strings, 7, 7)
     create_frame_content('skills', sorted(skills_data), 7, 7)

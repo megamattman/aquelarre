@@ -1,0 +1,41 @@
+profession:
+    alchemist:
+        description: >
+            This is a test profession to show the following:
+            Working arms skills
+            Working language skills
+            language (greek)
+            language (latin)
+        minimum_characteristics:
+            culture : 20
+        primary_skills:
+            - alchemy
+            - astrology
+            - magical_knowledge
+            arms_skill:
+                class:
+                    - townsfolk
+                    - soldier
+                restriction:
+                    - swords
+                    - knives
+            arms_skill:
+                selection:
+                    - bows
+                    - swords
+            language:
+                - latin
+                - arabic
+
+        secondary_skills:
+            - animal_knowledge
+            - empathy
+            - heal
+            - language
+            - language
+            - mineral_knowledge
+            - plant_knowledge
+            - teach
+        monthly_income: >
+            their percentage in alchemy x6 in maravedíes; although if they belong to the
+            upper nobility, they can multiply their percentage by 20.
