@@ -41,12 +41,35 @@ def get_widget_var (characteristic):
 def get_widget (characteristic, widget_type):
     return characteristic_map[characteristic][widget_type]
 
+def names_by_frame(frame_name):
+    return [key for key, val in characteristic_map.items() if frame_name in val.get('frame','')]
+
+def get_subdict(big_dict, search_filter, element):
+    sub_dict = {}
+    for key, val in big_dict.items():
+        if search_filter in val.get(element):
+            sub_dict.update({key:val})
+    return sub_dict
+
+text_exceptions = {'RR':'RR', 'IRR':'IRR'}
 def beautify_text (text):
-    return text.replace('_', ' ').title()
+    return text_exceptions.get(text,text.replace('_', ' ').title())
 
 def debeautify_text (text):
-    return text.replace('', '_').lower()
+    print text
+    return text_exceptions.get(text,text.replace('', '_').lower())
 
+def update_widget (characteristic, widget_type, **config):
+    widget = get_widget(characteristic, widget_type)
+    widget.config(**config)
+
+def update_widget_list(widget_list, widget_type, **config):
+    for widget in widget_list:
+        try :
+            update_widget(widget, widget_type, **config)
+        except:
+            print "BAD widget combination {} {}".format(widget, widget_type)
+            continue
 
 def update():
     #for label in characteristic_label_strings:
@@ -80,7 +103,7 @@ def update_kingdom(_, kingdom_value):
 def update_people(_, people_value):
     new_society = people_data.get(people_value)['society']
     base_list = society_data[new_society.lower()].get('class',[]).keys()
-    characteristic_map.get('society')['var'].set(new_society)
+    get_widget_var('society').set(new_society)
     people_restricitons = people_data.get(people_value).get('restrictions',{})
     if people_restricitons:
         for key, val in people_restricitons.items():
@@ -101,47 +124,40 @@ def update_class(_, class_value):
         update_options_menu('profession', profession_options, exlcusion_list)
     except Exception as e :
         print e
-        pprint (society_data.get(current_society))
-        print "{} {} bad combination when filtering classes".format(current_society, current_class)
+        print "{} {} bad combination when filtering professions".format(current_society, current_class)
 
 
 def update_profession(_, profession_value):
     #unset any changes made by previous professions
-    #if previous_profession != "":
-    #    for skill in previous_profession.get('primary_skills'):
-    #        skill_label = get_widget(skill, 'label')
-    #        skill_label.configure(background='grey')
+    update_widget_list(skills_data.keys(), 'label', background='SystemButtonFace')
+    update_widget_list(names_by_frame('characteristics'), 'label', background='SystemButtonFace')
+
     new_profession = professions_data[profession_value]
     #previous_profession = new_profession
-    for skill in new_profession.get('primary_skills'):
-        try:
-            skill_label = get_widget(skill, 'label')
-            skill_label.configure(background='green')
-        except:
-            print "Not a valid skill {}".format(skill)
-
-    for skill in new_profession.get('secondary_skills'):
-        try:
-            skill_label = get_widget(skill, 'label')
-            skill_label.configure(background='yellow')
-        except:
-            print "Not a valid skill {}".format(skill)
+    update_widget_list(new_profession.get('primary_skills'), 'label', background='grey')
+    update_widget_list(new_profession.get('secondary_skills'), 'label', background='yellow')
 
     for characteristic, val in new_profession.get('minimum_characteristics').items():
-        characteristic_data = characteristic_map[characteristic]
-        characteristic_data['var'].set(val)
-        characteristic_data['label'].configure(background='red')
+        get_widget_var(characteristic).set(val)
+        update_widget(characteristic, 'label', background='red')
+
+    update_skills("","")
 
 def update_skills (_, skill_value):
-
-    characteristic_entries = {}
-    for key, val in characteristic_map.items():
-        if 'characteristics' in val.get('frame'):
-            characteristic_entries.update({key:val})
-
+    characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
     for skill, data in skills_data.items():
+        skill_widget = get_widget(skill, 'label')
         skill_var = get_widget_var(skill)
-        skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get())
+        multiplier = 1
+        widget_color = str(skill_widget.cget('background'))
+        if 'green' in widget_color:
+            multiplier = 3
+        skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get() * multiplier)
+
+def select_skill(widget_data, _):
+    if 'grey' in str(widget_data['label']['background']):
+        widget_data['label'].configure(background='green')
+
 
 def event_handler (_, widget_name):
     widget_function_mapping = {
@@ -149,14 +165,16 @@ def event_handler (_, widget_name):
     'people'         : update_people,
     'class'          : update_class,
     'profession'     : update_profession,
-    'characteristic' : update_skills
+    'characteristic' : update_skills,
+    'skill_label'    : select_skill
     }
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
     if widget_value != '':
-        if widget_name in [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]:
+        if widget_name in names_by_frame('characteristics'):
             widget_name = 'characteristic'
-
+        elif widget_name in names_by_frame('skills'):
+            widget_name = 'skill_label'
         widget_function_mapping[widget_name](widget_data, widget_value)
 
 
@@ -236,11 +254,6 @@ def pop (*args):
         except:
             print "failed to get value of {}".format(key)
 
-def pip (event):
-    print "pip"
-    pprint (event)
-    print event.widget
-
 def get_tk_var (var_type) :
     if 'int' in var_type:
         return IntVar()
@@ -254,11 +267,11 @@ def create_frame_content(frame_name, name_list, rows, cols):
             name :{
                 'label' : {
                     'grid_config' : {'row' :  0 + (idx % rows), 'column' : 0 + ((idx / cols)*2), 'sticky' : "W"},
-                    'self_config' : {'width' : len(name)+2, 'text' : name.replace('_',' ').title()}
+                    'self_config' : {'width' : len(name)+2, 'text' : beautify_text(name)}
                     },
-                 'entry' : {
+                 'spinbox' : {
                      'grid_config' : {'row' :  0 + ((idx % rows)), 'column' :  1 + ((idx / cols)*2), 'sticky' : "W"},
-                     'self_config' : {'width' : 3, 'textvariable' : None}
+                     'self_config' : {'width' : 3, 'textvariable' : None, 'from' : 0 , 'to' : 200 }
                     }
                 }
             }
@@ -276,6 +289,8 @@ def get_empty_widget (content_type, frame, content_data):
         return Label(frame)
     if 'entry' in content_type:
         return Entry(frame)
+    if 'spinbox' in content_type:
+        return Spinbox(frame)
 
 
 def populate_frame(frame_name, configs):
@@ -303,11 +318,16 @@ def populate_frame(frame_name, configs):
                 print content_name
                 pprint (content_configs)
                 exit()
-
+            if 'label' in content_type:
+                new_content.bind('<Button-1>', focus_out_handler)
             if 'option_menu' in content_type:
                 content_data['var'].trace("w", trace_handler)
             elif 'entry' in content_type:
                 new_content.bind('<FocusOut>', focus_out_handler)
+            elif 'spinbox' in content_type:
+                if 'characteristics' in frame_name:
+                    new_content.bind('<FocusOut>', focus_out_handler)
+                    new_content.config(command=lambda: update_skills("",""))
 
             if new_content is not None :
                 new_content.grid(**content_configs.get('grid_config', {}))
@@ -326,7 +346,7 @@ if __name__ == "__main__":
     #Place vitals
 
     root = Tk()
-
+    print root['background']
     root.title("Aqualarre Character sheet")
 
     #p = Notebook(root)
@@ -345,8 +365,6 @@ if __name__ == "__main__":
     create_frame_content('skills', sorted(skills_data), 7, 7)
 
     for frame_name, configs in frame_map.items():
-    #for frame_name in frame_order:
-        print "populate"
         populate_frame(frame_name, configs.get('content_config', {}))
 
     for key, val in frame_map.items():
