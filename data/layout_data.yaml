@@ -104,17 +104,16 @@ skills:
         row: 2
         column: 2
         sticky: W
-arm_skills:
+language_skills:
     grid_config:
         row: 3
         column: 2
         sticky: W
-language_skills:
+arm_skills:
     grid_config:
         row: 4
         column: 2
         sticky: W
-
 characteristics:
     grid_config:
         row: 2

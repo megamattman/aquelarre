@@ -1,8 +1,9 @@
 # #!/usr/bin/python
 import yaml
 try:
-	from Tkinter import *
-	from ttk import *
+    from Tkinter import *
+    from ttk import *
+    print "did this one"
 except:
 	from tkinter import *
 	#from ttk import *
@@ -39,6 +40,9 @@ def get_widget_var (characteristic):
 
 def get_widget (characteristic, widget_type):
     return characteristic_map[characteristic][widget_type]
+
+def beautify_text (text):
+    return text.replace('_', ' ').title()
 
 def update():
     #for label in characteristic_label_strings:
@@ -112,12 +116,29 @@ def update_profession(_, profession_value):
         except:
             print "Not a valid skill {}".format(skill)
 
+    for skill in new_profession.get('secondary_skills'):
+        try:
+            skill_label = get_widget(skill, 'label')
+            skill_label.configure(background='yellow')
+        except:
+            print "Not a valid skill {}".format(skill)
+
+    for characteristic, val in new_profession.get('minimum_characteristics').items():
+        characteristic_data = characteristic_map[characteristic]
+        characteristic_data['var'].set(val)
+        characteristic_data['label'].configure(background='red')
+
+def update_skils (skill_data, skill_value):
+    pass
+
+
+
 def event_handler (_, widget_name):
     widget_function_mapping = {
-    'kingdom' : update_kingdom,
-    'people' : update_people,
-    'class'  : update_class,
-    'profession' : update_profession,
+    'kingdom'        : update_kingdom,
+    'people'         : update_people,
+    'class'          : update_class,
+    'profession'     : update_profession
     }
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
@@ -132,17 +153,17 @@ characteristic_map = {
     'people'        : {'frame': 'vitals', 'options': people_options},
     'profession'    : {'frame': 'vitals', 'options': profession_options},
     'class'         : {'frame': 'vitals', 'options': class_options},
-    'Strength'      : {'frame': 'characteristics', 'Name' : 'Strength',      'value' :  5, 'type' : 'int'},
-    'Agility'       : {'frame': 'characteristics', 'Name' : 'Agility',       'value' :  5, 'type' : 'int'},
-    'Dexterity'     : {'frame': 'characteristics', 'Name' : 'Dexterity',     'value' :  5, 'type' : 'int'},
-    'Resistance'    : {'frame': 'characteristics', 'Name' : 'Resistance',    'value' : 10, 'type' : 'int'},
-    'Perception'    : {'frame': 'characteristics', 'Name' : 'Perception',    'value' :  5, 'type' : 'int'},
-    'Communication' : {'frame': 'characteristics', 'Name' : 'Communication', 'value' :  5, 'type' : 'int'},
-    'Culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int'},
+    'strength'      : {'frame': 'characteristics', 'name' : 'strength',      'value' :  5, 'type' : 'int'},
+    'agility'       : {'frame': 'characteristics', 'name' : 'agility',       'value' :  5, 'type' : 'int'},
+    'dexterity'     : {'frame': 'characteristics', 'name' : 'dexterity',     'value' :  5, 'type' : 'int'},
+    'resistance'    : {'frame': 'characteristics', 'name' : 'resistance',    'value' : 10, 'type' : 'int'},
+    'perception'    : {'frame': 'characteristics', 'name' : 'perception',    'value' :  5, 'type' : 'int'},
+    'communication' : {'frame': 'characteristics', 'name' : 'communication', 'value' :  5, 'type' : 'int'},
+    'culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int'},
     'IRR'           : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
     'RR'            : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
     'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'},
-    'Appearance'    : {'frame': 'derived',                           'value' :  15, 'type' : 'int'}
+    'appearance'    : {'frame': 'derived',                           'value' :  15, 'type' : 'int'}
 }
 
 #Layout map
@@ -219,7 +240,7 @@ def create_frame_content(frame_name, name_list, rows, cols):
             name :{
                 'label' : {
                     'grid_config' : {'row' :  0 + (idx % rows), 'column' : 0 + ((idx / cols)*2), 'sticky' : "W"},
-                    'self_config' : {'width' : len(name)+2, 'text' : name}
+                    'self_config' : {'width' : len(name)+2, 'text' : name.replace('_',' ').title()}
                     },
                  'entry' : {
                      'grid_config' : {'row' :  0 + ((idx % rows)), 'column' :  1 + ((idx / cols)*2), 'sticky' : "W"},
@@ -260,6 +281,7 @@ def populate_frame(frame_name, configs):
 
             def trace_handler (a,b,c, name=content_name) :
                 return event_handler(None, name)
+
             try:
                 if 'textvariable' in content_configs.get('self_config').keys():
                     content_configs.get('self_config')['textvariable'] = content_data['var']
@@ -279,11 +301,12 @@ def populate_frame(frame_name, configs):
                 content_data[content_type] = new_content
 
 def create_frames (master, name, configs):
-    new_frame = Frame(master, **configs.get('self_config', {}))
+    new_frame = Labelframe(master, text=beautify_text(name), **configs.get('self_config', {}))
     new_frame.columnconfigure(0,weight=1)
     new_frame.rowconfigure(0, weight=1)
     new_frame.grid(**configs.get('grid_config',{}))
     frame_map[name]['frame'] = new_frame
+    #master.add(new_frame, text=name)
 
 if __name__ == "__main__":
     #Place vitals
@@ -292,14 +315,17 @@ if __name__ == "__main__":
 
     root.title("Aqualarre Character sheet")
 
+    #p = Notebook(root)
+    #p.grid(row=0, column=0)
     for name, configs in frame_map.items():
         create_frames(root, name, configs)
+
 
     characteristic_label_strings = [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]
     derived_label_strings = [key for key, val in characteristic_map.items() if 'derived' in val.get('frame','')]
 
-    create_frame_content('language_skills', sorted(language_skills_data), 1,1)
-    create_frame_content('arm_skills', sorted(arm_skills_data), 1,1)
+    create_frame_content('language_skills', sorted(language_skills_data), 2,2)
+    create_frame_content('arm_skills', sorted(arm_skills_data), 2,2)
     create_frame_content('characteristics', characteristic_label_strings, 7, 7)
     create_frame_content('derived', derived_label_strings, 7, 7)
     create_frame_content('skills', sorted(skills_data), 7, 7)
