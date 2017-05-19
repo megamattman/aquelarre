@@ -472,118 +472,110 @@ society:
 
 skills:
     alchemy:
-        characteristic: cul
+        characteristic: culture
     animal_knowledge:
-        characteristic: cul
+        characteristic: culture
     area_knowledge:
-        characteristic: cul
-    artisanry :
-        characteristic: sta
+        characteristic: culture
     astrology :
-        characteristic: cul
+        characteristic: culture
     climb :
-        characteristic: agi
+        characteristic: agility
     crafts :
-        characteristic: dex
+        characteristic: dexterity
     command :
-        characteristic: com
+        characteristic: communication
     commerce :
-        characteristic: com
+        characteristic: communication
     court_etiquette :
-        characteristic: com
+        characteristic: communication
     detection :
-        characteristic: per
+        characteristic: perception
     dodge :
-        characteristic: agi
+        characteristic: agility
     costuming :
-        characteristic: com
-    drive_wagon :
-        characteristic: sta
+        characteristic: communication
+    drive :
+        characteristic: dexterity
     eloquence :
-        characteristic: com
+        characteristic: communication
     empathy :
-        characteristic: per
-    forcing_mechanisms :
-        characteristic: sta
+        characteristic: perception
     gaming :
-        characteristic: sta
+        characteristic: culture
     heal :
-        characteristic: sta
-    hiding :
-        characteristic: sta
-    jumping :
-        characteristic: agi
+        characteristic: dexterity
+    jump :
+        characteristic: agility
     legends :
-        characteristic: cul
+        characteristic: culture
     listen :
-        characteristic: per
+        characteristic: perception
     magical_knowledge :
-        characteristic: cul
+        characteristic: culture
     medicine :
-        characteristic: cul
+        characteristic: culture
     memory :
-        characteristic: per
+        characteristic: perception
     mineral_knowledge :
-        characteristic: cul
+        characteristic: culture
     music :
-        characteristic: cul
-    navigation :
-        characteristic: sta
+        characteristic: culture
     plant_knowledge :
-        characteristic: cul
+        characteristic: culture
     read_write :
-        characteristic: cul
+        characteristic: culture
     ride :
-        characteristic: agi
+        characteristic: agility
     run :
-        characteristic: agi
+        characteristic: agility
     seduction :
-        characteristic: app
+        characteristic: appearance
     sing :
-        characteristic: com
+        characteristic: communication
     sleight_of_hand :
-        characteristic: sta
+        characteristic: dexterity
     stealth :
-        characteristic: agi
+        characteristic: agility
     swim :
-        characteristic: agi
+        characteristic: agility
     tasting :
-        characteristic: per
+        characteristic: perception
     teach :
-        characteristic: com
+        characteristic: communication
     theology :
-        characteristic: cul
+        characteristic: culture
     throw :
-        characteristic: agi
+        characteristic: agility
     torture :
-        characteristic: sta
+        characteristic: communication
     tracking :
-        characteristic: per
+        characteristic: perception
 arm_skills:
     axes :
-        characteristic: str
+        characteristdriveic: strength
     bows :
-        characteristic: per
+        characteristic: perception
     broadswords :
-        characteristic: str
+        characteristdriveic: strength
     clubs :
-        characteristic: agi
+        characteristic: agility
     crossbows :
-        characteristic: per
+        characteristic: perception
     fists :
-        characteristic: agi
+        characteristic: agility
     knives :
-        characteristic: sta
+        characteristic: dexterity
     maces :
-        characteristic: str
+        characteristdriveic: strength
     shields :
-        characteristic: sta
+        characteristic: dexterity
     slings :
-        characteristic: per
+        characteristic: perception
     spears :
-        characteristic: agi
+        characteristic: agility
     swords :
-        characteristic: sta
+        characteristic: dexterity
 
 language_skills:
     - andalusian
@@ -621,7 +613,7 @@ professions:
             - empathy
             - memory
         secondary_skills:
-            - drive_wagon
+            - drive
             - legends
             - language
             - listen
@@ -776,7 +768,7 @@ professions:
             - memory
         secondary_skills:
             - area_knowledge
-            - drive_wagon
+            - drive
             - eloquence
             - empathy
             - knives
@@ -833,7 +825,7 @@ professions:
         secondary_skills:
             - commerce
             - detection
-            - drive_wagon
+            - drive
             - knives
             - language
             - plant_knowledge
@@ -911,7 +903,7 @@ professions:
             communication : 15
         primary_skills:
             - commerce
-            - drive_wagon
+            - drive
             - eloquence
             - empathy
         secondary_skills:
@@ -1246,7 +1238,7 @@ professions:
             perception : 20
         primary_skills:
             - area_knowledge
-            - forcing_mechanisms
+            - pick_lock
             - listen
             - stealth.
         secondary_skills:
@@ -1453,7 +1445,7 @@ professions:
         secondary_skills:
             - area_knowledge
             - detection
-            - drive_wagon or navigate (choose one of the two),
+            - drive
             - conceal
             - listen
             - read_write
@@ -1819,7 +1811,7 @@ professions:
             - commerce
             - detection
             - empathy
-            - pick lock
+            - pick_lock
             - games
             - conceal
             - run
@@ -1869,7 +1861,7 @@ professions:
             agility : 15
             dexterity : 15
         primary_skills:
-            - drive_wagon
+            - drive
             - handcrafts
             - plant_knowledge
             - stealth
@@ -1906,7 +1898,7 @@ professions:
             - brawl
             - detection
             - dodge
-            - drive_wagon
+            - drive
             - heal
             - knives
             - stealth
@@ -1935,7 +1927,7 @@ professions:
             - commerce
             - detection
             - costuming
-            - pick lock
+            - pick_lock
             - listen
             - stealth
             - throw

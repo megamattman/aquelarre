@@ -44,6 +44,10 @@ def get_widget (characteristic, widget_type):
 def beautify_text (text):
     return text.replace('_', ' ').title()
 
+def debeautify_text (text):
+    return text.replace('', '_').lower()
+
+
 def update():
     #for label in characteristic_label_strings:
     #    print "{} = {}".format(label, characteristic_map[label]['var'].get())
@@ -64,7 +68,7 @@ def update_options_menu(target_label, base_list, restrictions):
     widget_to_modify['menu'].delete(0, 'end')
     new_options = [option for option in base_list if option not in restrictions]
     for option in new_options:
-        widget_to_modify['menu'].add_command(label=option, command=lambda v=option: widget_var.set(v))
+        widget_to_modify['menu'].add_command(label=beautify_text(option), command=lambda v=option: widget_var.set(v))
 
 def update_kingdom(_, kingdom_value):
     new_people = kingdoms_data.get(kingdom_value)['people']
@@ -88,8 +92,8 @@ def update_people(_, people_value):
 
 # when updating classes find society base list and then remove people
 def update_class(_, class_value):
-    current_society = get_widget_var('society').get().lower()
-    current_class = class_value.lower()
+    current_society = debeautify_text(get_widget_var('society').get())
+    current_class = debeautify_text(class_value)
     try:
         #class and society determine profession list
         allowed_list = society_data.get(current_society).get('class').get(class_value)
@@ -128,21 +132,31 @@ def update_profession(_, profession_value):
         characteristic_data['var'].set(val)
         characteristic_data['label'].configure(background='red')
 
-def update_skils (skill_data, skill_value):
-    pass
+def update_skills (_, skill_value):
 
+    characteristic_entries = {}
+    for key, val in characteristic_map.items():
+        if 'characteristics' in val.get('frame'):
+            characteristic_entries.update({key:val})
 
+    for skill, data in skills_data.items():
+        skill_var = get_widget_var(skill)
+        skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get())
 
 def event_handler (_, widget_name):
     widget_function_mapping = {
     'kingdom'        : update_kingdom,
     'people'         : update_people,
     'class'          : update_class,
-    'profession'     : update_profession
+    'profession'     : update_profession,
+    'characteristic' : update_skills
     }
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
     if widget_value != '':
+        if widget_name in [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]:
+            widget_name = 'characteristic'
+
         widget_function_mapping[widget_name](widget_data, widget_value)
 
 
@@ -159,11 +173,11 @@ characteristic_map = {
     'resistance'    : {'frame': 'characteristics', 'name' : 'resistance',    'value' : 10, 'type' : 'int'},
     'perception'    : {'frame': 'characteristics', 'name' : 'perception',    'value' :  5, 'type' : 'int'},
     'communication' : {'frame': 'characteristics', 'name' : 'communication', 'value' :  5, 'type' : 'int'},
+    'appearance'    : {'frame': 'characteristics',                           'value' :  15, 'type' : 'int'},
     'culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int'},
     'IRR'           : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
     'RR'            : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
-    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'},
-    'appearance'    : {'frame': 'derived',                           'value' :  15, 'type' : 'int'}
+    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'}
 }
 
 #Layout map
@@ -273,7 +287,7 @@ def populate_frame(frame_name, configs):
         content_data = characteristic_map.get(content_name)
         content_data['var'] = get_tk_var(content_data.get('type', ''))
         content_data['var'].set(content_data.get('value', ''))
-
+        content_data['frame'] = frame_name
         for content_type, content_configs in content_config.items():
             new_content = get_empty_widget(content_type, frame, content_data)
             def focus_out_handler (event, name=content_name) :
@@ -326,7 +340,7 @@ if __name__ == "__main__":
 
     create_frame_content('language_skills', sorted(language_skills_data), 2,2)
     create_frame_content('arm_skills', sorted(arm_skills_data), 2,2)
-    create_frame_content('characteristics', characteristic_label_strings, 7, 7)
+    create_frame_content('characteristics', characteristic_label_strings, 8, 8)
     create_frame_content('derived', derived_label_strings, 7, 7)
     create_frame_content('skills', sorted(skills_data), 7, 7)
 
@@ -337,6 +351,6 @@ if __name__ == "__main__":
 
     for key, val in frame_map.items():
         for child in val['frame'].winfo_children():
-            child.grid_configure(padx=1, pady=1)
+            child.grid_configure(padx=2, pady=2)
 
     root.mainloop()
