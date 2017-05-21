@@ -551,31 +551,65 @@ skills:
         characteristic: communication
     tracking :
         characteristic: perception
-arm_skills:
+arms_skills:
     axes :
         characteristdriveic: strength
+        class:
+            - townsfolk
+            - soldier
     bows :
         characteristic: perception
+        class:
+            - townsfolk
+            - soldier
     broadswords :
-        characteristdriveic: strength
-    clubs :
+        characteristic: strength
+        class:
+            - noble
+    staves :
         characteristic: agility
+        class:
+            - townsfolk
     crossbows :
         characteristic: perception
+        class:
+            - soldier
+            - noble
     fists :
         characteristic: agility
+        class:
+            -townsfolk
+            -soldier
+            -noble
     knives :
         characteristic: dexterity
+        class:
+            -townsfolk
+            -soldier
+            -noble
     maces :
         characteristdriveic: strength
+        class:
+            - townsfolk
+            - soldier
     shields :
         characteristic: dexterity
+        class:
+            - noble
+            - soldier
     slings :
         characteristic: perception
+        class:
+            - townsfolk
     spears :
         characteristic: agility
+        class:
+            - noble
+            - soldier
     swords :
         characteristic: dexterity
+        class:
+            - noble
 
 language_skills:
     - andalusian
@@ -615,7 +649,16 @@ professions:
         secondary_skills:
             - drive
             - legends
-            - language
+            - language_skills:
+                1 :
+            - arms_skill:
+                - restrictions:
+                        class:
+                           - townsfolk
+                - restrictions:
+                        class:
+                           - noble
+                           - soldier
             - listen
             - sleight_of_hand
             - teach

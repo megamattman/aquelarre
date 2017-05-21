@@ -109,7 +109,7 @@ language_skills:
         row: 3
         column: 2
         sticky: W
-arm_skills:
+arms_skills:
     grid_config:
         row: 4
         column: 2

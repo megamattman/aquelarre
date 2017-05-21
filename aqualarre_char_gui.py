@@ -15,10 +15,9 @@ imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
 
-
 skills_data = data.get('skills', {})
 language_skills_data = data.get('language_skills', {})
-arm_skills_data = data.get('arm_skills', {})
+arms_skills_data = data.get('arms_skills', {})
 kingdoms_data = data.get('kingdoms', {})
 people_data = data.get('people', {})
 professions_data = data.get('professions', {})
@@ -50,6 +49,28 @@ def get_subdict(big_dict, search_filter, element):
         if search_filter in val.get(element):
             sub_dict.update({key:val})
     return sub_dict
+
+#return two lists, a list of skills and a list of selections
+def seperate_skills_from_selections(skill_list):
+    print "boop"
+    selection_list = []
+    output_skills = []
+    for skill in skill_list:
+        if type(skill) is type (dict()):
+            selection_list.append(skill)
+            continue
+        output_skills.append(skill)
+
+    pprint (selection_list)
+    derived_selection_lists = []
+    for skill_type, selections, in selection_list.items():
+        if 'arms_skill' in 'skill_type':
+            base_list = names_by_frame('arms_skill')
+            for selection in selections:
+                for widget_type, widget_value in selection.get('exclusion', {}).items():
+                    derived_list.append (arms_skill_data.get(widget_type))
+
+    return output_skills, selection_list
 
 text_exceptions = {'RR':'RR', 'IRR':'IRR'}
 def beautify_text (text):
@@ -85,11 +106,14 @@ def clear():
         else :
             val.get('var').set('')
 
+def filter_list (base_list, exclusion_list):
+    return [item for item in base_list if item not in exlcusion_list]
+
 def update_options_menu(target_label, base_list, restrictions):
     widget_to_modify = characteristic_map[target_label]['option_menu']
     widget_var = get_widget_var(target_label)
     widget_to_modify['menu'].delete(0, 'end')
-    new_options = [option for option in base_list if option not in restrictions]
+    new_options = filter_list(base_list, restrictions)
     for option in new_options:
         widget_to_modify['menu'].add_command(label=beautify_text(option), command=lambda v=option: widget_var.set(v))
 
@@ -126,14 +150,17 @@ def update_class(_, class_value):
         print e
         print "{} {} bad combination when filtering professions".format(current_society, current_class)
 
-
 def update_profession(_, profession_value):
     #unset any changes made by previous professions
     update_widget_list(skills_data.keys(), 'label', background='SystemButtonFace')
     update_widget_list(names_by_frame('characteristics'), 'label', background='SystemButtonFace')
 
     new_profession = professions_data[profession_value]
-    #previous_profession = new_profession
+    #get skill list keeping in mind slection options
+
+    primary_skill_list, primary_selections = seperate_skills_from_selections(new_profession.get('primary_skills'))
+    secondary_skill_list, secondary_selections = seperate_skills_from_selections(new_profession.get('secondary_skills'))
+
     update_widget_list(new_profession.get('primary_skills'), 'label', background='grey')
     update_widget_list(new_profession.get('secondary_skills'), 'label', background='yellow')
 
@@ -143,6 +170,8 @@ def update_profession(_, profession_value):
 
     update_skills("","")
 
+# sets skills to value based on characteristic
+# doesn't account for user made changes'
 def update_skills (_, skill_value):
     characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
     for skill, data in skills_data.items():
@@ -359,7 +388,7 @@ if __name__ == "__main__":
     derived_label_strings = [key for key, val in characteristic_map.items() if 'derived' in val.get('frame','')]
 
     create_frame_content('language_skills', sorted(language_skills_data), 2,2)
-    create_frame_content('arm_skills', sorted(arm_skills_data), 2,2)
+    create_frame_content('arms_skills', sorted(arms_skills_data), 2,2)
     create_frame_content('characteristics', characteristic_label_strings, 8, 8)
     create_frame_content('derived', derived_label_strings, 7, 7)
     create_frame_content('skills', sorted(skills_data), 7, 7)
