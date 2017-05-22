@@ -554,11 +554,13 @@ skills:
 
 arms_skills:
     axes :
+        name: axes
         characteristic: strength
         class:
             - townsfolk
             - soldier
     bows :
+        name: bows
         characteristic: perception
         class:
             - townsfolk
@@ -566,16 +568,19 @@ arms_skills:
         feature:
             - non_bladed
     broadswords :
+        name : broadswords
         characteristic: strength
         class:
             - noble
     staves :
+        name: staves
         characteristic: agility
         class:
             - townsfolk
         feature:
             - non_bladed
     crossbows :
+        name : crossbows
         characteristic: perception
         class:
             - soldier
@@ -583,6 +588,7 @@ arms_skills:
         feature:
             - non_bladed
     fists :
+        name : fists
         characteristic: agility
         class:
             - townsfolk
@@ -591,12 +597,14 @@ arms_skills:
         feature:
             - non_bladed
     knives :
+        name: knives
         characteristic: dexterity
         class:
             - townsfolk
             - soldier
             - noble
     maces :
+        name : maces
         characteristic: strength
         class:
             - townsfolk
@@ -604,6 +612,7 @@ arms_skills:
         feature:
             - non_bladed
     shields :
+        name : shields
         characteristic: dexterity
         class:
             - noble
@@ -611,45 +620,76 @@ arms_skills:
         feature:
             - non_bladed
     slings :
+        name: slings
         characteristic: perception
         class:
             - townsfolk
         feature:
             - non_bladed
     spears :
+        name: spears
         characteristic: agility
         class:
             - noble
             - soldier
     swords :
+        name : swords
         characteristic: dexterity
         class:
             - noble
 
 language_skills:
     andalusian:
+        name :
+            - andalusian
         characteristic: culture
     arabic:
+        name :
+            - arabic
         characteristic: culture
     aragonese:
+        name :
+            - aragonese
         characteristic: culture
     asturleonese:
+        name :
+            - asturleonese
         characteristic: culture
     castilian:
+        name :
+            - castilian
         characteristic: culture
     catalan:
+        name :
+            - catalan
         characteristic: culture
     euskara:
+        name :
+            - euskara
         characteristic: culture
     galician:
+        name :
+            - galician
+        characteristic: culture
+    greek :
+        name :
+            - greek
         characteristic: culture
     hebrew:
+        name :
+            - hebrew
         characteristic: culture
     latin:
+        name :
+            - latin
         characteristic: culture
     ladino:
+        name :
+            - ladino
         characteristic: culture
     mozarab:
+        name :
+            - mozarab
         characteristic: culture
 
 professions:
@@ -681,13 +721,6 @@ professions:
                 requirements:
                     class:
                        - townsfolk
-            - arms_skills:
-                requirements:
-                    class:
-                       - noble
-                       - soldier
-                    feature:
-                        - non_bladed
             - listen
             - sleight_of_hand
             - teach
@@ -702,8 +735,6 @@ professions:
             observes and studies the diverse secrets of nature, as did alberto magno, roger bacon, al-raze,
             and ibn hayyan. alchemists are solitary and often elderly people who tend to be well versed in
             nearly all aspects of human knowledge, frequently including magic and the occult.
-            language (greek)
-            language (latin)
         minimum_characteristics:
             culture : 20
         primary_skills:
@@ -715,8 +746,14 @@ professions:
             - animal_knowledge
             - empathy
             - heal
-            - language
-            - language
+            - language_skills:
+                requirements:
+                    name:
+                        - greek
+            - language_skills:
+                requirements:
+                    name:
+                        - latin
             - mineral_knowledge
             - plant_knowledge
             - teach

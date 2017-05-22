@@ -92,6 +92,7 @@ def derive_skill_list_from_requirements(skill_type, requirements):
             else :
                 if item in output_list:
                     output_list.remove(item)
+
     return output_list
 
 #return two lists, a list of skills and a list of selections
@@ -109,6 +110,11 @@ def seperate_skills_from_selections(skill_list):
     for skill_selection in selection_list:
         for skills_type, requirement_map in skill_selection.items():
             final_selection_list.append(derive_skill_list_from_requirements(skills_type, requirement_map))
+
+    for skill_list in final_selection_list:
+        if len(skill_list) == 1:
+            output_skills.append(skill_list[0])
+            del skill_list[0]
     return output_skills, final_selection_list
 
 def update():
