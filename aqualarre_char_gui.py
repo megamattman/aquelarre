@@ -111,10 +111,21 @@ def seperate_skills_from_selections(skill_list):
         for skills_type, requirement_map in skill_selection.items():
             final_selection_list.append(derive_skill_list_from_requirements(skills_type, requirement_map))
 
-    for skill_list in final_selection_list:
+    for idx, skill_list in enumerate(final_selection_list):
         if len(skill_list) == 1:
             output_skills.append(skill_list[0])
             del skill_list[0]
+        else:
+            print "im here"
+            print output_skills
+            skill_list = filter_list(skill_list, output_skills)
+            pprint (character_data)
+            if 'skills' in character_data.keys() and 'primary_skills' in character_data.get('skills').keys():
+                skill_list = filter_list(skill_list, character_data.get('skills').get('primary_skills'))
+                final_selection_list[idx] = skill_list
+
+
+
     return output_skills, final_selection_list
 
 def update():
@@ -181,20 +192,23 @@ def update_profession(_, profession_value):
     new_profession = professions_data[profession_value]
     #get skill list keeping in mind slection options
 
+    if 'skills' not in character_data.keys():
+        character_data['skills'] = {}
+
     primary_skill_list, primary_selections = seperate_skills_from_selections(new_profession.get('primary_skills'))
+    character_data['skills']['primary_skills'] = primary_skill_list
+    character_data['skills']['primary_selections'] = primary_selections
+
     secondary_skill_list, secondary_selections = seperate_skills_from_selections(new_profession.get('secondary_skills'))
+    character_data['skills']['secondary_skills'] = secondary_skill_list
+    character_data['skills']['secondary_selections'] = secondary_selections
 
     update_widget_list(primary_skill_list, 'label', background='green')
     update_widget_list(secondary_skill_list, 'label', background='yellow')
 
-    if 'skills' not in character_data.keys():
-        character_data['skills'] = {}
 
-    character_data['skills']['primary_skills'] = primary_skill_list
-    character_data['skills']['primary_selections'] = primary_selections
 
-    character_data['skills']['secondary_skills'] = secondary_skill_list
-    character_data['skills']['secondary_selections'] = secondary_selections
+
 
     if primary_selections:
         update_widget_list(primary_selections[0], 'label', background='grey')
@@ -230,7 +244,7 @@ def update_skills (_, skill_value):
 
 
 def update_selections(selection_skill_list, selected_skill_list, color):
-    skill_to_update = [skill for skill in selection_skill_list if skill not in selected_skill_list]
+    skill_to_update = filter_list(selection_skill_list, selected_skill_list)
     update_widget_list(skill_to_update, 'label', background=color)
 
 def select_skill(widget_data, widget_value):
@@ -255,7 +269,7 @@ def select_skill(widget_data, widget_value):
 
         update_selections(selection_skill_list, selected_skill_list, 'SystemButtonFace')
         del character_data.get('skills').get('{}_selections'.format(skill_list))[0]
-
+        next_selection_skill_list = []
         if character_data.get('skills').get('{}_selections'.format(skill_list)):
             next_selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_list))[0]
         elif 'primary' in skill_list and character_data.get('skills').get('secondary_selections'):

@@ -539,7 +539,7 @@ skills:
         characteristic: agility
     swim :
         characteristic: agility
-    tasting :
+    taste :
         characteristic: perception
     teach :
         characteristic: communication
@@ -549,7 +549,7 @@ skills:
         characteristic: agility
     torture :
         characteristic: communication
-    tracking :
+    track :
         characteristic: perception
 
 arms_skills:
@@ -746,14 +746,8 @@ professions:
             - animal_knowledge
             - empathy
             - heal
-            - language_skills:
-                requirements:
-                    name:
-                        - greek
-            - language_skills:
-                requirements:
-                    name:
-                        - latin
+            - greek
+            - latin
             - mineral_knowledge
             - plant_knowledge
             - teach
@@ -772,8 +766,6 @@ professions:
             cities of castile, the rest of the peninsular kingdoms have a similar concept, although called
             something different: in the crown of aragon they are called guaita (“guard”), and in the nasrid
             kingdom they are alwazir (“the official”).
-            primary - skill  1 chosen arms skill from the townsfolk or soldier categories.
-            secondary - 1 chosen arms skill from the townsfolk or soldier categories.
         minimum_characteristics:
             agility : 15
             dexterity : 15.
@@ -781,6 +773,11 @@ professions:
             - area_knowledge
             - listen
             - run
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - command
             - detection
@@ -789,6 +786,11 @@ professions:
             - stealth
             - torture
             - track
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         monthly_income: >
             a senior alguacil (burgher class) receives 750 maravedíes each month, while the
             rest of the alguacils, minor guards or “sword guards” (townsfolk social class), receive only 80
@@ -807,8 +809,6 @@ professions:
             to fight on foot, carrying light arms and armor that doesn’t slow movement, especially shields and
             large knives—which they call coltells. their war cry, “¡desperta ferro!” (“iron, awake!”), is known
             throughout the peninsula.
-            primary: - 1 chosen arms skill from the townsfolk or soldier categories.
-            secondary: - 1 arms skill of your choice bows crossbows or slings
         minimum_characteristics:
             agility : 20
             dexterity : 20
@@ -816,6 +816,11 @@ professions:
             - dodge
             - stealth
             - shields
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - discovery
             - heal
@@ -824,6 +829,12 @@ professions:
             - run
             - torture
             - track
+            - arms_skills:
+                requirements:
+                    name:
+                       - bows
+                       - crossbows
+                       - slings
         monthly_income: >
             as many maravedíes as your percentage in luck x2
 
@@ -844,6 +855,7 @@ professions:
             - detection
             - stealth
             - teach
+            - crafts
         secondary_skills:
             - command
             - crafts
@@ -883,7 +895,8 @@ professions:
             - knives
             - listen
             - read_write
-            - teach.
+            - teach
+            - area_knowledge
         monthly_income: >
             your crafts percentage in maravedíes.
 
@@ -903,6 +916,11 @@ professions:
             - detection
             - stealth
             - torture
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - area_knowledge
             - climb
@@ -967,6 +985,10 @@ professions:
             - conceal
             - language
             - stealth
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             half your percentage in eloquence in maravedíes.
 
@@ -1023,6 +1045,10 @@ professions:
             - sleight_of_hand
             - plant_knowledge
             - run
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in eloquence in maravedíes.
 
@@ -1106,7 +1132,10 @@ professions:
             - language
             - listen
             - read_write
-            - stealth
+            - stealth- arms_skills:
+                requirements:
+                    class:
+                       - noble
         monthly_income: >
             courtiers of the upper nobility receive 1,800 maravedíes each month. the rest
             (lower nobility) get only 500 maravedíes.
@@ -1137,6 +1166,10 @@ professions:
             - medicine
             - mineral_knowledge
             - plant_knowledge
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in heal in maravedíes. curanderas belonging to the slave class
             are maintained by their master.
@@ -1196,6 +1229,12 @@ professions:
             - bows
             - ride
             - theology
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
+                       - noble
         secondary_skills:
             - command
             - detection
@@ -1243,6 +1282,11 @@ professions:
             - language
             - run
             - theology
+            - latin
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in read_write in maravedíes, an amount usually spent rapidly.
 
@@ -1297,6 +1341,10 @@ professions:
             - ride
             - plant_knowledge
             - throw
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in track in maravedíes.
 
