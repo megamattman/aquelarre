@@ -182,45 +182,60 @@ def update_class(_, class_value):
         print e
         print "{} {} bad combination when filtering professions".format(current_society, current_class)
 
-def update_profession(_, profession_value):
-    #unset any changes made by previous professions
+def mark_proffesion_skills (skill_type, profession):
+    skill_type_config = {
+        'primary' : {
+            'label' : 'primary_skills',
+            'select': 'primary_selections',
+            'color' : 'green'
+        },
+        'secondary' : {
+            'label' : 'secondary_skills',
+            'select': 'secondary_selections',
+            'color' : 'yellow'
+        }
+    }
+    config = skill_type_config.get(skill_type)
+    skill_list, skill_selections = seperate_skills_from_selections(profession.get(config.get('label')))
+    character_data['skills'][config.get('label')] = skill_list
+    character_data['skills'][config.get('select')] = skill_selections
+    update_widget_list(skill_list, 'label', background=config.get('color'))
+
+def reset_profession_changes():
     update_widget_list(skills_data.keys(), 'label', background='SystemButtonFace')
     update_widget_list(arms_skills_data.keys(), 'label', background='SystemButtonFace')
     update_widget_list(language_skills_data.keys(), 'label', background='SystemButtonFace')
     update_widget_list(names_by_frame('characteristics'), 'label', background='SystemButtonFace')
+    characteristics = names_by_frame('characteristics')
+    for characteristic in characteristics:
+        characteristic_data = characteristic_map.get(characteristic)
+        characteristic_data.get('var').set(characteristic_data.get('value'))
 
+
+def update_profession(_, profession_value):
     new_profession = professions_data[profession_value]
     #get skill list keeping in mind slection options
+    reset_profession_changes()
 
     if 'skills' not in character_data.keys():
         character_data['skills'] = {}
 
-    primary_skill_list, primary_selections = seperate_skills_from_selections(new_profession.get('primary_skills'))
-    character_data['skills']['primary_skills'] = primary_skill_list
-    character_data['skills']['primary_selections'] = primary_selections
+    mark_proffesion_skills('primary', new_profession)
+    mark_proffesion_skills('secondary', new_profession)
 
-    secondary_skill_list, secondary_selections = seperate_skills_from_selections(new_profession.get('secondary_skills'))
-    character_data['skills']['secondary_skills'] = secondary_skill_list
-    character_data['skills']['secondary_selections'] = secondary_selections
+    if character_data['skills']['primary_selections']:
+        update_widget_list(character_data['skills']['primary_selections'][0], 'label', background='grey')
+    elif character_data['skills']['secondary_selections']:
+        update_widget_list(character_data['skills']['secondary_selections'][0], 'label', background='grey')
 
-    update_widget_list(primary_skill_list, 'label', background='green')
-    update_widget_list(secondary_skill_list, 'label', background='yellow')
-
-
-
-
-
-    if primary_selections:
-        update_widget_list(primary_selections[0], 'label', background='grey')
-    elif secondary_selections:
-        update_widget_list(secondary_selections[0], 'label', background='grey')
-
-    for characteristic, val in new_profession.get('minimum_characteristics').items():
-        get_widget_var(characteristic).set(val)
-        update_widget(characteristic, 'label', background='red')
+    try :
+        for characteristic, val in new_profession.get('minimum_characteristics', {}).items():
+            get_widget_var(characteristic).set(val)
+            update_widget(characteristic, 'label', background='red')
+    except:
+        print "no minimum characteristics for {}".format(profession_value)
 
     update_skills("","")
-
 
 def set_skills (skill_data):
     characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
@@ -233,8 +248,10 @@ def set_skills (skill_data):
             multiplier = 3
         try:
             skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get() * multiplier)
-        except:
-            print "No problem getting characteristic from {}\n{}".format(skill, data)
+        except Exception as e:
+            print e
+
+
 
 # sets skills to value based on characteristic
 # doesn't account for user made changes'
@@ -243,40 +260,46 @@ def update_skills (_, skill_value):
     set_skills(arms_skills_data)
 
 
-def update_selections(selection_skill_list, selected_skill_list, color):
+def update_selections(selection_skill_list, selected_skill_list, color, skill_type):
+    skill_type_mapping = {
+        'primary' : 'secondary',
+        'secondary' : 'primary'
+    }
+    character_skills = character_data['skills']["{}_skills".format(skill_type_mapping.get(skill_type))]
     skill_to_update = filter_list(selection_skill_list, selected_skill_list)
+    skill_to_update = filter_list(selection_skill_list, character_skills)
     update_widget_list(skill_to_update, 'label', background=color)
 
 def select_skill(widget_data, widget_value):
     if 'grey' in str(widget_data['label']['background']):
         background_color = 'grey'
-        skill_list = ""
+        skill_type = ""
         if character_data.get('skills').get('primary_selections'):
             background_color = 'green'
-            skill_list = 'primary'
+            skill_type = 'primary'
         elif character_data.get('skills').get('secondary_selections'):
             print 'secondary'
             background_color = 'yellow'
-            skill_list = 'secondary'
+            skill_type = 'secondary'
 
         widget_data['label'].configure(background=background_color)
         skill_text = debeautify_text(widget_data['label'].cget('text'))
-        selected_skill_list = character_data.get('skills').get('{}_skills'.format(skill_list))
+        selected_skill_list = character_data.get('skills').get('{}_skills'.format(skill_type))
         selected_skill_list.append(skill_text)
 
-        selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_list))[0]
+        selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_type))[0]
         selection_skill_list.remove(skill_text)
 
-        update_selections(selection_skill_list, selected_skill_list, 'SystemButtonFace')
-        del character_data.get('skills').get('{}_selections'.format(skill_list))[0]
+        update_selections(selection_skill_list, selected_skill_list, 'SystemButtonFace', skill_type)
+        del character_data.get('skills').get('{}_selections'.format(skill_type))[0]
         next_selection_skill_list = []
-        if character_data.get('skills').get('{}_selections'.format(skill_list)):
-            next_selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_list))[0]
-        elif 'primary' in skill_list and character_data.get('skills').get('secondary_selections'):
+        if character_data.get('skills').get('{}_selections'.format(skill_type)):
+            next_selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_type))[0]
+        elif 'primary' in skill_type and character_data.get('skills').get('secondary_selections'):
             next_selection_skill_list = character_data.get('skills').get('secondary_selections')[0]
 
         if next_selection_skill_list:
-            update_selections(next_selection_skill_list, selected_skill_list, 'grey')
+            update_selections(next_selection_skill_list, selected_skill_list, 'grey', skill_type)
 
 
 def event_handler (_, widget_name):
@@ -421,7 +444,7 @@ def populate_frame(frame_name, configs):
             characteristic_map[content_name] = {}
         content_data = characteristic_map.get(content_name)
         content_data['var'] = get_tk_var(content_data.get('type', ''))
-        content_data['var'].set(content_data.get('value', ''))
+        content_data['var'].set(content_data.get('value', '0'))
         content_data['frame'] = frame_name
         for content_type, content_configs in content_config.items():
             new_content = get_empty_widget(content_type, frame, content_data)

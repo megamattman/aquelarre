@@ -487,6 +487,8 @@ skills:
         characteristic: communication
     commerce :
         characteristic: communication
+    conceal :
+        characteristic : dexterity
     court_etiquette :
         characteristic: communication
     detection :
@@ -501,7 +503,7 @@ skills:
         characteristic: communication
     empathy :
         characteristic: perception
-    gaming :
+    games :
         characteristic: culture
     heal :
         characteristic: dexterity
@@ -587,8 +589,8 @@ arms_skills:
             - noble
         feature:
             - non_bladed
-    fists :
-        name : fists
+    brawl :
+        name : brawl
         characteristic: agility
         class:
             - townsfolk
@@ -822,7 +824,7 @@ professions:
                        - townsfolk
                        - soldier
         secondary_skills:
-            - discovery
+            - detection
             - heal
             - knives
             - listen
@@ -861,7 +863,7 @@ professions:
             - crafts
             - empathy
             - heal
-            - language
+            - language_skills:
             - listen
             - memory
             - plant_knowledge
