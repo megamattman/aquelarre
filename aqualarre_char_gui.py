@@ -29,6 +29,8 @@ profession_options = sorted(professions_data.keys())
 
 previous_profession = ""
 
+character_data = {}
+
 #this should be derived from people
 class_options = ['upper_nobility', 'lesser_nobility', 'burgher', 'townsfolk', 'peasant', 'slave']
 
@@ -50,35 +52,13 @@ def get_subdict(big_dict, search_filter, element):
             sub_dict.update({key:val})
     return sub_dict
 
-#return two lists, a list of skills and a list of selections
-def seperate_skills_from_selections(skill_list):
-    print "boop"
-    selection_list = []
-    output_skills = []
-    for skill in skill_list:
-        if type(skill) is type (dict()):
-            selection_list.append(skill)
-            continue
-        output_skills.append(skill)
-
-    pprint (selection_list)
-    derived_selection_lists = []
-    for skill_type, selections, in selection_list.items():
-        if 'arms_skill' in 'skill_type':
-            base_list = names_by_frame('arms_skill')
-            for selection in selections:
-                for widget_type, widget_value in selection.get('exclusion', {}).items():
-                    derived_list.append (arms_skill_data.get(widget_type))
-
-    return output_skills, selection_list
-
 text_exceptions = {'RR':'RR', 'IRR':'IRR'}
 def beautify_text (text):
     return text_exceptions.get(text,text.replace('_', ' ').title())
 
 def debeautify_text (text):
     print text
-    return text_exceptions.get(text,text.replace('', '_').lower())
+    return text_exceptions.get(text,text.replace(' ', '_').lower())
 
 def update_widget (characteristic, widget_type, **config):
     widget = get_widget(characteristic, widget_type)
@@ -91,6 +71,45 @@ def update_widget_list(widget_list, widget_type, **config):
         except:
             print "BAD widget combination {} {}".format(widget, widget_type)
             continue
+
+def filter_list (base_list, exclusion_list):
+    return [item for item in base_list if item not in exclusion_list]
+
+def derive_skill_list_from_requirements(skill_type, requirements):
+    data_map = {
+    'language_skills' : language_skills_data,
+    'arms_skills'     : arms_skills_data
+    }
+    skill_data = data_map[skill_type]
+    #no requirements, return enture skill list
+    if not requirements:
+        return skill_data.keys()
+    output_list = []
+    for requirement_key, requirement_values in requirements.get('requirements', {}).items():
+        for item, data in skill_data.items():
+            if [data_item for data_item in data.get(requirement_key,[]) if data_item in requirement_values]:
+                output_list.append(item)
+            else :
+                if item in output_list:
+                    output_list.remove(item)
+    return output_list
+
+#return two lists, a list of skills and a list of selections
+def seperate_skills_from_selections(skill_list):
+    print "boop"
+    selection_list = []
+    output_skills = []
+    for skill in skill_list:
+        if type(skill) is type (dict()):
+            selection_list.append(skill)
+            continue
+        output_skills.append(skill)
+
+    final_selection_list = []
+    for skill_selection in selection_list:
+        for skills_type, requirement_map in skill_selection.items():
+            final_selection_list.append(derive_skill_list_from_requirements(skills_type, requirement_map))
+    return output_skills, final_selection_list
 
 def update():
     #for label in characteristic_label_strings:
@@ -106,9 +125,6 @@ def clear():
         else :
             val.get('var').set('')
 
-def filter_list (base_list, exclusion_list):
-    return [item for item in base_list if item not in exlcusion_list]
-
 def update_options_menu(target_label, base_list, restrictions):
     widget_to_modify = characteristic_map[target_label]['option_menu']
     widget_var = get_widget_var(target_label)
@@ -120,7 +136,6 @@ def update_options_menu(target_label, base_list, restrictions):
 def update_kingdom(_, kingdom_value):
     new_people = kingdoms_data.get(kingdom_value)['people']
     update_options_menu('people', new_people, [])
-
 
 #Setting people can impact profession AND class
 #Not going to support backwards gen i.e. people -> kingdom
@@ -153,6 +168,8 @@ def update_class(_, class_value):
 def update_profession(_, profession_value):
     #unset any changes made by previous professions
     update_widget_list(skills_data.keys(), 'label', background='SystemButtonFace')
+    update_widget_list(arms_skills_data.keys(), 'label', background='SystemButtonFace')
+    update_widget_list(language_skills_data.keys(), 'label', background='SystemButtonFace')
     update_widget_list(names_by_frame('characteristics'), 'label', background='SystemButtonFace')
 
     new_profession = professions_data[profession_value]
@@ -161,8 +178,22 @@ def update_profession(_, profession_value):
     primary_skill_list, primary_selections = seperate_skills_from_selections(new_profession.get('primary_skills'))
     secondary_skill_list, secondary_selections = seperate_skills_from_selections(new_profession.get('secondary_skills'))
 
-    update_widget_list(new_profession.get('primary_skills'), 'label', background='grey')
-    update_widget_list(new_profession.get('secondary_skills'), 'label', background='yellow')
+    update_widget_list(primary_skill_list, 'label', background='green')
+    update_widget_list(secondary_skill_list, 'label', background='yellow')
+
+    if 'skills' not in character_data.keys():
+        character_data['skills'] = {}
+
+    character_data['skills']['primary_skills'] = primary_skill_list
+    character_data['skills']['primary_selections'] = primary_selections
+
+    character_data['skills']['secondary_skills'] = secondary_skill_list
+    character_data['skills']['secondary_selections'] = secondary_selections
+
+    if primary_selections:
+        update_widget_list(primary_selections[0], 'label', background='grey')
+    elif secondary_selections:
+        update_widget_list(secondary_selections[0], 'label', background='grey')
 
     for characteristic, val in new_profession.get('minimum_characteristics').items():
         get_widget_var(characteristic).set(val)
@@ -170,22 +201,62 @@ def update_profession(_, profession_value):
 
     update_skills("","")
 
-# sets skills to value based on characteristic
-# doesn't account for user made changes'
-def update_skills (_, skill_value):
+
+def set_skills (skill_data):
     characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
-    for skill, data in skills_data.items():
+    for skill, data in skill_data.items():
         skill_widget = get_widget(skill, 'label')
         skill_var = get_widget_var(skill)
         multiplier = 1
         widget_color = str(skill_widget.cget('background'))
         if 'green' in widget_color:
             multiplier = 3
-        skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get() * multiplier)
+        try:
+            skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get() * multiplier)
+        except:
+            print "No problem getting characteristic from {}\n{}".format(skill, data)
 
-def select_skill(widget_data, _):
+# sets skills to value based on characteristic
+# doesn't account for user made changes'
+def update_skills (_, skill_value):
+    set_skills(skills_data)
+    set_skills(arms_skills_data)
+
+
+def update_selections(selection_skill_list, selected_skill_list, color):
+    skill_to_update = [skill for skill in selection_skill_list if skill not in selected_skill_list]
+    update_widget_list(skill_to_update, 'label', background=color)
+
+def select_skill(widget_data, widget_value):
     if 'grey' in str(widget_data['label']['background']):
-        widget_data['label'].configure(background='green')
+        background_color = 'grey'
+        skill_list = ""
+        if character_data.get('skills').get('primary_selections'):
+            background_color = 'green'
+            skill_list = 'primary'
+        elif character_data.get('skills').get('secondary_selections'):
+            print 'secondary'
+            background_color = 'yellow'
+            skill_list = 'secondary'
+
+        widget_data['label'].configure(background=background_color)
+        skill_text = debeautify_text(widget_data['label'].cget('text'))
+        selected_skill_list = character_data.get('skills').get('{}_skills'.format(skill_list))
+        selected_skill_list.append(skill_text)
+
+        selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_list))[0]
+        selection_skill_list.remove(skill_text)
+
+        update_selections(selection_skill_list, selected_skill_list, 'SystemButtonFace')
+        del character_data.get('skills').get('{}_selections'.format(skill_list))[0]
+
+        if character_data.get('skills').get('{}_selections'.format(skill_list)):
+            next_selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_list))[0]
+        elif 'primary' in skill_list and character_data.get('skills').get('secondary_selections'):
+            next_selection_skill_list = character_data.get('skills').get('secondary_selections')[0]
+
+        if next_selection_skill_list:
+            update_selections(next_selection_skill_list, selected_skill_list, 'grey')
 
 
 def event_handler (_, widget_name):

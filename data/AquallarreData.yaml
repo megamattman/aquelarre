@@ -551,9 +551,10 @@ skills:
         characteristic: communication
     tracking :
         characteristic: perception
+
 arms_skills:
     axes :
-        characteristdriveic: strength
+        characteristic: strength
         class:
             - townsfolk
             - soldier
@@ -562,6 +563,8 @@ arms_skills:
         class:
             - townsfolk
             - soldier
+        feature:
+            - non_bladed
     broadswords :
         characteristic: strength
         class:
@@ -570,37 +573,49 @@ arms_skills:
         characteristic: agility
         class:
             - townsfolk
+        feature:
+            - non_bladed
     crossbows :
         characteristic: perception
         class:
             - soldier
             - noble
+        feature:
+            - non_bladed
     fists :
         characteristic: agility
         class:
-            -townsfolk
-            -soldier
-            -noble
+            - townsfolk
+            - soldier
+            - noble
+        feature:
+            - non_bladed
     knives :
         characteristic: dexterity
         class:
-            -townsfolk
-            -soldier
-            -noble
+            - townsfolk
+            - soldier
+            - noble
     maces :
-        characteristdriveic: strength
+        characteristic: strength
         class:
             - townsfolk
             - soldier
+        feature:
+            - non_bladed
     shields :
         characteristic: dexterity
         class:
             - noble
             - soldier
+        feature:
+            - non_bladed
     slings :
         characteristic: perception
         class:
             - townsfolk
+        feature:
+            - non_bladed
     spears :
         characteristic: agility
         class:
@@ -612,18 +627,30 @@ arms_skills:
             - noble
 
 language_skills:
-    - andalusian
-    - arabic
-    - aragonese
-    - asturleonese
-    - castilian
-    - catalan
-    - euskara
-    - galician
-    - hebrew
-    - latin
-    - ladino
-    - mozarab
+    andalusian:
+        characteristic: culture
+    arabic:
+        characteristic: culture
+    aragonese:
+        characteristic: culture
+    asturleonese:
+        characteristic: culture
+    castilian:
+        characteristic: culture
+    catalan:
+        characteristic: culture
+    euskara:
+        characteristic: culture
+    galician:
+        characteristic: culture
+    hebrew:
+        characteristic: culture
+    latin:
+        characteristic: culture
+    ladino:
+        characteristic: culture
+    mozarab:
+        characteristic: culture
 
 professions:
     actor:
@@ -650,15 +677,17 @@ professions:
             - drive
             - legends
             - language_skills:
-                1 :
-            - arms_skill:
-                - restrictions:
-                        class:
-                           - townsfolk
-                - restrictions:
-                        class:
-                           - noble
-                           - soldier
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+            - arms_skills:
+                requirements:
+                    class:
+                       - noble
+                       - soldier
+                    feature:
+                        - non_bladed
             - listen
             - sleight_of_hand
             - teach
