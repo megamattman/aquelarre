@@ -523,6 +523,8 @@ skills:
         characteristic: culture
     music :
         characteristic: culture
+    pick_lock :
+        characteristic: dexterity
     plant_knowledge :
         characteristic: culture
     read_write :
@@ -539,6 +541,8 @@ skills:
         characteristic: dexterity
     stealth :
         characteristic: agility
+    shiphandling :
+        characteristic: dexterity
     swim :
         characteristic: agility
     taste :
@@ -898,7 +902,6 @@ professions:
             - listen
             - read_write
             - teach
-            - area_knowledge
         monthly_income: >
             your crafts percentage in maravedíes.
 
@@ -956,7 +959,7 @@ professions:
             - detection
             - drive
             - knives
-            - language
+            - language_skills:
             - plant_knowledge
             - read_write
             - run
@@ -973,7 +976,6 @@ professions:
             perhaps helping peasants or artisans with some labor, or even stealing whatever comes to hand.
             secondary - 1 chosen arms skill of the townsfolk category.
         minimum_characteristics:
-
         primary_skills:
             - eloquence
             - empathy
@@ -985,7 +987,7 @@ professions:
             - commerce
             - games
             - conceal
-            - language
+            - language_skills:
             - stealth
             - arms_skills:
                 requirements:
@@ -1043,7 +1045,7 @@ professions:
             - alchemy
             - costuming
             - dodge
-            - language
+            - language_skills:
             - sleight_of_hand
             - plant_knowledge
             - run
@@ -1091,14 +1093,14 @@ professions:
 #            luck : 50
 #        primary_skills:
 #            - eloquence
-#            - language (latin)
+#            - latin
 #            - read_write
 #            - theology.
 #        secondary_skills:
 #            - court_etiquette
 #            - detection
 #            - empathy
-#            - language (greek)
+#            - greek
 #            - listen
 #            - memory
 #            - teach
@@ -1131,10 +1133,11 @@ professions:
             - commerce
             - detection
             - ride
-            - language
+            - language_skills:
             - listen
             - read_write
-            - stealth- arms_skills:
+            - stealth
+            - arms_skills:
                 requirements:
                     class:
                        - noble
@@ -1281,7 +1284,7 @@ professions:
             - dodge
             - eloquence
             - games
-            - language
+            - latin
             - run
             - theology
             - latin
@@ -1312,7 +1315,7 @@ professions:
             - climb
             - jump
             - run
-            - staffs
+            - staves
             - slings
             - throw
         monthly_income: >
@@ -1369,6 +1372,14 @@ professions:
         primary_skills:
             - command
             - ride
+            - arms_skills:
+                requirements:
+                    class:
+                       - noble
+            - arms_skills:
+                requirements:
+                    class:
+                        - noble
         secondary_skills:
             - crossbows
             - detection
@@ -1391,7 +1402,6 @@ professions:
             characters who choose this profession should take caution and practice it in secret, because
             informers do not have a good reputation within the jewish community, and it is typical for them to
             end up expelled, stoned, or even assassinated.
-            secondary - 1 chosen arms skill from the townsfolk category
         minimum_characteristics:
             agility : 15
             perception : 20
@@ -1399,7 +1409,7 @@ professions:
             - area_knowledge
             - pick_lock
             - listen
-            - stealth.
+            - stealth
         secondary_skills:
             - climb
             - commerce
@@ -1408,6 +1418,10 @@ professions:
             - jump
             - memory
             - run
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             their percentage in luck x2 in maravedíes.
 
@@ -1488,13 +1502,23 @@ professions:
         primary_skills:
             - ride
             - theology
+            - arms_skills:
+                requirements:
+                    class:
+                       - noble
+                       - soldier
+            - arms_skills:
+                requirements:
+                    class:
+                        - noble
+                        - soldier
         secondary_skills:
             - command
             - detection
             - dodge
             - eloquence
             - empathy
-            - language
+            - latin
             - listen
             - read_write
         monthly_income: >
@@ -1525,7 +1549,7 @@ professions:
             - memory
             - mineral_knowledge
             - plant_knowledge
-            - teach.
+            - teach
         monthly_income: >
             their percentage in magical_knowledge x5 in maravedíes, although if they
             belong to the upper nobility, they can multiply their percentage by 20.
@@ -1544,15 +1568,20 @@ professions:
             - climb
             - detection
             - shiphandling
-            - swim.
+            - swim
         secondary_skills:
             - astrology
             - games
             - heal
-            - languages (2 languages of choice)
+            - language_skills:
+            - language_skills:
             - memory
-            - seduction,
-            - 1 chosen arms skill from the townsfolk or soldier categories.
+            - seduction
+            - arms_skills:
+                requirements:
+                    class:
+                        - soldier
+                        - townsfolk
         monthly_income: >
             your percentage in shiphandling x5 in maravedíes (though many of them
             typically spend it all as soon as they reach port).
@@ -1583,6 +1612,10 @@ professions:
             - mineral_knowledge
             - memory
             - read_write
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in medicine x10 in maravedíes.
 
@@ -1595,12 +1628,12 @@ professions:
             establish a new commercial route through the mediterranean. in short, this refers to the medieval
             businessperson disposed to run the risks required if the gain is worth the trouble.
         minimum_characteristics:
-            communication :20
+            communication : 20
         primary_skills:
             - commerce
             - eloquence
             - empathy
-            - language
+            - language_skills:
         secondary_skills:
             - area_knowledge
             - detection
@@ -1609,7 +1642,10 @@ professions:
             - listen
             - read_write
             - swim
-            - 1 chosen arms skill from the townsfolk category.
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in commerce x10 in maravedíes.
 
@@ -1634,7 +1670,10 @@ professions:
             - sleight_of_hand
             - stealth
             - torture
-            - 1 chosen arms skill from the townsfolk category.
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             percentage in commerce x10 maravedíes.
 
@@ -1663,7 +1702,10 @@ professions:
             - read_write
             - run
             - stealth
-            - 1 arms skill from the townsfolk category
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in sing, eloquence, or music (whichever is highest) in
             maravedíes. minstrels who belong to the slave class are maintained by their lord.
@@ -1692,7 +1734,7 @@ professions:
             - empathy
             - conceal
             - knives
-            - language
+            - language_skills:
             - read_write
             - memory
         monthly_income: >
@@ -1745,7 +1787,7 @@ professions:
             culture : 15
             luck : 45
         primary_skills:
-            - language (latin)
+            - latin
             - read_write
             - teach
             - theology
@@ -1753,9 +1795,9 @@ professions:
             - detection
             - eloquence
             - empathy
-            - language (greek)
-            - language (arabic)
-            - listen,
+            - greek
+            - arabic
+            - listen
             - memory
             - sing
         monthly_income: >
@@ -1778,7 +1820,13 @@ professions:
             - brawl
             - empathy
             - theology
-            - 1 chosen arms skill from the townsfolk or soldier categories (but not bladed arms)
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
+                    feature:
+                        - non_bladed
         secondary_skills:
             - command
             - detection
@@ -1808,16 +1856,20 @@ professions:
             - command
             - detection
             - ride
-            - 1 chosen arms skill from the townsfolk or soldier categories.
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - area_knowledge
             - commerce
             - heal
-            - language
+            - language_skills:
             - listen
             - track
             - stealth
-            - torture.
+            - torture
         monthly_income: >
             your percentage in luck x10 in maravedíes.
 
@@ -1836,16 +1888,20 @@ professions:
             - detection
             - shiphandling
             - swim
-            - 1 chosen arms skill from the townsfolk or soldier categories
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - astrology
             - climb
             - crossbows
             - games
             - heal
-            - language
+            - language_skills:
             - seduction
-            - throw.
+            - throw
         monthly_income: >
             your percentage in luck x5 in maravedíes, although pirates with their own boat
             (burgher class) earn luck x15. in any case, a pirate usually quickly spends everything he gains.
@@ -1869,9 +1925,9 @@ professions:
             luck : 50
         primary_skills:
             - eloquence
-            - language (latin)
+            - latin
             - read_write
-            - theology.
+            - theology
         secondary_skills:
             - area_knowledge
             - command
@@ -1880,7 +1936,7 @@ professions:
             - listen
             - memory
             - sing
-            - teach.
+            - teach
         monthly_income: >
             parish priests gain 750 maravedíes monthly, while vicars and chaplains receive
             only 80 each month.
@@ -1902,13 +1958,13 @@ professions:
             - eloquence
             - music
             - seduction
-            - sing.
+            - sing
         secondary_skills:
-            - courtliness
+            - court_etiquette
             - empathy
             - conceal
             - jump
-            - language
+            - language_skills:
             - legends
             - memory
             - stealth
@@ -1932,14 +1988,14 @@ professions:
             luck : 50
         primary_skills:
             - eloquence
-            - language (hebrew)
+            - hebrew
             - read_write
             - theology
         secondary_skills:
             - astrology
             - empathy
-            - language (arabic)
-            - language (latin)
+            - arabic
+            - latin
             - listen
             - memory
             - stealth
@@ -1965,7 +2021,7 @@ professions:
             - eloquence
             - sleight_of_hand
             - stealth
-            - seduction.
+            - seduction
         secondary_skills:
             - commerce
             - detection
@@ -1974,7 +2030,10 @@ professions:
             - games
             - conceal
             - run
-            - 1 chosen arms skill from the townsfolk category.
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             their percentage in seduction in maravedíes. enslaved prostitutes are maintained
             by their master instead.
@@ -1992,18 +2051,26 @@ professions:
             perception : 15
         primary_skills:
             - commerce
-            - language (latin hebrew or arabic according to their culture)
-            - read/ write
+            - language_skills:
+                requirements:
+                    name:
+                        - latin
+                        - hebrew
+                        - arabic
+            - read_write
             - memory
         secondary_skills:
             - detection
             - eloquence
             - empathy
-            - language
+            - language_skills:
             - listen
             - stealth
             - teach
-            - 1 chosen arms skill from the townsfolk category
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             their percentage in read_write x10 in maravedíes. scribes who are slaves
             receive nothing, as they are maintained by their lord.
@@ -2021,7 +2088,7 @@ professions:
             dexterity : 15
         primary_skills:
             - drive
-            - handcrafts
+            - crafts
             - plant_knowledge
             - stealth
         secondary_skills:
@@ -2032,7 +2099,10 @@ professions:
             - listen
             - run
             - taste
-            - 1 chosen arms skill of the townsfolk category
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             they receive 40 maravedíes each month, although those of the slave class
             receive nothing, as they are maintained by their lord.
@@ -2052,7 +2122,11 @@ professions:
             - crossbows
             - ride
             - shields
-            - 1 chosen arms skill from the townsfolk or soldier categories
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
+                       - soldier
         secondary_skills:
             - brawl
             - detection
@@ -2090,7 +2164,10 @@ professions:
             - listen
             - stealth
             - throw
-            - 1 chosen arms skill from the townsfolk category.
+            - arms_skills:
+                requirements:
+                    class:
+                       - townsfolk
         monthly_income: >
             your percentage in luck x2 in maravedíes.
 
@@ -2111,14 +2188,17 @@ professions:
             - music
             - seduction
         secondary_skills:
-            - courtliness
+            - court_etiquette
             - empathy
             - ride
             - legends
             - memory
             - stealth
             - sing
-            - 1 chosen arms skill from the noble category.
+            - arms_skills:
+                requirements:
+                    class:
+                       - noble
         monthly_income: >
             troubadours from the lower nobility receive 500 maravedíes monthly, but those
             of upper nobility have at their disposition 1,800 each month.
@@ -2137,18 +2217,21 @@ professions:
             culture : 20
             luck : 50
         primary_skills:
-            - language (arabic)
+            - arabic
             - read_write
             - memory
-            - theology.
+            - theology
         secondary_skills:
-            - courtliness
+            - court_etiquette
             - detection
             - eloquence
-            - language
+            - language_skills:
             - listen
             - empathy
             - teach
-            - 1 chosen arms skill from the noble category
+            - arms_skills:
+                requirements:
+                    class:
+                       - noble
         monthly_income: >
             an ulema receives a monthly salary equivalent to 1,800 maravedíes.

@@ -52,12 +52,11 @@ def get_subdict(big_dict, search_filter, element):
             sub_dict.update({key:val})
     return sub_dict
 
-text_exceptions = {'RR':'RR', 'IRR':'IRR'}
+text_exceptions = {'RR':'RR', 'IRR':'IRR', 'LP':'LP'}
 def beautify_text (text):
     return text_exceptions.get(text,text.replace('_', ' ').title())
 
 def debeautify_text (text):
-    print text
     return text_exceptions.get(text,text.replace(' ', '_').lower())
 
 def update_widget (characteristic, widget_type, **config):
@@ -97,7 +96,6 @@ def derive_skill_list_from_requirements(skill_type, requirements):
 
 #return two lists, a list of skills and a list of selections
 def seperate_skills_from_selections(skill_list):
-    print "boop"
     selection_list = []
     output_skills = []
     for skill in skill_list:
@@ -116,10 +114,7 @@ def seperate_skills_from_selections(skill_list):
             output_skills.append(skill_list[0])
             del skill_list[0]
         else:
-            print "im here"
-            print output_skills
             skill_list = filter_list(skill_list, output_skills)
-            pprint (character_data)
             if 'skills' in character_data.keys() and 'primary_skills' in character_data.get('skills').keys():
                 skill_list = filter_list(skill_list, character_data.get('skills').get('primary_skills'))
                 final_selection_list[idx] = skill_list
@@ -167,7 +162,7 @@ def update_people(_, people_value):
                 base_list = profession_options
             update_options_menu(key, base_list, val)
     else:
-        update_options_menu('class',base_list.keys(),people_restricitons.get('class',[]))
+        update_options_menu('class',base_list,people_restricitons.get('class',[]))
 
 # when updating classes find society base list and then remove people
 def update_class(_, class_value):
@@ -338,7 +333,8 @@ characteristic_map = {
     'culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int'},
     'IRR'           : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
     'RR'            : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
-    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'}
+    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'},
+    'LP'            : {'frame': 'derived',                           'value' :  10, 'type' : 'int'}
 }
 
 #Layout map
