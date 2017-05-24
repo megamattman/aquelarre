@@ -80,7 +80,7 @@ def derive_skill_list_from_requirements(skill_type, requirements):
     'arms_skills'     : arms_skills_data
     }
     skill_data = data_map[skill_type]
-    #no requirements, return enture skill list
+    #no requirements, return entire skill list
     if not requirements:
         return skill_data.keys()
     output_list = []
@@ -118,8 +118,6 @@ def seperate_skills_from_selections(skill_list):
             if 'skills' in character_data.keys() and 'primary_skills' in character_data.get('skills').keys():
                 skill_list = filter_list(skill_list, character_data.get('skills').get('primary_skills'))
                 final_selection_list[idx] = skill_list
-
-
 
     return output_skills, final_selection_list
 
@@ -342,7 +340,7 @@ characteristic_map = {
 frame_map = {
     'controls'        :{
         'self_config' : {'padding' : "8 0 0 0" },
-        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W'},
+        'grid_config' : {'row' : 0, 'column': 0, 'sticky' : 'N, W', 'columnspan': 5},
         'content_config' :{
             'clear' : {
                 'button' : {
@@ -377,11 +375,12 @@ def total_characteristics():
     total = 0
     characteristic_strings = [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]
     for label in characteristic_strings:
-        value = get_widget_var(label).get()
-        try:
-            total += value
-        except:
-            print ("NO")
+        if 'appearance' not in label:
+            value = get_widget_var(label).get()
+            try:
+                total += value
+            except:
+                print ("NO")
     return total
 
 def pop (*args):
