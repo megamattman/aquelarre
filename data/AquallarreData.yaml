@@ -293,182 +293,210 @@ society:
     christian:
         class:
             upper_nobility:
-                - alchemist
-                - cleric
-                - courtier
-                - infanzon
-                - knight of a military order
-                - monk
-                - troubador
+                order: 0
+                professions:
+                    - alchemist
+                    - cleric
+                    - courtier
+                    - infanzon
+                    - knight of a military order
+                    - monk
+                    - troubador
             lower_nobility:
-                - alchemist
-                - ama
-                - cleric
-                - courtier
-                - infanzon
-                - knight of a military order
-                - monk
-                - troubador
+                order: 1
+                professions:
+                    - alchemist
+                    - ama
+                    - cleric
+                    - courtier
+                    - infanzon
+                    - knight of a military order
+                    - monk
+                    - troubador
             burgher:
-                - alchemist
-                - alguacil
-                - barber surgeon
-                - medico
-                - merchant
-                - moneychanger
-                - mariner
-                - monk
-                - pardo
-                - pirate
-                - priest
-                - scribe
-                - soldier
+                order: 2
+                professions:
+                    - alchemist
+                    - alguacil
+                    - barber surgeon
+                    - medico
+                    - merchant
+                    - moneychanger
+                    - mariner
+                    - monk
+                    - pardo
+                    - pirate
+                    - priest
+                    - scribe
+                    - soldier
             townsfolk:
-                - actor
-                - alguacil
-                - artisan
-                - barber surgeon
-                - beggar
-                - charlatan
-                - goliardo
-                - jester
-                - mariner
-                - minstrel
-                - monk
-                - pardo
-                - pirate
-                - priest
-                - ramera
-                - servant
-                - soldier
-                - thief
+                order: 3
+                professions:
+                    - actor
+                    - alguacil
+                    - artisan
+                    - barber surgeon
+                    - beggar
+                    - charlatan
+                    - goliardo
+                    - jester
+                    - mariner
+                    - minstrel
+                    - monk
+                    - pardo
+                    - pirate
+                    - priest
+                    - ramera
+                    - servant
+                    - soldier
+                    - thief
             peasant:
-                - almogávar
-                - bandit
-                - beggar
-                - bruja
-                - curandera
-                - herder
-                - hunter
-                - monk
-                - pardo
-                - priest
-                - ramera
-                - servant
-                - soldier
+                order: 4
+                professions:
+                    - almogávar
+                    - bandit
+                    - beggar
+                    - bruja
+                    - curandera
+                    - herder
+                    - hunter
+                    - monk
+                    - pardo
+                    - priest
+                    - ramera
+                    - servant
+                    - soldier
             slave:
-                - beggar
-                - curandera
-                - herder
-                - jester
-                - juggler
-                - ramera
-                - scribe
-                - servant
-                - soldier
+                order: 5
+                professions:
+                    - beggar
+                    - curandera
+                    - herder
+                    - jester
+                    - juggler
+                    - ramera
+                    - scribe
+                    - servant
+                    - soldier
     jewish:
         class:
             burgher:
-                - alchemist
-                - barber surgeon
-                - medico
-                - mariner
-                - merchant
-                - middleman
-                - moneychanger
-                - pirate
-                - rabbi
-                - scribe
+                order: 0
+                professions:
+                    - alchemist
+                    - barber surgeon
+                    - medico
+                    - mariner
+                    - merchant
+                    - middleman
+                    - moneychanger
+                    - pirate
+                    - rabbi
+                    - scribe
             townsfolk:
-                - actor
-                - artisan
-                - barber surgeon
-                - beggar
-                - charlatan
-                - informer
-                - jester
-                - minstrel
-                - mariner
-                - muccadim
-                - pirate
-                - ramera
-                - servant
-                - thief
+                order : 1
+                professions:
+                    - actor
+                    - artisan
+                    - barber surgeon
+                    - beggar
+                    - charlatan
+                    - informer
+                    - jester
+                    - minstrel
+                    - mariner
+                    - muccadim
+                    - pirate
+                    - ramera
+                    - servant
+                    - thief
     islamic:
         class:
             upper_nobility:
-                - alchemist
-                - courtier
-                - ghazi
-                - infanzon
-                - mage
-                - troubador
-                - ulema
+                order : 0
+                professions:
+                    - alchemist
+                    - courtier
+                    - ghazi
+                    - infanzon
+                    - mage
+                    - troubador
+                    - ulema
             lower_nobility:
-                - alchemist
-                - courtier
-                - dervish
-                - ghazi
-                - infanzon
-                - mage
-                - troubador
+                order : 1
+                profession:
+                    - alchemist
+                    - courtier
+                    - dervish
+                    - ghazi
+                    - infanzon
+                    - mage
+                    - troubador
             merchant:
-                - alchemist
-                - alguacil
-                - barber surgeon
-                - dervish
-                - medico
-                - ghazi
-                - mage
-                - mariner
-                - merchant
-                - moneychanger
-                - pardo
-                - pirate
-                - scribe
-                - soldier
+                order : 2
+                profession:
+                    - alchemist
+                    - alguacil
+                    - barber surgeon
+                    - dervish
+                    - medico
+                    - ghazi
+                    - mage
+                    - mariner
+                    - merchant
+                    - moneychanger
+                    - pardo
+                    - pirate
+                    - scribe
+                    - soldier
             townsfolk:
-                - actor
-                - alguacil
-                - artisan
-                - barber surgeon
-                - beggar
-                - charlatan
-                - dervish
-                - ghazi
-                - jester
-                - mariner
-                - minstrel
-                - pardo
-                - pirate
-                - qaina
-                - ramera
-                - servant
-                - soldier
-                - thief
+                order : 3
+                profession:
+                    - actor
+                    - alguacil
+                    - artisan
+                    - barber surgeon
+                    - beggar
+                    - charlatan
+                    - dervish
+                    - ghazi
+                    - jester
+                    - mariner
+                    - minstrel
+                    - pardo
+                    - pirate
+                    - qaina
+                    - ramera
+                    - servant
+                    - soldier
+                    - thief
             peasant:
-                - bandit
-                - beggar
-                - bruja
-                - curandera
-                - ghazi
-                - herder
-                - hunter
-                - pardo
-                - ramera
-                - servant
-                - soldier
+                order : 4
+                profession:
+                    - bandit
+                    - beggar
+                    - bruja
+                    - curandera
+                    - ghazi
+                    - herder
+                    - hunter
+                    - pardo
+                    - ramera
+                    - servant
+                    - soldier
             slave:
-                - beggar
-                - curandera
-                - herder
-                - jester
-                - minstrel
-                - qaina
-                - ramera
-                - scribe
-                - servant
-                - soldier
+                order : 5
+                profession:
+                    - beggar
+                    - curandera
+                    - herder
+                    - jester
+                    - minstrel
+                    - qaina
+                    - ramera
+                    - scribe
+                    - servant
+                    - soldier
 
 skills:
     alchemy:

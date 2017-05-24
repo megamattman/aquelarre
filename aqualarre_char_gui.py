@@ -48,8 +48,9 @@ def names_by_frame(frame_name):
 def get_subdict(big_dict, search_filter, element):
     sub_dict = {}
     for key, val in big_dict.items():
-        if search_filter in val.get(element):
-            sub_dict.update({key:val})
+        if element in val.keys():
+            if search_filter in val.get(element):
+                sub_dict.update({key:val})
     return sub_dict
 
 text_exceptions = {'RR':'RR', 'IRR':'IRR', 'LP':'LP'}
@@ -151,7 +152,8 @@ def update_kingdom(_, kingdom_value):
 #Not going to support backwards gen i.e. people -> kingdom
 def update_people(_, people_value):
     new_society = people_data.get(people_value)['society']
-    base_list = society_data[new_society.lower()].get('class',[]).keys()
+    base_list = [key for key, val in sorted(society_data[new_society.lower()].get('class',{}).items(), key= lambda kv: kv[1].get('order',99))]
+    #base_list = sorted(society_data[new_society.lower()].get('class',{}).items(), key= lambda kv: kv[1].get('order',99))]
     get_widget_var('society').set(new_society)
     people_restricitons = people_data.get(people_value).get('restrictions',{})
     if people_restricitons:
@@ -168,7 +170,7 @@ def update_class(_, class_value):
     current_class = debeautify_text(class_value)
     try:
         #class and society determine profession list
-        allowed_list = society_data.get(current_society).get('class').get(class_value)
+        allowed_list = society_data.get(current_society).get('class').get(class_value).get('professions')
         exlcusion_list = [exclusion for exclusion in profession_options if exclusion not in allowed_list]
         update_options_menu('profession', profession_options, exlcusion_list)
     except Exception as e :
@@ -228,7 +230,7 @@ def update_profession(_, profession_value):
     except:
         print "no minimum characteristics for {}".format(profession_value)
 
-    update_skills("","")
+    characteristic_update("","")
 
 def set_skills (skill_data):
     characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
@@ -244,11 +246,13 @@ def set_skills (skill_data):
         except Exception as e:
             print e
 
-
+def update_derived (characteristic_data):
+    pass
 
 # sets skills to value based on characteristic
 # doesn't account for user made changes'
-def update_skills (_, skill_value):
+def characteristic_update (characteristic_data, _):
+    update_derived(characteristic_data)
     set_skills(skills_data)
     set_skills(arms_skills_data)
 
@@ -263,7 +267,7 @@ def update_selections(selection_skill_list, selected_skill_list, color, skill_ty
     skill_to_update = filter_list(selection_skill_list, character_skills)
     update_widget_list(skill_to_update, 'label', background=color)
 
-def select_skill(widget_data, widget_value):
+def select_skill(widget_data, _):
     if 'grey' in str(widget_data['label']['background']):
         background_color = 'grey'
         skill_type = ""
@@ -301,7 +305,7 @@ def event_handler (_, widget_name):
     'people'         : update_people,
     'class'          : update_class,
     'profession'     : update_profession,
-    'characteristic' : update_skills,
+    'characteristic' : characteristic_update,
     'skill_label'    : select_skill
     }
     widget_data = characteristic_map.get(widget_name)
@@ -321,18 +325,19 @@ characteristic_map = {
     'people'        : {'frame': 'vitals', 'options': people_options},
     'profession'    : {'frame': 'vitals', 'options': profession_options},
     'class'         : {'frame': 'vitals', 'options': class_options},
-    'strength'      : {'frame': 'characteristics', 'name' : 'strength',      'value' :  5, 'type' : 'int'},
-    'agility'       : {'frame': 'characteristics', 'name' : 'agility',       'value' :  5, 'type' : 'int'},
-    'dexterity'     : {'frame': 'characteristics', 'name' : 'dexterity',     'value' :  5, 'type' : 'int'},
-    'resistance'    : {'frame': 'characteristics', 'name' : 'resistance',    'value' : 10, 'type' : 'int'},
-    'perception'    : {'frame': 'characteristics', 'name' : 'perception',    'value' :  5, 'type' : 'int'},
-    'communication' : {'frame': 'characteristics', 'name' : 'communication', 'value' :  5, 'type' : 'int'},
+    'strength'      : {'frame': 'characteristics', 'name' : 'strength',      'value' :  5, 'type' : 'int', 'order' : 0},
+    'agility'       : {'frame': 'characteristics', 'name' : 'agility',       'value' :  5, 'type' : 'int', 'order' : 1},
+    'dexterity'     : {'frame': 'characteristics', 'name' : 'dexterity',     'value' :  5, 'type' : 'int', 'order' : 2},
+    'resistance'    : {'frame': 'characteristics', 'name' : 'resistance',    'value' : 10, 'type' : 'int', 'order' : 3},
+    'perception'    : {'frame': 'characteristics', 'name' : 'perception',    'value' :  5, 'type' : 'int', 'order' : 4},
+    'communication' : {'frame': 'characteristics', 'name' : 'communication', 'value' :  5, 'type' : 'int', 'order' : 5},
+    'culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int', 'order' : 6},
     'appearance'    : {'frame': 'characteristics',                           'value' :  15, 'type' : 'int'},
-    'culture'       : {'frame': 'characteristics',                           'value' :  5, 'type' : 'int'},
-    'IRR'           : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
-    'RR'            : {'frame': 'derived',                           'value' :  50, 'type' : 'int'},
-    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int'},
-    'LP'            : {'frame': 'derived',                           'value' :  10, 'type' : 'int'}
+
+    'IRR'           : {'frame': 'derived',                           'value' :  50, 'type' : 'int', 'derived' : ['RR']},
+    'RR'            : {'frame': 'derived',                           'value' :  50, 'type' : 'int', 'derived' : ['IRR']},
+    'luck'          : {'frame': 'derived',                           'value' :  15, 'type' : 'int', 'derived' : ['culture', 'perception', 'communication']},
+    'LP'            : {'frame': 'derived',                           'value' :  10, 'type' : 'int', 'derived' : ['resistance']}
 }
 
 #Layout map
@@ -465,7 +470,7 @@ def populate_frame(frame_name, configs):
             elif 'spinbox' in content_type:
                 if 'characteristics' in frame_name:
                     new_content.bind('<FocusOut>', focus_out_handler)
-                    new_content.config(command=lambda: update_skills("",""))
+                    new_content.config(command=lambda: characteristic_update("",""))
 
             if new_content is not None :
                 new_content.grid(**content_configs.get('grid_config', {}))
@@ -493,7 +498,10 @@ if __name__ == "__main__":
         create_frames(root, name, configs)
 
 
-    characteristic_label_strings = [key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')]
+    #characteristic_label_strings = sorted([key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')], key= lambda key_val: )
+    characteristic_label_strings = get_subdict(characteristic_map, 'characteristics', 'frame')
+    characteristic_label_strings = [key for key, val in sorted(characteristic_label_strings.items(), key= lambda kv: kv[1].get('order',99))]
+    pprint (characteristic_label_strings)
     derived_label_strings = [key for key, val in characteristic_map.items() if 'derived' in val.get('frame','')]
 
     create_frame_content('language_skills', sorted(language_skills_data), 2,2)
