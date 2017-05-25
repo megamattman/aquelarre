@@ -72,6 +72,10 @@ def update_widget_list(widget_list, widget_type, **config):
             print "BAD widget combination {} {}".format(widget, widget_type)
             continue
 
+def ordered_list_from_dict(big_dict, order_element):
+    return [key for key, _ in sorted(big_dict.items(), key= lambda kv: kv[1].get(order_element,99))]
+
+
 def filter_list (base_list, exclusion_list):
     return [item for item in base_list if item not in exclusion_list]
 
@@ -152,7 +156,7 @@ def update_kingdom(_, kingdom_value):
 #Not going to support backwards gen i.e. people -> kingdom
 def update_people(_, people_value):
     new_society = people_data.get(people_value)['society']
-    base_list = [key for key, val in sorted(society_data[new_society.lower()].get('class',{}).items(), key= lambda kv: kv[1].get('order',99))]
+    base_list = ordered_list_from_dict(society_data[new_society.lower()].get('class',{}), 'order')
     #base_list = sorted(society_data[new_society.lower()].get('class',{}).items(), key= lambda kv: kv[1].get('order',99))]
     get_widget_var('society').set(new_society)
     people_restricitons = people_data.get(people_value).get('restrictions',{})
@@ -264,7 +268,7 @@ def update_selections(selection_skill_list, selected_skill_list, color, skill_ty
     }
     character_skills = character_data['skills']["{}_skills".format(skill_type_mapping.get(skill_type))]
     skill_to_update = filter_list(selection_skill_list, selected_skill_list)
-    skill_to_update = filter_list(selection_skill_list, character_skills)
+    skill_to_update = filter_list(skill_to_update, character_skills)
     update_widget_list(skill_to_update, 'label', background=color)
 
 def select_skill(widget_data, _):
@@ -272,10 +276,11 @@ def select_skill(widget_data, _):
         background_color = 'grey'
         skill_type = ""
         if character_data.get('skills').get('primary_selections'):
+            print "primary selection"
             background_color = 'green'
             skill_type = 'primary'
         elif character_data.get('skills').get('secondary_selections'):
-            print 'secondary'
+            print 'secondary selection'
             background_color = 'yellow'
             skill_type = 'secondary'
 
@@ -290,12 +295,14 @@ def select_skill(widget_data, _):
         update_selections(selection_skill_list, selected_skill_list, 'SystemButtonFace', skill_type)
         del character_data.get('skills').get('{}_selections'.format(skill_type))[0]
         next_selection_skill_list = []
+
         if character_data.get('skills').get('{}_selections'.format(skill_type)):
             next_selection_skill_list = character_data.get('skills').get('{}_selections'.format(skill_type))[0]
         elif 'primary' in skill_type and character_data.get('skills').get('secondary_selections'):
             next_selection_skill_list = character_data.get('skills').get('secondary_selections')[0]
 
         if next_selection_skill_list:
+            print "problem after here"
             update_selections(next_selection_skill_list, selected_skill_list, 'grey', skill_type)
 
 
@@ -500,9 +507,10 @@ if __name__ == "__main__":
 
     #characteristic_label_strings = sorted([key for key, val in characteristic_map.items() if 'characteristics' in val.get('frame','')], key= lambda key_val: )
     characteristic_label_strings = get_subdict(characteristic_map, 'characteristics', 'frame')
-    characteristic_label_strings = [key for key, val in sorted(characteristic_label_strings.items(), key= lambda kv: kv[1].get('order',99))]
+    characteristic_label_strings = ordered_list_from_dict(characteristic_label_strings, 'order')
     pprint (characteristic_label_strings)
     derived_label_strings = [key for key, val in characteristic_map.items() if 'derived' in val.get('frame','')]
+
 
     create_frame_content('language_skills', sorted(language_skills_data), 2,2)
     create_frame_content('arms_skills', sorted(arms_skills_data), 2,2)
