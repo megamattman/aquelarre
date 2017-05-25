@@ -222,6 +222,7 @@ def update_profession(_, profession_value):
     mark_proffesion_skills('primary', new_profession)
     mark_proffesion_skills('secondary', new_profession)
 
+    character_data['profession'] = new_profession
     if character_data['skills']['primary_selections']:
         update_widget_list(character_data['skills']['primary_selections'][0], 'label', background='grey')
     elif character_data['skills']['secondary_selections']:
@@ -250,13 +251,41 @@ def set_skills (skill_data):
         except Exception as e:
             print e
 
-def update_derived (characteristic_data):
-    pass
+def update_derived (derived_name):
+    dependant_mapping = {
+    'RR' : 'IRR',
+    'IRR': 'RR'
+    }
+    if derived_name in dependant_mapping.keys():
+        derived_value = get_widget_var(derived_name).get()
+        dependant_value = 100 - derived_value
+        get_widget_var(dependant_mapping.get(derived_name)).set(dependant_value)
+    luck_value = get_widget_var('communication').get()
+    luck_value += get_widget_var('culture').get()
+    luck_value += get_widget_var('perception').get()
+    get_widget_var('luck').set(luck_value)
+
+    get_widget_var('LP').set( get_widget_var('resistance').get())
+
+
 
 # sets skills to value based on characteristic
 # doesn't account for user made changes'
 def characteristic_update (characteristic_data, _):
-    update_derived(characteristic_data)
+    characteristics = names_by_frame('characteristics')
+    for char in characteristics:
+        char_var = get_widget_var(char)
+        char_min = character_data.get('profession', {}).get('minimum_characteristics', {}).get(char, 0)
+        if char_var.get() > 20 :
+            char_var.set(20)
+        elif char_var.get() < 5:
+            char_var.set(5)
+        if char_var.get() < char_min:
+            char_var.set(char_min)
+
+    update_derived('luck')
+    update_derived('lp')
+
     set_skills(skills_data)
     set_skills(arms_skills_data)
 
@@ -276,11 +305,9 @@ def select_skill(widget_data, _):
         background_color = 'grey'
         skill_type = ""
         if character_data.get('skills').get('primary_selections'):
-            print "primary selection"
             background_color = 'green'
             skill_type = 'primary'
         elif character_data.get('skills').get('secondary_selections'):
-            print 'secondary selection'
             background_color = 'yellow'
             skill_type = 'secondary'
 
@@ -317,11 +344,15 @@ def event_handler (_, widget_name):
     }
     widget_data = characteristic_map.get(widget_name)
     widget_value = widget_data['var'].get()
+    print widget_name
     if widget_value != '':
         if widget_name in names_by_frame('characteristics'):
             widget_name = 'characteristic'
         elif widget_name in names_by_frame('skills'):
             widget_name = 'skill_label'
+        elif widget_name in names_by_frame('derived'):
+            widget_name = 'derived'
+
         widget_function_mapping[widget_name](widget_data, widget_value)
 
 
@@ -478,6 +509,8 @@ def populate_frame(frame_name, configs):
                 if 'characteristics' in frame_name:
                     new_content.bind('<FocusOut>', focus_out_handler)
                     new_content.config(command=lambda: characteristic_update("",""))
+                if 'derived' in frame_name:
+                    new_content.config(command=lambda x=content_name: update_derived(x))
 
             if new_content is not None :
                 new_content.grid(**content_configs.get('grid_config', {}))
