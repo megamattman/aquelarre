@@ -447,8 +447,8 @@ def create_frame_content(frame_name, name_list, rows, cols):
         new_content = {
             name :{
                 'label' : {
-                    'grid_config' : {'row' :  0 + (idx % rows), 'column' : 0 + ((idx / cols)*2), 'sticky' : "W"},
-                    'self_config' : {'width' : len(name)+2, 'text' : beautify_text(name)}
+                    'grid_config' : {'row' :  0 + (idx % rows), 'column' : 0 + ((idx / cols)*2), 'sticky' : "E"},
+                    'self_config' : {'width' : len(beautify_text(name))+2, 'text' : beautify_text(name)}
                     },
                  'spinbox' : {
                      'grid_config' : {'row' :  0 + ((idx % rows)), 'column' :  1 + ((idx / cols)*2), 'sticky' : "W"},
