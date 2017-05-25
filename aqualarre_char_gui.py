@@ -126,12 +126,36 @@ def seperate_skills_from_selections(skill_list):
 
     return output_skills, final_selection_list
 
-def update():
-    #for label in characteristic_label_strings:
-    #    print "{} = {}".format(label, characteristic_map[label]['var'].get())
-    total_points = characteristic_map['total_points'].get('var')
-    total_points.set( "Total points: {}".format(total_characteristics()))
-    print total_points.get()
+def update_points():
+    total_points = get_widget_var('characteristic_points')
+    total_points.set( "Remaining characteristic points: {}".format(100 - total_characteristics()))
+
+    total_skills_points = 100
+    for skill in names_by_frame('skills'):
+        skill_var = get_widget_var(skill)
+
+        try:
+            skill_char = skills_data.get(skill).get('characteristic')
+        except:
+            print "not standard skill: {}".format(skill)
+            continue
+
+        skill_value = int(skill_var.get())
+        char_val = int(get_widget_var(skill_char).get())
+        try :
+            if skill in character_data.get('skills').get('primary_skills'):
+                skill_value -= (char_val * 3)
+            elif skill in  character_data.get('skills').get('secondary_skills'):
+                skill_value -= char_val
+            else:
+                skill_value -= char_val
+                skill_value *= 2
+        except:
+            print "problem with character data"
+            pprint (character_data)
+        total_skills_points -= skill_value
+    get_widget_var('skill_points').set("Remaining skill points: {}".format(total_skills_points))
+
 
 def clear():
     for _, val in characteristic_map.items():
@@ -267,6 +291,14 @@ def update_derived (derived_name):
 
     get_widget_var('LP').set( get_widget_var('resistance').get())
 
+def check_boundries(widget_var, upper, lower):
+    if int(widget_var.get()) > upper :
+        print "here"
+        print widget_var.get()
+        widget_var.set(upper)
+    elif int(widget_var.get()) < lower:
+        print "here2"
+        widget_var.set(lower)
 
 
 # sets skills to value based on characteristic
@@ -275,20 +307,31 @@ def characteristic_update (characteristic_data, _):
     characteristics = names_by_frame('characteristics')
     for char in characteristics:
         char_var = get_widget_var(char)
-        char_min = character_data.get('profession', {}).get('minimum_characteristics', {}).get(char, 0)
-        if char_var.get() > 20 :
-            char_var.set(20)
-        elif char_var.get() < 5:
-            char_var.set(5)
-        if char_var.get() < char_min:
-            char_var.set(char_min)
+        char_min = character_data.get('profession', {}).get('minimum_characteristics', {}).get(char, 5)
+        check_boundries(char_var, 20, char_min)
 
     update_derived('luck')
     update_derived('lp')
 
     set_skills(skills_data)
     set_skills(arms_skills_data)
+    update_points()
 
+def skill_update(skill_name, frame_name):
+    skill_data = {
+        'skills' : skills_data,
+        'arms_skills' : arms_skills_data,
+        'language_skills' : language_skills_data
+    }
+    skill_char = skill_data.get(frame_name).get(skill_name).get('characteristic')
+    char_val = int(get_widget_var(skill_char).get())
+    if skill_name in character_data.get('skill',{}).get('primary_selections',{}):
+        skill_min_val = char_val * 3
+    else:
+        skill_min_val = char_val
+
+    check_boundries(get_widget_var(skill_name), int(char_val * 5), skill_min_val)
+    update_points()
 
 def update_selections(selection_skill_list, selected_skill_list, color, skill_type):
     skill_type_mapping = {
@@ -394,13 +437,25 @@ frame_map = {
             'update' : {
                 'button' : {
                     'grid_config' : {'row' : 0, 'column' : 1, 'sticky' : 'N, W'},
-                    'self_config' : {'width' : 15, 'text' : 'update' , 'command' : update }
+                    'self_config' : {'width' : 15, 'text' : 'update' , 'command' : update_points }
                 }
             },
             'total_points' : {
                 'label' : {
                     'grid_config' : {'row' : 0, 'column' : 2, 'sticky' : 'N, W'},
                     'self_config' : {'width' : 15, 'text' : 'Total Points', 'textvariable' : None}
+                }
+            },
+            'characteristic_points' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 3, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 35, 'text' : 'Characteristic Points', 'textvariable' : None}
+                    }
+                },
+            'skill_points' : {
+                'label' : {
+                    'grid_config' : {'row' : 0, 'column' : 4, 'sticky' : 'N, W'},
+                    'self_config' : {'width' : 35, 'text' : 'Total Points', 'textvariable' : None}
                 }
             }
         }
@@ -482,7 +537,7 @@ def populate_frame(frame_name, configs):
             characteristic_map[content_name] = {}
         content_data = characteristic_map.get(content_name)
         content_data['var'] = get_tk_var(content_data.get('type', ''))
-        content_data['var'].set(content_data.get('value', '0'))
+        content_data['var'].set(content_data.get('value', 'content_name'))
         content_data['frame'] = frame_name
         for content_type, content_configs in content_config.items():
             new_content = get_empty_widget(content_type, frame, content_data)
@@ -495,6 +550,7 @@ def populate_frame(frame_name, configs):
             try:
                 if 'textvariable' in content_configs.get('self_config').keys():
                     content_configs.get('self_config')['textvariable'] = content_data['var']
+
             except:
                 print content_name
                 pprint (content_configs)
@@ -509,8 +565,10 @@ def populate_frame(frame_name, configs):
                 if 'characteristics' in frame_name:
                     new_content.bind('<FocusOut>', focus_out_handler)
                     new_content.config(command=lambda: characteristic_update("",""))
-                if 'derived' in frame_name:
+                elif 'derived' in frame_name:
                     new_content.config(command=lambda x=content_name: update_derived(x))
+                elif 'skills' in frame_name:
+                    new_content.config(command=lambda x=content_name, y=frame_name: skill_update(x, y))
 
             if new_content is not None :
                 new_content.grid(**content_configs.get('grid_config', {}))
