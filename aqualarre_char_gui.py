@@ -137,7 +137,7 @@ def update_points():
         try:
             skill_char = skills_data.get(skill).get('characteristic')
         except:
-            print "not standard skill: {}".format(skill)
+            #print "not standard skill: {}".format(skill)
             continue
 
         skill_value = int(skill_var.get())
@@ -252,28 +252,37 @@ def update_profession(_, profession_value):
     elif character_data['skills']['secondary_selections']:
         update_widget_list(character_data['skills']['secondary_selections'][0], 'label', background='grey')
 
-    try :
-        for characteristic, val in new_profession.get('minimum_characteristics', {}).items():
-            get_widget_var(characteristic).set(val)
-            update_widget(characteristic, 'label', background='red')
-    except:
-        print "no minimum characteristics for {}".format(profession_value)
+    #try :
+    for characteristic, val in new_profession.get('minimum_characteristics', {}).items():
+        get_widget_var(characteristic).set(val)
+        update_widget(characteristic, 'label', background='red')
+        characteristic_update(characteristic)
+    #except Exception as e:
 
-    characteristic_update("","")
+        #print "no minimum characteristics for {}".format(profession_value)
 
-def set_skills (skill_data):
-    characteristic_entries = get_subdict(characteristic_map, 'characteristics', 'frame')
-    for skill, data in skill_data.items():
-        skill_widget = get_widget(skill, 'label')
-        skill_var = get_widget_var(skill)
-        multiplier = 1
-        widget_color = str(skill_widget.cget('background'))
-        if 'green' in widget_color:
-            multiplier = 3
-        try:
-            skill_var.set(characteristic_entries.get(data['characteristic']).get('var').get() * multiplier)
-        except Exception as e:
-            print e
+def set_skills(skill_data):
+    for skill_name in skill_data.keys():
+        skill_type_map = {
+            'green' : 3
+        }
+        multiplier = skill_type_map.get(str(get_widget(skill_name, 'label').cget('background')), 1)
+        characteristic = skill_data.get(skill_name).get('characteristic')
+        set_skill(characteristic, skill_name, multiplier)
+
+
+#A skill should be set to char_var.get() * multiplier + any user changes
+def set_skill (characteristic, skill_name, multiplier):
+    skill_var = get_widget_var(skill_name)
+    char_var = get_widget_var(characteristic)
+    skill_val = int(skill_var.get()) - (characteristic_map[characteristic]['value'] * multiplier)
+    if 'alchemy' in skill_name:
+        print "{} : {} ".format(skill_name, skill_val)
+    skill_val = 0 if skill_val < 0 else skill_val
+    if 'alchemy' in skill_name:
+        print "{} : {} ".format(skill_name, skill_val)
+    skill_val += (char_var.get() * multiplier)
+    skill_var.set(skill_val)
 
 def update_derived (derived_name):
     dependant_mapping = {
@@ -301,14 +310,16 @@ def check_boundries(widget_var, upper, lower):
         widget_var.set(lower)
 
 
+def update_characterisitics():
+    for characteristic in names_by_frame('characteristics'):
+        characteristic_update(characteristic)
+
 # sets skills to value based on characteristic
 # doesn't account for user made changes'
-def characteristic_update (characteristic_data, _):
-    characteristics = names_by_frame('characteristics')
-    for char in characteristics:
-        char_var = get_widget_var(char)
-        char_min = character_data.get('profession', {}).get('minimum_characteristics', {}).get(char, 5)
-        check_boundries(char_var, 20, char_min)
+def characteristic_update (characteristic):
+    char_var = get_widget_var(characteristic)
+    char_min = character_data.get('profession', {}).get('minimum_characteristics', {}).get(characteristic, 5)
+    check_boundries(char_var, 20, char_min)
 
     update_derived('luck')
     update_derived('lp')
@@ -316,6 +327,7 @@ def characteristic_update (characteristic_data, _):
     set_skills(skills_data)
     set_skills(arms_skills_data)
     update_points()
+    characteristic_map.get(characteristic)['value'] = char_var.get()
 
 def skill_update(skill_name, frame_name):
     skill_data = {
@@ -382,7 +394,6 @@ def event_handler (_, widget_name):
     'people'         : update_people,
     'class'          : update_class,
     'profession'     : update_profession,
-    'characteristic' : characteristic_update,
     'skill_label'    : select_skill
     }
     widget_data = characteristic_map.get(widget_name)
@@ -564,7 +575,7 @@ def populate_frame(frame_name, configs):
             elif 'spinbox' in content_type:
                 if 'characteristics' in frame_name:
                     new_content.bind('<FocusOut>', focus_out_handler)
-                    new_content.config(command=lambda: characteristic_update("",""))
+                    new_content.config(command=lambda x=content_name: characteristic_update(x))
                 elif 'derived' in frame_name:
                     new_content.config(command=lambda x=content_name: update_derived(x))
                 elif 'skills' in frame_name:
