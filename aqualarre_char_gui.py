@@ -501,12 +501,6 @@ def pop (*args):
         except:
             print "failed to get value of {}".format(key)
 
-def get_tk_var (var_type) :
-    if 'int' in var_type:
-        return IntVar()
-    else:
-        return StringVar()
-
 def create_frame_content(frame_name, name_list, rows, cols):
     frame_description = frame_map.get(frame_name)
     for idx, name in enumerate(name_list):
@@ -525,20 +519,6 @@ def create_frame_content(frame_name, name_list, rows, cols):
         if 'content_config' not in frame_description.keys():
             frame_description['content_config'] = {}
         frame_description['content_config'].update(new_content)
-
-def get_empty_widget (content_type, frame, content_data):
-    if 'option_menu' in content_type :
-        content_options = content_data.get('options', {})
-        return OptionMenu(frame, content_data['var'],  'select', *content_options)
-    if 'button' in content_type :
-        return Button(frame)
-    if 'label' in content_type:
-        return Label(frame)
-    if 'entry' in content_type:
-        return Entry(frame)
-    if 'spinbox' in content_type:
-        return Spinbox(frame)
-
 
 def populate_frame(frame_name, configs):
     print "populating: {}".format(frame_name)
