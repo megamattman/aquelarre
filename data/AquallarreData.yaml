@@ -1,4 +1,22 @@
 #---!aquallare data just to test
+characteristics:
+    - strength :
+        min_val : 5
+    - agility :
+        min_val : 5
+    - dexterity :
+        min_val : 5
+    - resistance :
+        min_val : 5
+    - perception :
+        min_val : 5
+    - communication :
+        min_val : 5
+    - culture :
+        min_val : 5
+    - appearance :
+        min_val : 5
+
 kingdoms:
     crown of aragon:
         name : 'crown of aragon'
@@ -499,101 +517,101 @@ society:
                     - soldier
 
 skills:
-    alchemy:
-        characteristic: culture
-    animal_knowledge:
-        characteristic: culture
-    area_knowledge:
-        characteristic: culture
-    astrology :
-        characteristic: culture
-    climb :
-        characteristic: agility
-    crafts :
-        characteristic: dexterity
-    command :
-        characteristic: communication
-    commerce :
-        characteristic: communication
-    conceal :
-        characteristic : dexterity
-    court_etiquette :
-        characteristic: communication
-    detection :
-        characteristic: perception
-    dodge :
-        characteristic: agility
-    costuming :
-        characteristic: communication
-    drive :
-        characteristic: dexterity
-    eloquence :
-        characteristic: communication
-    empathy :
-        characteristic: perception
-    games :
-        characteristic: culture
-    heal :
-        characteristic: dexterity
-    jump :
-        characteristic: agility
-    legends :
-        characteristic: culture
-    listen :
-        characteristic: perception
-    magical_knowledge :
-        characteristic: culture
-    medicine :
-        characteristic: culture
-    memory :
-        characteristic: perception
-    mineral_knowledge :
-        characteristic: culture
-    music :
-        characteristic: culture
-    pick_lock :
-        characteristic: dexterity
-    plant_knowledge :
-        characteristic: culture
-    read_write :
-        characteristic: culture
-    ride :
-        characteristic: agility
-    run :
-        characteristic: agility
-    seduction :
-        characteristic: appearance
-    sing :
-        characteristic: communication
-    sleight_of_hand :
-        characteristic: dexterity
-    stealth :
-        characteristic: agility
-    shiphandling :
-        characteristic: dexterity
-    swim :
-        characteristic: agility
-    taste :
-        characteristic: perception
-    teach :
-        characteristic: communication
-    theology :
-        characteristic: culture
-    throw :
-        characteristic: agility
-    torture :
-        characteristic: communication
-    track :
-        characteristic: perception
+    - alchemy:
+         characteristic: culture
+    - animal_knowledge:
+         characteristic: culture
+    - area_knowledge:
+         characteristic: culture
+    - astrology :
+         characteristic: culture
+    - climb :
+         characteristic: agility
+    - crafts :
+         characteristic: dexterity
+    - command :
+         characteristic: communication
+    - commerce :
+         characteristic: communication
+    - conceal :
+         characteristic : dexterity
+    - court_etiquette :
+         characteristic: communication
+    - detection :
+         characteristic: perception
+    - dodge :
+         characteristic: agility
+    - costuming :
+         characteristic: communication
+    - drive :
+         characteristic: dexterity
+    - eloquence :
+         characteristic: communication
+    - empathy :
+         characteristic: perception
+    - games :
+         characteristic: culture
+    - heal :
+         characteristic: dexterity
+    - jump :
+         characteristic: agility
+    - legends :
+         characteristic: culture
+    - listen :
+         characteristic: perception
+    - magical_knowledge :
+         characteristic: culture
+    - medicine :
+         characteristic: culture
+    - memory :
+         characteristic: perception
+    - mineral_knowledge :
+         characteristic: culture
+    - music :
+         characteristic: culture
+    - pick_lock :
+         characteristic: dexterity
+    - plant_knowledge :
+         characteristic: culture
+    - read_write :
+         characteristic: culture
+    - ride :
+         characteristic: agility
+    - run :
+         characteristic: agility
+    - seduction :
+         characteristic: appearance
+    - sing :
+         characteristic: communication
+    - sleight_of_hand :
+         characteristic: dexterity
+    - stealth :
+         characteristic: agility
+    - shiphandling :
+         characteristic: dexterity
+    - swim :
+         characteristic: agility
+    - taste :
+         characteristic: perception
+    - teach :
+         characteristic: communication
+    - theology :
+         characteristic: culture
+    - throw :
+         characteristic: agility
+    - torture :
+         characteristic: communication
+    - track :
+         characteristic: perception
 
 arms_skills:
-    axes :
+    - axes :
         name: axes
         characteristic: strength
         class:
             - townsfolk
             - soldier
-    bows :
+    - bows :
         name: bows
         characteristic: perception
         class:
@@ -601,19 +619,19 @@ arms_skills:
             - soldier
         feature:
             - non_bladed
-    broadswords :
+    - broadswords :
         name : broadswords
         characteristic: strength
         class:
             - noble
-    staves :
+    - staves :
         name: staves
         characteristic: agility
         class:
             - townsfolk
         feature:
             - non_bladed
-    crossbows :
+    - crossbows :
         name : crossbows
         characteristic: perception
         class:
@@ -621,7 +639,7 @@ arms_skills:
             - noble
         feature:
             - non_bladed
-    brawl :
+    - brawl :
         name : brawl
         characteristic: agility
         class:
@@ -630,14 +648,14 @@ arms_skills:
             - noble
         feature:
             - non_bladed
-    knives :
+    - knives :
         name: knives
         characteristic: dexterity
         class:
             - townsfolk
             - soldier
             - noble
-    maces :
+    - maces :
         name : maces
         characteristic: strength
         class:
@@ -645,7 +663,7 @@ arms_skills:
             - soldier
         feature:
             - non_bladed
-    shields :
+    - shields :
         name : shields
         characteristic: dexterity
         class:
@@ -653,75 +671,75 @@ arms_skills:
             - soldier
         feature:
             - non_bladed
-    slings :
+    - slings :
         name: slings
         characteristic: perception
         class:
             - townsfolk
         feature:
             - non_bladed
-    spears :
+    - spears :
         name: spears
         characteristic: agility
         class:
             - noble
             - soldier
-    swords :
+    - swords :
         name : swords
         characteristic: dexterity
         class:
             - noble
 
 language_skills:
-    andalusian:
+    - andalusian:
         name :
             - andalusian
         characteristic: culture
-    arabic:
+    - arabic:
         name :
             - arabic
         characteristic: culture
-    aragonese:
+    - aragonese:
         name :
             - aragonese
         characteristic: culture
-    asturleonese:
+    - asturleonese:
         name :
             - asturleonese
         characteristic: culture
-    castilian:
+    - castilian:
         name :
             - castilian
         characteristic: culture
-    catalan:
+    - catalan:
         name :
             - catalan
         characteristic: culture
-    euskara:
+    - euskara:
         name :
             - euskara
         characteristic: culture
-    galician:
+    - galician:
         name :
             - galician
         characteristic: culture
-    greek :
+    - greek :
         name :
             - greek
         characteristic: culture
-    hebrew:
+    - hebrew:
         name :
             - hebrew
         characteristic: culture
-    latin:
+    - latin:
         name :
             - latin
         characteristic: culture
-    ladino:
+    - ladino:
         name :
             - ladino
         characteristic: culture
-    mozarab:
+    - mozarab:
         name :
             - mozarab
         characteristic: culture

@@ -36,6 +36,24 @@ def create_frames (master, name, configs):
     #master.add(new_frame, text=name)
     return new_frame
 
+def add_widget_data_to_map (frame_name, widget_data, widget_func):
+    for widget_info in widget_data:
+        new_entry = {'name' : widget_info.iterkeys().next(), 'widget' : widget_func, 'info' : widget_info.itervalues().next()}
+        #new_entry.update(widget_info.itervalues().next())
+        if 'widgets' not in gui_map[frame_name]:
+            gui_map[frame_name]['widgets'] = []
+        gui_map[frame_name]['widgets'].append(new_entry)
+
+def add_widgets_to_frame (frame, widgets, rows):
+    loc = {'row' : 0, 'column' : 0}
+    for idx, widget in enumerate(widgets):
+        new_widget = widget['widget'](widget.get('name'),frame, dict(loc), **widget['info'])
+        widget['widget'] = new_widget
+        #update location
+        loc['row'] = (idx % rows) * len(new_widget.widgets)
+        loc['column'] = (idx / rows) * len(new_widget.widgets)
+
+
 root = Tk()
 
 char_frame = create_frames(root, 'characteristics', {"self_config": {'width':200, 'height':200}, "grid_config":{'row' : 0, 'column': 1}})
@@ -44,40 +62,27 @@ skill_frame = create_frames(root,'skills', {"self_config": {'width':200, 'height
 
 gui_map = {
     'characteristics' : {
-        'frame': char_frame,
-        'widgets' : [
-            {'name':'strength'      ,'widget': aqCharacteristic},
-            {'name':'agility'       ,'widget': aqCharacteristic},
-            {'name':'dexterity'     ,'widget': aqCharacteristic},
-            {'name':'resistance'    ,'widget': aqCharacteristic},
-            {'name':'perception'    ,'widget': aqCharacteristic},
-            {'name':'communication' ,'widget': aqCharacteristic},
-            {'name':'culture'       ,'widget': aqCharacteristic},
-            {'name':'appearance'    ,'widget': aqCharacteristic}
-        ]
+        'frame': char_frame
     },
     'skills' : {
         'frame': skill_frame
     }
 }
 
-#add skills to gui_map
-#for skill_name, skill_info in skills_data.items():
-#    new_entry = {'name': skill_name, 'widget' : aqSkill}
-#    new_entry.update(skill_info)
-#    if 'widgets' not in gui_map['skills']:
-#        gui_map['skills']['widgets'] = []
-#    gui_map['skills']['widgets'].append(new_entry)
+add_widget_data_to_map('characteristics', data.get('characteristics'), aqCharacteristic)
+add_widgets_to_frame(gui_map.get('characteristics').get('frame'), gui_map.get('characteristics').get('widgets'), 7)
+add_widget_data_to_map('skills', data.get('skills'), aqSkill)
+add_widgets_to_frame(gui_map.get('skills').get('frame'), gui_map.get('skills').get('widgets'), 7)
 
-loc = {'row':0, 'column':0}
-for frame_name, contents in gui_map.items():
-    for widget in contents.get('widgets', []):
-        new_widget = widget['widget'](widget.get('name'),contents.get('frame'), dict(loc), min_val='0')
-        print "im here"
-        widget['widget'] = new_widget
-        loc['row'] += 1
+#loc = {'row':0, 'column':0}
+#for frame_name, contents in gui_map.items():
+#    for widget in contents.get('widgets', []):
+#        new_widget = widget['widget'](widget.get('name'),contents.get('frame'), dict(loc), min_val='0')
+#        print "im here"
+#        widget['widget'] = new_widget
+#        loc['row'] += 1
 
-pprint (gui_map)
+#pprint (gui_map)
 root.mainloop()
 
 
