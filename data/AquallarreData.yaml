@@ -606,13 +606,13 @@ skills:
 
 arms_skills:
     - axes :
-        name: axes
+        #name: axes
         characteristic: strength
         class:
             - townsfolk
             - soldier
     - bows :
-        name: bows
+        #name: bows
         characteristic: perception
         class:
             - townsfolk
@@ -620,19 +620,19 @@ arms_skills:
         feature:
             - non_bladed
     - broadswords :
-        name : broadswords
+        #name : broadswords
         characteristic: strength
         class:
             - noble
     - staves :
-        name: staves
+        #name: staves
         characteristic: agility
         class:
             - townsfolk
         feature:
             - non_bladed
     - crossbows :
-        name : crossbows
+        #name : crossbows
         characteristic: perception
         class:
             - soldier
@@ -640,7 +640,7 @@ arms_skills:
         feature:
             - non_bladed
     - brawl :
-        name : brawl
+        #name : brawl
         characteristic: agility
         class:
             - townsfolk
@@ -649,14 +649,14 @@ arms_skills:
         feature:
             - non_bladed
     - knives :
-        name: knives
+        #name: knives
         characteristic: dexterity
         class:
             - townsfolk
             - soldier
             - noble
     - maces :
-        name : maces
+        #name : maces
         characteristic: strength
         class:
             - townsfolk
@@ -664,7 +664,7 @@ arms_skills:
         feature:
             - non_bladed
     - shields :
-        name : shields
+        #name : shields
         characteristic: dexterity
         class:
             - noble
@@ -672,76 +672,76 @@ arms_skills:
         feature:
             - non_bladed
     - slings :
-        name: slings
+        #name: slings
         characteristic: perception
         class:
             - townsfolk
         feature:
             - non_bladed
     - spears :
-        name: spears
+        #name: spears
         characteristic: agility
         class:
             - noble
             - soldier
     - swords :
-        name : swords
+        #name : swords
         characteristic: dexterity
         class:
             - noble
 
 language_skills:
     - andalusian:
-        name :
-            - andalusian
         characteristic: culture
+#        #name :
+#            - andalusian
     - arabic:
-        name :
-            - arabic
         characteristic: culture
+#        name :
+#            - arabic
     - aragonese:
-        name :
-            - aragonese
         characteristic: culture
+#        name :
+#            - aragonese
     - asturleonese:
-        name :
-            - asturleonese
         characteristic: culture
+#        name :
+#            - asturleonese
     - castilian:
-        name :
-            - castilian
         characteristic: culture
+#        name :
+#            - castilian
     - catalan:
-        name :
-            - catalan
+#        name :
+#            - catalan
         characteristic: culture
     - euskara:
-        name :
-            - euskara
+#        name :
+#            - euskara
         characteristic: culture
     - galician:
-        name :
-            - galician
+#        name :
+#            - galician
         characteristic: culture
     - greek :
-        name :
-            - greek
+#        name :
+#            - greek
         characteristic: culture
     - hebrew:
-        name :
-            - hebrew
+#        name :
+#            - hebrew
         characteristic: culture
     - latin:
-        name :
-            - latin
+#        name :
+#            - latin
         characteristic: culture
     - ladino:
-        name :
-            - ladino
+#        name :
+#            - ladino
         characteristic: culture
     - mozarab:
-        name :
-            - mozarab
+#        name :
+#            - mozarab
         characteristic: culture
 
 professions:
