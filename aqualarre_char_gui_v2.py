@@ -8,13 +8,19 @@ except ImportError:
     # Python3
     import tkinter as tk
 
-from lib.aqWidget import *
+from lib.aqWidget import aqCharacteristic, aqSkill
 
 import yaml
 
 imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
     data = yaml.load(stream)
+
+#import layout data from yaml file
+with open("data/layout_data.yaml",'r') as stream:
+    layout_data = yaml.load(stream)
+
+
 
 skills_data = data.get('skills', {})
 language_skills_data = data.get('language_skills', {})
@@ -33,7 +39,6 @@ def create_frames (master, name, configs):
     new_frame.columnconfigure(0,weight=1)
     new_frame.rowconfigure(0, weight=1)
     new_frame.grid(**configs.get('grid_config',{}))
-    #master.add(new_frame, text=name)
     return new_frame
 
 def add_widget_data_to_map (frame_name, widget_data, widget_func):
@@ -44,8 +49,8 @@ def add_widget_data_to_map (frame_name, widget_data, widget_func):
             gui_map[frame_name]['widgets'] = []
         gui_map[frame_name]['widgets'].append(new_entry)
 
-def add_widgets_to_frame (frame, widgets, rows):
-    loc = {'row' : 0, 'column' : 0}
+def add_widgets_to_frame (frame, widgets, rows, start_loc):
+    loc = dict(start_loc)
     for idx, widget in enumerate(widgets):
         new_widget = widget['widget'](widget.get('name'),frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
@@ -53,37 +58,31 @@ def add_widgets_to_frame (frame, widgets, rows):
         loc['row'] = (idx % rows) * len(new_widget.widgets)
         loc['column'] = (idx / rows) * len(new_widget.widgets)
 
-def initialise_and_draw_widgets(frame_name, object_type, rows):
+def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
     add_widget_data_to_map(frame_name, data.get(frame_name), object_type)
-    add_widgets_to_frame(gui_map.get(frame_name).get('frame'), gui_map.get(frame_name).get('widgets'), rows)
-
-root = Tk()
-
-char_frame = create_frames(root, 'characteristics', {"self_config": {'width':200, 'height':200}, "grid_config":{'row' : 0, 'column': 1}})
-skill_frame = create_frames(root,'skills', {"self_config": {'width':200, 'height':200}, "grid_config":{'row' : 0, 'column': 2}})
-arms_skills_frame = create_frames(root,'arms_skills', {"self_config": {'width':200, 'height':200}, "grid_config":{'row' : 1, 'column': 2}})
-language_skills_frame = create_frames(root,'language_skills', {"self_config": {'width':200, 'height':200}, "grid_config":{'row' : 3, 'column': 2}})
-
-gui_map = {
-    'characteristics' : {
-        'frame': char_frame
-    },
-    'skills' : {
-        'frame': skill_frame
-    },
-    'language_skills' : {
-        'frame': language_skills_frame
-    },
-    'arms_skills' : {
-        'frame': arms_skills_frame
-    }
-}
-
-initialise_and_draw_widgets('characteristics', aqCharacteristic, 7)
-initialise_and_draw_widgets('skills', aqSkill, 7)
-initialise_and_draw_widgets('arms_skills', aqSkill, 2)
-initialise_and_draw_widgets('language_skills', aqSkill, 2)
+    add_widgets_to_frame(gui_map.get(frame_name).get('frame'), gui_map.get(frame_name).get('widgets'), rows, start_loc)
 
 
-root.mainloop()
+gui_map = {}
+
+if __name__ == '__main__':
+    root = Tk()
+
+    for name, configs in layout_data.items():
+        gui_map[name] = {}
+        gui_map[name]['frame'] = create_frames(root, name, configs)
+
+    default_loc_map = {'row':0, 'column':0}
+    initialise_and_draw_list = [
+        ('characteristics', aqCharacteristic, 7, default_loc_map),
+        ('skills', aqSkill, 7, default_loc_map),
+        ('arms_skills', aqSkill, 2, default_loc_map),
+        ('language_skills', aqSkill, 2, default_loc_map),
+    ]
+    for item in initialise_and_draw_list:
+        initialise_and_draw_widgets(*item)
+
+
+
+    root.mainloop()
 
