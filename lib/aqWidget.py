@@ -17,20 +17,15 @@ class AqWidget (object):
         self.tk_widgets = {}
         self.create_tk_widgets(config_list, frame)
 
-    def create_tk_widget(self, widget_type, self_config, grid_config, frame):
-        new_widget = widget_type(frame)
-        new_widget.configure(**self_config)
-        new_widget.grid(**grid_config)
-        return new_widget
 
     def create_tk_widgets(self, config_list, frame):
         for config in config_list:
             key = config.iterkeys().next()
             value = config.itervalues().next()
-            self.tk_widgets[key] = ((self.create_tk_widget(config.get('type'),
-                                                           value.get('self_config', {}),
-                                                           value.get('grid_config', {}),
-                                                           frame)))
+            self.tk_widgets[key] = ((create_tk_widget(config.get('type'),
+                                                       value.get('self_config', {}),
+                                                       value.get('grid_config', {}),
+                                                       frame)))
 
 
 
@@ -59,7 +54,7 @@ class AqSkill(AqWidget):
         self.curr_val = IntVar()
         self.widgets = [
             {'type': Label, 'name_label': {
-                'self_config': {'text': name},
+                'self_config': {'text': name, },
                 'grid_config': derive_location(location)}},
             {'type': Spinbox, 'spinbox_val': {
                 'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val},
@@ -96,3 +91,10 @@ def create_widget_configs(widgets):
 
 def derive_location(base_location, row_offset=0, column_offset=0):
     return dict({'row': base_location['row'] + row_offset, 'column': base_location['column'] + column_offset,})
+
+
+def create_tk_widget( widget_type, self_config, grid_config, frame):
+    new_widget = widget_type(frame)
+    new_widget.configure(**self_config)
+    new_widget.grid(**grid_config)
+    return new_widget
