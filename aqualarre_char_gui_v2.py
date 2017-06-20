@@ -8,9 +8,10 @@ except ImportError:
     # Python3
     import tkinter as tk
 
-from lib.aqWidget import aqCharacteristic, aqSkill
-
 import yaml
+
+from lib.aqWidget import AqCharacteristic, AqSkill
+
 
 imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
@@ -52,11 +53,12 @@ def add_widget_data_to_map (frame_name, widget_data, widget_func):
 def add_widgets_to_frame (frame, widgets, rows, start_loc):
     loc = dict(start_loc)
     for idx, widget in enumerate(widgets):
-        new_widget = widget['widget'](widget.get('name'),frame, dict(loc), **widget['info'])
+        new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
         #update location
         loc['row'] = (idx % rows) * len(new_widget.widgets)
         loc['column'] = (idx / rows) * len(new_widget.widgets)
+
 
 def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
     add_widget_data_to_map(frame_name, data.get(frame_name), object_type)
@@ -74,10 +76,10 @@ if __name__ == '__main__':
 
     default_loc_map = {'row':0, 'column':0}
     initialise_and_draw_list = [
-        ('characteristics', aqCharacteristic, 7, default_loc_map),
-        ('skills', aqSkill, 7, default_loc_map),
-        ('arms_skills', aqSkill, 2, default_loc_map),
-        ('language_skills', aqSkill, 2, default_loc_map),
+        ('characteristics', AqCharacteristic, 7, default_loc_map),
+        ('skills', AqSkill, 7, default_loc_map),
+        ('arms_skills', AqSkill, 2, default_loc_map),
+        ('language_skills', AqSkill, 2, default_loc_map),
     ]
     for item in initialise_and_draw_list:
         initialise_and_draw_widgets(*item)
