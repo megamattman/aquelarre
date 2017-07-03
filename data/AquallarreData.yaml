@@ -1,4 +1,20 @@
 #---!aquallare data just to test
+vitals:
+    - character_name:
+        widget : Entry
+    - kingdom:
+        widget : options
+        options: kingdom
+    - people:
+        widget : options
+        options: people
+    - profession:
+        widget : options
+        options: profession
+    - class:
+        widget : options
+        options: class
+
 characteristics:
     - strength :
         min_val : 5
