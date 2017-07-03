@@ -47,7 +47,6 @@ def create_frames(master, name, configs):
 def add_widget_data_to_map (frame_name, widget_data, widget_func):
     for widget_info in widget_data:
         new_entry = {'name' : widget_info.iterkeys().next(), 'widget' : widget_func, 'info' : widget_info.itervalues().next()}
-        #new_entry.update(widget_info.itervalues().next())
         if 'widgets' not in gui_map[frame_name]:
             gui_map[frame_name]['widgets'] = []
         gui_map[frame_name]['widgets'].append(new_entry)
@@ -57,7 +56,6 @@ def add_widgets_to_frame(frame, widgets, rows, start_loc):
     loc = dict(start_loc)
     for idx, widget in enumerate(widgets, 1):
         new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
-        new_widget.create_tk_widgets()
         widget['widget'] = new_widget
         #update location
         loc['row'] = idx % rows

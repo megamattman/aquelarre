@@ -16,6 +16,7 @@ class AqWidget (object):
         self.name = name
         self.tk_widgets = {}
         self.frame = frame
+        self.create_tk_widgets()
 
     def create_tk_widgets(self):
         for config in self.widgets:
