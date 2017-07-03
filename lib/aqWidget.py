@@ -42,7 +42,7 @@ class AqCharacteristic(AqWidget):
                 'self_config': {'text': name},
                 'grid_config': derive_location(location)}},
             {'type': Spinbox, 'spinbox_val': {
-                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val},
+                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val, 'from_': 0, 'to': 20},
                 'grid_config': derive_location(location, column_offset=1)}},
             {'type': Label, 'min_val_string_label': {
                 'self_config': {'text': '', 'textvariable': self.min_val_string},
@@ -60,7 +60,7 @@ class AqSkill(AqWidget):
                 'self_config': {'text': name, 'anchor': 'e', 'width': 18},
                 'grid_config': derive_location(location), 'sticky': 'e'}},
             {'type': Spinbox, 'spinbox_val': {
-                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val},
+                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val, 'from_': 0, 'to': 200},
                 'grid_config': derive_location(location, column_offset=1)}}
         ]
         config_list = create_widget_configs(self.widgets)
