@@ -33,6 +33,14 @@ characteristics:
     - appearance :
         min_val : 5
 
+derived:
+    - IRR :
+        min_val : 0
+    - RR :
+        min_val : 0
+    - luck :
+        min_val : 15
+
 kingdoms:
     crown of aragon:
         name : 'crown of aragon'

@@ -21,8 +21,6 @@ with open("data/AquallarreData.yaml", 'r') as stream:
 with open("data/layout_data.yaml",'r') as stream:
     layout_data = yaml.load(stream)
 
-
-
 skills_data = data.get('skills', {})
 language_skills_data = data.get('language_skills', {})
 arms_skills_data = data.get('arms_skills', {})
@@ -80,6 +78,7 @@ if __name__ == '__main__':
     initialise_and_draw_list = [
         ('vitals', AqVital, 1, default_loc_map),
         ('characteristics', AqCharacteristic, 8, default_loc_map),
+        ('derived', AqCharacteristic, 8, default_loc_map),
         ('skills', AqSkill, 8, default_loc_map),
         ('arms_skills', AqSkill, 2, default_loc_map),
         ('language_skills', AqSkill, 2, default_loc_map),
