@@ -100,12 +100,24 @@ class AqVital(AqWidget):
         config_list = create_widget_configs(self.widgets)
         AqWidget.__init__(self, name, config_list, frame)
 
+    def update_options(self, options):
+        if 'options' not in self.tk_widgets:
+            return None
+
+        widget_to_modify = self.tk_widgets['options']
+        widget_to_modify['menu'].delete(0, 'end')
+        for option in options:
+            widget_to_modify['menu'].add_command(label=option,
+                                             command=lambda v=option: self.curr_val.set(v))
+
 
 def derive_config_from_kwargs(curr_val, location, **kwargs):
     if 'options' in kwargs:
+        #print kwargs.get('options')
+        #exit()
         name = 'options'
         widget_type = OptionMenu
-        self_config = {'variable': curr_val, 'value': 'select', 'values' : tuple(kwargs.get('options'))}
+        self_config = {'variable': curr_val, 'value': 'select', 'values' : kwargs.get('options')}
     elif 'entry':
         name = 'entry'
         widget_type = Entry
@@ -152,7 +164,7 @@ def derive_location(base_location, row_offset=0, column_offset=0):
 def create_tk_widget( widget_type, self_config, grid_config, frame):
     #print widget_type
     if widget_type == OptionMenu:
-        new_widget = widget_type(frame, self_config.get('variable'), self_config.get('value'), self_config.get('values'))
+        new_widget = widget_type(frame, self_config.get('variable'), self_config.get('value'), *self_config.get('values'))
     else:
         new_widget = widget_type(frame)
         new_widget.configure(**self_config)

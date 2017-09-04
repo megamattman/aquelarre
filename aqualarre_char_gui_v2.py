@@ -35,10 +35,12 @@ people_data = data.get('people', {})
 professions_data = data.get('professions', {})
 society_data = data.get('society', {})
 
-kingdom_options    = sorted(kingdoms_data.keys())
-people_options     = sorted(people_data.keys())
-profession_options = sorted(professions_data.keys())
 
+options_map = {
+    'kingdom'    : sorted(kingdoms_data.keys()),
+    'people'     : sorted(people_data.keys()),
+    'profession': sorted(professions_data.keys())
+}
 
 def create_frames(master, name, configs):
     new_frame = Labelframe(master, text=name, **configs.get('self_config', {}))
@@ -61,6 +63,8 @@ def add_widgets_to_frame(frame, widgets, rows, start_loc):
     for idx, widget in enumerate(widgets, 1):
         if 'command' in widget['info']:
             widget['info']['command'] = widget_function_map[widget['info']['command']]
+        if 'options' in widget['info']:
+            widget['info']['options'] = options_map.get(widget['info'].get('options'), [])
         new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
         #update location
