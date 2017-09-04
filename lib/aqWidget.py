@@ -10,6 +10,9 @@ except ImportError:
 default_self_config = {'width' : 15, 'text': 'default_sc'}
 default_grid_config = {'row': 0, 'column': 0}
 
+class AqWidgetCollectino (object):
+    def __init__(self, name):
+        pass
 
 class AqWidget (object):
     def __init__(self, name, config_list, frame):
@@ -32,17 +35,17 @@ class AqWidget (object):
 
 class AqCharacteristic(AqWidget):
     def __init__(self, name, frame, location, **kwargs):
-        self.curr_val = IntVar()
-        self.min_val = 0
+        self.min_val = kwargs['min_val']
+        command = lambda x=self: kwargs['command'](x)
         self.min_val_string = StringVar()
-        self.min_val_string.set("min_val")
-        self.curr_val.set(0)
+        self.min_val_string.set("min_val : {}".format(self.min_val))
         self.widgets = [
             {'type': Label, 'name_label': {
                 'self_config': {'text': name},
                 'grid_config': derive_location(location)}},
             {'type': Spinbox, 'spinbox_val': {
-                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val, 'from_': 0, 'to': 20},
+                'self_config':
+                    {'text': '', 'width': 3, 'textvariable': IntVar(), 'from_': self.min_val, 'to': 20, 'command': command},
                 'grid_config': derive_location(location, column_offset=1)}},
             {'type': Label, 'min_val_string_label': {
                 'self_config': {'text': '', 'textvariable': self.min_val_string},
@@ -51,20 +54,36 @@ class AqCharacteristic(AqWidget):
         config_list = create_widget_configs(self.widgets)
         AqWidget.__init__(self, name, config_list, frame)
 
+    @property
+    def curr_val(self):
+        return self.tk_widgets.get('spinbox_val').get()
+
+    @curr_val.setter
+    def curr_val(self, value):
+        self.tk_widgets.get('spinbox_val').set(value)
+
 
 class AqSkill(AqWidget):
     def __init__(self, name, frame, location, **kwargs):
-        self.curr_val = IntVar()
+        command = lambda x=self: kwargs['command'](x)
         self.widgets = [
             {'type': Label, 'name_label': {
                 'self_config': {'text': name, 'anchor': 'e', 'width': 18},
                 'grid_config': derive_location(location), 'sticky': 'e'}},
             {'type': Spinbox, 'spinbox_val': {
-                'self_config': {'text': '', 'width': 3, 'textvariable': self.curr_val, 'from_': 0, 'to': 200},
+                'self_config': {'text': '', 'width': 3, 'textvariable': IntVar(), 'from_': 0, 'to': 200, 'command':command},
                 'grid_config': derive_location(location, column_offset=1)}}
         ]
         config_list = create_widget_configs(self.widgets)
         AqWidget.__init__(self, name, config_list, frame)
+
+    @property
+    def curr_val(self):
+        return self.tk_widgets.get('spinbox_val').get()
+
+    @curr_val.setter
+    def curr_val(self, value):
+        self.tk_widgets.get('spinbox_val').set(value)
 
 
 class AqVital(AqWidget):
@@ -77,7 +96,7 @@ class AqVital(AqWidget):
         ]
         next_location = derive_location(location, column_offset=1)
         self.widgets.append(derive_config_from_kwargs(self.curr_val, next_location, **kwargs))
-        pprint(self.widgets)
+        #pprint(self.widgets)
         config_list = create_widget_configs(self.widgets)
         AqWidget.__init__(self, name, config_list, frame)
 
@@ -120,7 +139,7 @@ def create_widget_configs(widgets):
     config_list = []
     for item in widgets:
         configs = get_configs(item)
-        pprint(configs)
+        #pprint(configs)
         create_widget_config(configs)
         config_list.append(item)
     return config_list
@@ -131,7 +150,7 @@ def derive_location(base_location, row_offset=0, column_offset=0):
 
 
 def create_tk_widget( widget_type, self_config, grid_config, frame):
-    print widget_type
+    #print widget_type
     if widget_type == OptionMenu:
         new_widget = widget_type(frame, self_config.get('variable'), self_config.get('value'), self_config.get('values'))
     else:

@@ -11,7 +11,13 @@ except ImportError:
 import yaml
 
 from lib.aqWidget import AqCharacteristic, AqSkill, AqVital
+from lib.aqCommands import characteristic_update, skill_update
 
+
+widget_function_map = {
+    'characteristic_update': characteristic_update,
+    'skill_update'         : skill_update
+}
 
 imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
@@ -53,6 +59,8 @@ def add_widget_data_to_map (frame_name, widget_data, widget_func):
 def add_widgets_to_frame(frame, widgets, rows, start_loc):
     loc = dict(start_loc)
     for idx, widget in enumerate(widgets, 1):
+        if 'command' in widget['info']:
+            widget['info']['command'] = widget_function_map[widget['info']['command']]
         new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
         #update location
@@ -84,7 +92,7 @@ if __name__ == '__main__':
         ('language_skills', AqSkill, 2, default_loc_map),
     ]
     for item in initialise_and_draw_list:
-        print item[0]
+        #print item[0]
         initialise_and_draw_widgets(*item)
 
     root.mainloop()

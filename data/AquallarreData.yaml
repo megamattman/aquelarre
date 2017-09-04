@@ -18,20 +18,28 @@ vitals:
 characteristics:
     - strength :
         min_val : 5
+        command : characteristic_update
     - agility :
         min_val : 5
+        command : characteristic_update
     - dexterity :
         min_val : 5
+        command : characteristic_update
     - resistance :
         min_val : 5
+        command : characteristic_update
     - perception :
         min_val : 5
+        command : characteristic_update
     - communication :
         min_val : 5
+        command : characteristic_update
     - culture :
         min_val : 5
+        command : characteristic_update
     - appearance :
         min_val : 5
+        command : characteristic_update
 
 derived:
     - IRR :
@@ -543,89 +551,131 @@ society:
 skills:
     - alchemy:
          characteristic: culture
+         command: skill_update
     - animal_knowledge:
          characteristic: culture
+         command: skill_update
     - area_knowledge:
          characteristic: culture
+         command: skill_update
     - astrology :
          characteristic: culture
+         command: skill_update
     - climb :
          characteristic: agility
+         command: skill_update
     - crafts :
          characteristic: dexterity
+         command: skill_update
     - command :
-         characteristic: communication
+        command: skill_update
+        characteristic: communication
     - commerce :
-         characteristic: communication
+        command: skill_update
+        characteristic: communication
     - conceal :
-         characteristic : dexterity
+        characteristic : dexterity
     - court_etiquette :
-         characteristic: communication
+        command: skill_update
+        characteristic: communication
     - detection :
+         command: skill_update
          characteristic: perception
     - dodge :
+         command: skill_update
          characteristic: agility
     - costuming :
+         command: skill_update
          characteristic: communication
     - drive :
+         command: skill_update
          characteristic: dexterity
     - eloquence :
+         command: skill_update
          characteristic: communication
     - empathy :
+         command: skill_update
          characteristic: perception
     - games :
+         command: skill_update
          characteristic: culture
     - heal :
+         command: skill_update
          characteristic: dexterity
     - jump :
+         command: skill_update
          characteristic: agility
     - legends :
+         command: skill_update
          characteristic: culture
     - listen :
+         command: skill_update
          characteristic: perception
     - magical_knowledge :
+         command: skill_update
          characteristic: culture
     - medicine :
+         command: skill_update
          characteristic: culture
     - memory :
+         command: skill_update
          characteristic: perception
     - mineral_knowledge :
+         command: skill_update
          characteristic: culture
     - music :
+         command: skill_update
          characteristic: culture
     - pick_lock :
+         command: skill_update
          characteristic: dexterity
     - plant_knowledge :
+         command: skill_update
          characteristic: culture
     - read_write :
+         command: skill_update
          characteristic: culture
     - ride :
+         command: skill_update
          characteristic: agility
     - run :
+         command: skill_update
          characteristic: agility
     - seduction :
+         command: skill_update
          characteristic: appearance
     - sing :
+         command: skill_update
          characteristic: communication
     - sleight_of_hand :
+         command: skill_update
          characteristic: dexterity
     - stealth :
+         command: skill_update
          characteristic: agility
     - shiphandling :
+         command: skill_update
          characteristic: dexterity
     - swim :
+         command: skill_update
          characteristic: agility
     - taste :
+         command: skill_update
          characteristic: perception
     - teach :
+         command: skill_update
          characteristic: communication
     - theology :
+         command: skill_update
          characteristic: culture
     - throw :
+         command: skill_update
          characteristic: agility
     - torture :
+         command: skill_update
          characteristic: communication
     - track :
+         command: skill_update
          characteristic: perception
 
 arms_skills:
