@@ -32,11 +32,17 @@ class AqWidget (object):
                         widget_configs.get('grid_config', {}),
                         self.frame)))
 
+    def get_val(self, val_widget):
+        return self.tk_widgets.get(val_widget).get()
+
+    def set_val(self, val_widget, value):
+        self.tk_widgets.get(val_widget).set(value)
+
 
 class AqCharacteristic(AqWidget):
     def __init__(self, name, frame, location, **kwargs):
         self.min_val = kwargs['min_val']
-        command = lambda x=self: kwargs['command'](x)
+        command = lambda x=self: kwargs['spinbox_event_handler'](x, kwargs.get('command', ''))
         self.min_val_string = StringVar()
         self.min_val_string.set("min_val : {}".format(self.min_val))
         self.widgets = [
@@ -56,16 +62,16 @@ class AqCharacteristic(AqWidget):
 
     @property
     def curr_val(self):
-        return self.tk_widgets.get('spinbox_val').get()
+        return self.get_val('spinbox_val')
 
     @curr_val.setter
     def curr_val(self, value):
-        self.tk_widgets.get('spinbox_val').set(value)
+        self.set_val('spinbox_val', value)
 
 
 class AqSkill(AqWidget):
     def __init__(self, name, frame, location, **kwargs):
-        command = lambda x=self: kwargs['command'](x)
+        command = lambda x=self: kwargs['spinbox_event_handler'](x, kwargs.get('command', ''))
         self.widgets = [
             {'type': Label, 'name_label': {
                 'self_config': {'text': name, 'anchor': 'e', 'width': 18},
@@ -79,11 +85,11 @@ class AqSkill(AqWidget):
 
     @property
     def curr_val(self):
-        return self.tk_widgets.get('spinbox_val').get()
+        return self.get_val('spinbox_val')
 
     @curr_val.setter
     def curr_val(self, value):
-        self.tk_widgets.get('spinbox_val').set(value)
+        self.set_val('spinbox_val', value)
 
 
 class AqVital(AqWidget):

@@ -11,12 +11,13 @@ except ImportError:
 import yaml
 
 from lib.aqWidget import AqCharacteristic, AqSkill, AqVital
-from lib.aqCommands import characteristic_update, skill_update
+from lib.aqCommands import characteristic_update, skill_update, update_vital
 
 
 widget_function_map = {
     'characteristic_update': characteristic_update,
-    'skill_update'         : skill_update
+    'skill_update'         : skill_update,
+    'update_vital'         : update_vital
 }
 
 imported_data = {}
@@ -61,10 +62,9 @@ def add_widget_data_to_map (frame_name, widget_data, widget_func):
 def add_widgets_to_frame(frame, widgets, rows, start_loc):
     loc = dict(start_loc)
     for idx, widget in enumerate(widgets, 1):
-        if 'command' in widget['info']:
-            widget['info']['command'] = widget_function_map[widget['info']['command']]
         if 'options' in widget['info']:
             widget['info']['options'] = options_map.get(widget['info'].get('options'), [])
+        widget['info']['spinbox_event_handler'] = spinbox_event_handler
         new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
         #update location
@@ -77,8 +77,14 @@ def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
     add_widgets_to_frame(gui_map.get(frame_name).get('frame'), gui_map.get(frame_name).get('widgets'), rows, start_loc)
 
 
-gui_map = {}
+def spinbox_event_handler(widget, command):
+    print command
+    widget_function_map.get(command)(widget, gui_map)
+    print widget.curr_val
 
+
+gui_map = {}
+character
 if __name__ == '__main__':
     root = Tk()
 

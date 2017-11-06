@@ -5,15 +5,19 @@ vitals:
     - kingdom:
         widget : options
         options: kingdom
+        command: update_vital
     - people:
         widget : options
         options: people
+        command: update_vital
     - profession:
         widget : options
         options: profession
+        command: update_vital
     - class:
         widget : options
         options: class
+        command: update_vital
 
 characteristics:
     - strength :
