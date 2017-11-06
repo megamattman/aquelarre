@@ -22,6 +22,11 @@ class AqCharacter (object):
                 self.character_data[key].append({aqwidget.name: aqwidget})
         pprint(self.character_data)
 
+    def get_characteristic(self, name):
+        for widget in self.character_data['characteristics']:
+            if name in widget.keys():
+                return widget.values()[0].curr_val
+
     # update map should contain names and new values
     def update_character_data(self, update_map):
         print inspect.stack()[0][3]
@@ -35,11 +40,24 @@ class AqCharacter (object):
                                 self.character_data.get('arms_skills'))
         for skill in complete_skills_list:
             if widget.name in skill.values()[0].characteristic:
-                skill.values()[0].curr_val = widget.curr_val
+                self.update_skill(skill.values()[0])
 
+    def calculate_skill_value(self, widget, bonus=0):
+        characteristic_value = self.get_characteristic(widget.characteristic)
+        value = ((characteristic_value + widget.player_points) * widget.multiplier) + bonus
+        return value
+
+    # method for when widget interacted with
     def skill_update(self, widget):
         print inspect.stack()[0][3]
-        pass
+        widget.player_points += int(widget.curr_val) - self.calculate_skill_value(widget)
+        self.update_skill(widget)
+
+    def update_skill(self, widget, bonus=0):
+        print inspect.stack()[0][3]
+        characteristic_value = self.get_characteristic(widget.characteristic)
+        value = ((characteristic_value + widget.player_points) * widget.multiplier) + bonus
+        widget.curr_val = value
 
     def derived_update(self, widget):
         print inspect.stack()[0][3]

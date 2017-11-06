@@ -104,6 +104,7 @@ class AqSkill(AqWidget):
         ]
         self.characteristic = kwargs.get('characteristic')
         self.player_points = 0
+        self.multiplier = 1
         config_list = create_widget_configs(self.widgets)
         AqWidget.__init__(self, name, config_list, frame)
 
