@@ -11,14 +11,7 @@ except ImportError:
 import yaml
 
 from lib.aqWidget import AqCharacteristic, AqSkill, AqVital
-from lib.aqCommands import characteristic_update, skill_update, update_vital
-
-
-widget_function_map = {
-    'characteristic_update': characteristic_update,
-    'skill_update'         : skill_update,
-    'update_vital'         : update_vital
-}
+from lib.aqCharacter import AqCharacter
 
 imported_data = {}
 with open("data/AquallarreData.yaml", 'r') as stream:
@@ -78,13 +71,12 @@ def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
 
 
 def spinbox_event_handler(widget, command):
-    print command
-    widget_function_map.get(command)(widget, gui_map)
-    print widget.curr_val
+    character.update(command, widget)
 
 
+# todo: Make gui_map local to main, all global functionality should be done by character
 gui_map = {}
-character
+character = None
 if __name__ == '__main__':
     root = Tk()
 
@@ -105,5 +97,6 @@ if __name__ == '__main__':
         #print item[0]
         initialise_and_draw_widgets(*item)
 
+    character = AqCharacter(gui_map, data)
     root.mainloop()
 
