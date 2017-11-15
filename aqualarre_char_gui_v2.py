@@ -57,12 +57,18 @@ def add_widgets_to_frame(frame, widgets, rows, start_loc):
     for idx, widget in enumerate(widgets, 1):
         if 'options' in widget['info']:
             widget['info']['options'] = options_map.get(widget['info'].get('options'), [])
-        widget['info']['spinbox_event_handler'] = spinbox_event_handler
+        widget['info']['event_handler'] = event_handler
         new_widget = widget['widget'](widget.get('name'), frame, dict(loc), **widget['info'])
         widget['widget'] = new_widget
         #update location
+        print new_widget
+        print len(new_widget.widgets)
         loc['row'] = idx % rows
-        loc['column'] = ((idx / rows) * (len(new_widget.widgets)))
+        if rows == 1:
+            loc['column'] = ((idx / rows) * (len(new_widget.widgets))) + len(new_widget.widgets) % 2
+        else:
+            loc['column'] = ((idx / rows) * (len(new_widget.widgets)))
+        print loc
 
 
 def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
@@ -70,8 +76,14 @@ def initialise_and_draw_widgets(frame_name, object_type, rows, start_loc):
     add_widgets_to_frame(gui_map.get(frame_name).get('frame'), gui_map.get(frame_name).get('widgets'), rows, start_loc)
 
 
-def spinbox_event_handler(widget, command):
+# Pass the event to the character data class (AqCharacter)
+def event_handler(widget, command):
+    if not character:
+        print "Character data not initialised yet, ignore this message"
+        return
     character.update(command, widget)
+
+
 
 
 # todo: Make gui_map local to main, all global functionality should be done by character

@@ -1,23 +1,29 @@
 #---!aquallare data just to test
 vitals:
     - character_name:
-        widget : Entry
+        widget :
+          - entry
     - kingdom:
-        widget : options
+        widget :
+          - options
         options: kingdom
-        command: update_vital
+        command: kingdom_update
     - people:
-        widget : options
+        widget :
+          - options
+          - label
         options: people
-        command: update_vital
+        command: people_update
     - profession:
-        widget : options
+        widget :
+          - options
         options: profession
-        command: update_vital
+        command: profession_update
     - class:
-        widget : options
+        widget :
+          - options
         options: class
-        command: update_vital
+        command: class_update
 
 characteristics:
     - strength :

@@ -20,7 +20,7 @@ class AqCharacter (object):
                     self.character_data[key] = []
                 aqwidget = widget.get('widget', '')
                 self.character_data[key].append({aqwidget.name: aqwidget})
-        pprint(self.character_data)
+        #pprint(self.character_data)
 
     def get_characteristic(self, name):
         for widget in self.character_data['characteristics']:
@@ -63,13 +63,56 @@ class AqCharacter (object):
         print inspect.stack()[0][3]
         pass
 
-    def vitals_upate(self, widget):
+    # updating the kingdom changes the people options
+    def kingdom_update(self, widget):
+        print inspect.stack()[0][3]
+        new_people = self.all_data.get('kingdoms').get(widget.curr_val)['people']
+        people_widget = self.get_widget_from_list('vitals', 'people')
+        people_widget.update_options(new_people)
+
+    # updating people changes available social class
+    def people_update(self, widget):
+        print inspect.stack()[0][3]
+        new_society = self.all_data.get(widget.curr_val)['society']
+        society_widget = self.get_widget_from_list('vitals', 'society')
+        society_widget.curr_val = new_society
+
+        #base_list = ordered_list_from_dict(society_data[new_society.lower()].get('class', {}), 'order')
+        # base_list = sorted(society_data[new_society.lower()].get('class',{}).items(), key= lambda kv: kv[1].get('order',99))]
+
+        #people_restricitons = people_data.get(people_value).get('restrictions', {})
+        #if people_restricitons:
+        #    for key, val in people_restricitons.items():
+        #        if 'profession' in key:
+        #            base_list = profession_options
+        #        update_options_menu(key, base_list, val)
+        #else:
+        #    update_options_menu('class', base_list, people_restricitons.get('class', []))
+        #pass
+
+    # updating class changes professions
+    def class_update(self, widget):
+        print inspect.stack()[0][3]
+        pass
+
+    # updating profession changes skills
+    def profession_update(self, widget):
         print inspect.stack()[0][3]
         pass
 
     def update(self, command, widget):
         update_method = getattr(self, command)
+        print command
         update_method(widget)
+
+    def get_widget_from_list(self, list_name, widget_name):
+        widget_list = self.character_data.get(list_name)
+        for widget in widget_list:
+            if widget_name in widget.keys():
+                return widget.values()[0]
+        print "returning none"
+        return None
+
 
 #if __name__ == '__main__':
 #    character = aqCharacter()
